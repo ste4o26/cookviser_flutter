@@ -1,4 +1,3 @@
-import "package:demo_app/domain/cuisine/views/cuisine_list.dart";
 import "package:demo_app/pages/cuisines.page.dart";
 import "package:flutter/material.dart";
 
