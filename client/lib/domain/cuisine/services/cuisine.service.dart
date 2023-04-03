@@ -6,10 +6,10 @@ import 'package:demo_app/domain/cuisine/models/cuisine.model.dart';
 
 class CuisineService {
   Future<List<CuisineModel>> fetchAll() async {
-    Uri uri = Uri.http("${DOMAIN_URL}/cuisine/all");
+    Uri uri = Uri.parse("$DOMAIN_URL/cuisine/all");
     final response = await http.get(uri);
     if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
+      final data = jsonDecode(response.body) as List;
       return data.map((cuisine) => CuisineModel.fromJson(cuisine)).toList();
     } else {
       throw Exception("Unable to perform request!");
