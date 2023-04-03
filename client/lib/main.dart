@@ -1,8 +1,20 @@
 import "package:demo_app/pages/cuisines.page.dart";
 import "package:flutter/material.dart";
+import "package:provider/provider.dart";
+
+import "domain/cuisine/view_models/cuisine_list.view_model.dart";
 
 void main() {
-  runApp(const CookviserApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => CuisineListViewModel(),
+          child: const CookviserApp(),
+        ),
+      ],
+    ),
+  );
 }
 
 class CookviserApp extends StatelessWidget {
@@ -11,14 +23,10 @@ class CookviserApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text("Test"),
-        ),
-        body: const Center(
-          child: CuisinesPage()
-        ),
-      )
+      title: 'Cookviser',
+      routes: {
+        '/': (context) => const Center(child: CuisinesPage()),
+      },
     );
   }
 }
