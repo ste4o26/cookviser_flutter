@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 import static com.ste4o26.cookviser_rest_api.init.ErrorMessages.IMAGE_NOT_PRESENT;
 import static org.springframework.http.HttpStatus.*;
 
-@CrossOrigin(origins = "http://localhost:4200", exposedHeaders = {"jwtToken"})
+@CrossOrigin(exposedHeaders = {"jwtToken"})
 @RestController
 @RequestMapping("/cuisine")
 public class CuisineController {
