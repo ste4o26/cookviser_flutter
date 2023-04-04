@@ -5,15 +5,18 @@ import "package:provider/provider.dart";
 import "domain/cuisine/view_models/cuisine_list.view_model.dart";
 
 void main() {
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => CuisineListViewModel(),
-          child: const CookviserApp(),
-        ),
-      ],
-    ),
+  var app = createApp();
+  runApp(app);
+}
+
+MultiProvider createApp() {
+  return MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: (context) => CuisineListViewModel(),
+      ),
+    ],
+    child: const CookviserApp(),
   );
 }
 
