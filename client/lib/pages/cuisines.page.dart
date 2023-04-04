@@ -25,7 +25,7 @@ class _CuisinesPageState extends State<CuisinesPage> {
         appBar: AppBar(title: Text("Cookviser demo app")),
         body: Container(
             child: Column(children: [
-          Expanded(child: CuisineList(cuisines: viewModel.cuisines))
+          Expanded(child: CuisineList(viewModel.cuisines))
         ])));
   }
 }
