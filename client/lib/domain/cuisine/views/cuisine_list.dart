@@ -1,4 +1,5 @@
 import "package:demo_app/domain/cuisine/view_models/cuisine.view_model.dart";
+import "package:demo_app/pages/recipes.page.dart";
 import "package:flutter/material.dart";
 
 class CuisineList extends StatelessWidget {
@@ -39,7 +40,7 @@ class CuisineCard extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  CuisineImage(this.cuisine.imageUrl),
+                  CuisineImage(this.cuisine),
                   CuisineName(this.cuisine.name),
                 ],
               ),
@@ -48,14 +49,19 @@ class CuisineCard extends StatelessWidget {
 }
 
 class CuisineImage extends StatelessWidget {
-  final String imageUrl;
+  final CuisineViewModel cuisine;
 
-  const CuisineImage(this.imageUrl, {super.key});
+  const CuisineImage(this.cuisine, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: () => print("TODO"),
+        onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => RecipesPage(cuisine.name),
+              ),
+            ),
         child: Padding(
             padding: const EdgeInsets.all(8),
             child: ClipRRect(
@@ -64,7 +70,7 @@ class CuisineImage extends StatelessWidget {
                   width: 300,
                   height: 250,
                   fit: BoxFit.fill,
-                  image: NetworkImage(this.imageUrl),
+                  image: NetworkImage(this.cuisine.imageUrl),
                 ))));
   }
 }
