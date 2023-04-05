@@ -1,9 +1,9 @@
-class AuthoritiesModel {
+class AuthorityModel {
   String? authority;
 
-  AuthoritiesModel({this.authority});
+  AuthorityModel({this.authority});
 
-  AuthoritiesModel.fromJson(Map<String, dynamic> json) {
+  AuthorityModel.fromJson(Map<String, dynamic> json) {
     authority = json['authority'];
   }
 

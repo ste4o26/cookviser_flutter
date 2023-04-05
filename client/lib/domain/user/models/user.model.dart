@@ -9,7 +9,7 @@ class User {
   String? profileImageUrl;
   String? description;
   RoleModel? role;
-  List<AuthoritiesModel>? authorities;
+  List<AuthorityModel>? authorities;
   List<String>? myRecipes;
   List<String>? myCookedRecipes;
   int? overallRating;
@@ -34,9 +34,9 @@ class User {
     description = json['description'];
     role = json['role'] != null ? RoleModel.fromJson(json['role']) : null;
     if (json['authorities'] != null) {
-      authorities = <AuthoritiesModel>[];
+      authorities = <AuthorityModel>[];
       json['authorities'].forEach((v) {
-        authorities!.add(AuthoritiesModel.fromJson(v));
+        authorities!.add(AuthorityModel.fromJson(v));
       });
     }
     myRecipes = json['myRecipes'].cast<String>();
