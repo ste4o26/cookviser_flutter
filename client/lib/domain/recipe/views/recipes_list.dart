@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:demo_app/domain/cuisine/view_models/recipe.view_model.dart';
+import 'package:demo_app/domain/recipe/views_models/recipe.view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:http/http.dart' as http;

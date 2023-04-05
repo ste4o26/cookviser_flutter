@@ -1,4 +1,4 @@
-import 'package:demo_app/domain/cuisine/models/role.model.dart';
+import 'package:demo_app/domain/user/models/role.model.dart';
 
 import 'authority.model.dart';
 

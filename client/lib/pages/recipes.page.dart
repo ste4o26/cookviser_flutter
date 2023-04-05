@@ -1,5 +1,5 @@
 import 'package:demo_app/constants.dart';
-import 'package:demo_app/domain/cuisine/views/recipes_list.dart';
+import 'package:demo_app/domain/recipe/views/recipes_list.dart';
 import 'package:flutter/material.dart';
 
 const recipesUrl = '/recipe/next-by-cuisine';

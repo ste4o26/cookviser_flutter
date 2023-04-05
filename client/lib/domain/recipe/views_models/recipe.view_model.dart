@@ -1,4 +1,4 @@
-import 'package:demo_app/domain/cuisine/models/recipe.model.dart';
+import 'package:demo_app/domain/recipe/models/recipe.model.dart';
 
 class RecipeViewModel {
   final RecipeModel recipe;

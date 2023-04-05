@@ -1,6 +1,6 @@
 import 'package:demo_app/domain/cuisine/models/cuisine.model.dart';
-import 'package:demo_app/domain/cuisine/models/step.model.dart';
-import 'package:demo_app/domain/cuisine/models/user.model.dart';
+import 'package:demo_app/domain/recipe/models/step.model.dart';
+import 'package:demo_app/domain/user/models/user.model.dart';
 
 class RecipeModel {
   String? id;
