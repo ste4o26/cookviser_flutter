@@ -11,19 +11,21 @@ class RecipesPage extends StatefulWidget {
 
   @override
   _RecipesState createState() => _RecipesState(cuisineName);
+
+
 }
 
 class _RecipesState extends State<RecipesPage> {
   final String cuisineName;
-  final int page = 0;
-  final int count = 10;
+  int page = 0;
+  int count = 1;
 
   _RecipesState(this.cuisineName);
 
   @override
   Widget build(BuildContext context) {
-    final uri = Uri.parse(
-        '$DOMAIN_URL$recipesUrl?cuisineName=$cuisineName&pageNumber=$page&recipesCount=$count');
+    final url =
+        '$DOMAIN_URL$recipesUrl?cuisineName=$cuisineName&pageNumber=$page&recipesCount=$count';
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Container(
@@ -36,13 +38,19 @@ class _RecipesState extends State<RecipesPage> {
               ),
               fit: BoxFit.cover),
         ),
-        child: RecipeListView(uri),
+        child: RecipeListView(url),
       ),
       bottomSheet: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              if (page > 0) {
+                setState(() {
+                  page--;
+                });
+              }
+            },
             icon: const Icon(
               Icons.navigate_before,
               color: Colors.blue,
@@ -57,7 +65,11 @@ class _RecipesState extends State<RecipesPage> {
             width: 40,
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                page++;
+              });
+            },
             icon: const Icon(
               Icons.navigate_next,
               color: Colors.blue,

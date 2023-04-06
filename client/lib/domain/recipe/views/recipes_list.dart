@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:demo_app/domain/recipe/views/recipe_image.dart';
 import 'package:demo_app/domain/recipe/views/recipe_modal.dart';
+import 'package:demo_app/domain/recipe/views/recipe_name.dart';
 import 'package:demo_app/domain/recipe/views_models/recipe.view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -9,23 +11,19 @@ import 'package:http/http.dart' as http;
 import '../models/recipe.model.dart';
 
 class RecipeListView extends StatefulWidget {
-  final Uri uri;
+  final String url;
 
-  const RecipeListView(this.uri, {super.key});
+  const RecipeListView(this.url, {super.key});
 
   @override
-  _RecipeListViewState createState() => _RecipeListViewState(uri);
+  State<RecipeListView> createState() => _RecipeListViewState();
 }
 
 class _RecipeListViewState extends State<RecipeListView> {
-  final Uri uri;
-
-  _RecipeListViewState(this.uri);
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: http.get(uri),
+      future: http.get(Uri.parse(widget.url)),
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
           return const Center(child: CircularProgressIndicator());
@@ -80,43 +78,6 @@ class _RecipeListViewState extends State<RecipeListView> {
           ),
         );
       },
-    );
-  }
-}
-
-class RecipeImage extends StatelessWidget {
-  final String url;
-
-  const RecipeImage(this.url, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Image.network(
-      url,
-      fit: BoxFit.fill,
-      height: 164,
-    );
-  }
-}
-
-class RecipeName extends StatelessWidget {
-  final String name;
-
-  const RecipeName(this.name, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          name,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
-          ),
-        ),
-      ],
     );
   }
 }
