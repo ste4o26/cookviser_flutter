@@ -1,3 +1,6 @@
+import 'dart:core';
+
+import 'package:demo_app/domain/recipe/models/step.model.dart';
 import 'package:flutter/material.dart';
 
 import '../views_models/recipe.view_model.dart';
@@ -19,6 +22,7 @@ class _RecipeModalState extends State<RecipeModal> {
 
   @override
   Widget build(BuildContext context) {
+    recipe.steps.sort((e1, e2) => e1.number!.compareTo(e2.number!));
     return AlertDialog(
       content: Container(
         width: MediaQuery.of(context).size.width / 2,
@@ -67,24 +71,23 @@ class _RecipeModalState extends State<RecipeModal> {
               const SizedBox(
                 height: 30,
               ),
-              Row(
+              Column(
                 children: [
                   const Text(
                     'Ingredients: ',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                   ),
                   const SizedBox(
-                    width: 10,
+                    width: 25,
                   ),
-                  Expanded(
-                    child: Text(
-                      recipe.ingredients
-                          .toString()
-                          .replaceAll('[', "")
-                          .replaceAll("]", ""),
-                      style: const TextStyle(fontSize: 20),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: recipe.ingredients.length,
+                    itemBuilder: (context, index) => ListTile(
+                      title: Center(child: Text(recipe.ingredients[index])),
                     ),
-                  ),
+                  )
                 ],
               ),
               const SizedBox(
@@ -129,21 +132,25 @@ class _RecipeModalState extends State<RecipeModal> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  TextButton(
-                                      onPressed: details.onStepCancel,
-                                      child: const Text("PREVIOUS")),
+                                  Expanded(
+                                    child: TextButton(
+                                        onPressed: details.onStepCancel,
+                                        child: const Text("PREVIOUS")),
+                                  ),
                                   const SizedBox(
                                     width: 15,
                                   ),
-                                  TextButton(
-                                    onPressed: details.onStepContinue,
-                                    style: const ButtonStyle(
-                                      backgroundColor: MaterialStatePropertyAll(
-                                          Colors.blueAccent),
-                                    ),
-                                    child: const Text(
-                                      "NEXT",
-                                      style: TextStyle(color: Colors.white),
+                                  Expanded(
+                                    child: TextButton(
+                                      onPressed: details.onStepContinue,
+                                      style: const ButtonStyle(
+                                        backgroundColor: MaterialStatePropertyAll(
+                                            Colors.blueAccent),
+                                      ),
+                                      child: const Text(
+                                        "NEXT",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
                                     ),
                                   ),
                                 ],
