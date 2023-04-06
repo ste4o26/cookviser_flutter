@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:demo_app/domain/recipe/views/recipe_modal.dart';
 import 'package:demo_app/domain/recipe/views_models/recipe.view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -35,37 +36,47 @@ class _RecipeListViewState extends State<RecipeListView> {
             .map((element) => RecipeViewModel(RecipeModel.fromJson(element)))
             .toList();
 
-        return GridView.builder(
-          shrinkWrap: true,
-          padding: const EdgeInsets.all(30),
-          itemCount: recipes.length,
-          itemBuilder: (context, index) {
-            return Card(
-              elevation: 4,
-              child: Container(
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                margin: const EdgeInsets.all(5),
-                padding: const EdgeInsets.all(5),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const RecipeImage(
-                        'https://t3.ftcdn.net/jpg/00/48/87/86/240_F_48878694_K699dEcdGzyK5bJNbKkOyBp7NrBgFdQP.jpg'),
-                    RecipeName(recipes[index].name),
-                    RecipeCuisine(recipes[index].cuisineName),
-                    RecipeRating(recipes[index]),
-                  ],
+        return SingleChildScrollView(
+          child: GridView.builder(
+            shrinkWrap: true,
+            padding: const EdgeInsets.all(30),
+            itemCount: recipes.length,
+            itemBuilder: (context, index) {
+              return Card(
+                elevation: 4,
+                child: Container(
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                  margin: const EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(5),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Expanded(
+                        child: InkWell(
+                          child: RecipeImage(recipes[index].imageUrl),
+                          onTap: () => showDialog(
+                              context: context,
+                              builder: (BuildContext context) => Center(
+                                    child: RecipeModal(recipes[index]),
+                                  )),
+                        ),
+                      ),
+                      RecipeName(recipes[index].name),
+                      RecipeCuisine(recipes[index].cuisineName),
+                      RecipeRating(recipes[index]),
+                    ],
+                  ),
                 ),
-              ),
-            );
-          },
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 5,
-            childAspectRatio: 1.0,
-            crossAxisSpacing: 50,
-            mainAxisSpacing: 50,
-            mainAxisExtent: 264,
+              );
+            },
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: MediaQuery.of(context).size.width ~/ 350,
+              childAspectRatio: 1.0,
+              crossAxisSpacing: 50,
+              mainAxisSpacing: 50,
+              mainAxisExtent: 264,
+            ),
           ),
         );
       },
@@ -80,11 +91,10 @@ class RecipeImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Image.network(
-        url,
-        fit: BoxFit.fill,
-      ),
+    return Image.network(
+      url,
+      fit: BoxFit.fill,
+      height: 164,
     );
   }
 }
