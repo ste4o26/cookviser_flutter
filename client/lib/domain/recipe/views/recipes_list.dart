@@ -110,14 +110,10 @@ class RecipeRating extends StatefulWidget {
   const RecipeRating(this.recipe, {super.key});
 
   @override
-  _RecipeRatingState createState() => _RecipeRatingState(recipe);
+  State<RecipeRating> createState() => _RecipeRatingState();
 }
 
 class _RecipeRatingState extends State<RecipeRating> {
-  final RecipeViewModel recipe;
-
-  _RecipeRatingState(this.recipe);
-
   @override
   Widget build(BuildContext context) {
     return Row(

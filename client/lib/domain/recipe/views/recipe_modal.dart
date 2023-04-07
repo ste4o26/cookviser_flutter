@@ -1,6 +1,5 @@
 import 'dart:core';
 
-import 'package:demo_app/domain/recipe/models/step.model.dart';
 import 'package:demo_app/domain/recipe/views/recipe_description.dart';
 import 'package:demo_app/domain/recipe/views/recipe_image.dart';
 import 'package:demo_app/domain/recipe/views/recipe_ingredients.dart';
@@ -25,6 +24,7 @@ class _RecipeModalState extends State<RecipeModal> {
     widget.recipe.steps.sort((e1, e2) => e1.number!.compareTo(e2.number!));
     return AlertDialog(
       content: Container(
+        decoration: BoxDecoration(border: Border.all(color: Colors.blue)),
         width: MediaQuery.of(context).size.width / 2,
         height: MediaQuery.of(context).size.height / 2,
         padding: const EdgeInsets.all(12),
@@ -66,7 +66,7 @@ class _RecipeModalState extends State<RecipeModal> {
                         ModalStepper(widget.recipe.steps
                             .map((e) => Step(
                                 title: Text('Step ${e.number}'),
-                                content: Text('${e.content}')))
+                                content: Text(e.content)))
                             .toList())
                       ],
                     ),
@@ -79,12 +79,16 @@ class _RecipeModalState extends State<RecipeModal> {
       ),
       actions: <Widget>[
         Center(
-          child: TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text(
-              'Back',
-              style: TextStyle(
-                fontSize: 24,
+          child: Container(
+            height: 50,
+            width: 150,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                border: Border.all(color: Colors.blue)),
+            child: TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text(
+                "Back",
               ),
             ),
           ),

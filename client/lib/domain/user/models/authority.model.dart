@@ -1,10 +1,12 @@
 class AuthorityModel {
-  String? authority;
+  String authority;
 
-  AuthorityModel({this.authority});
+  AuthorityModel({required this.authority});
 
-  AuthorityModel.fromJson(Map<String, dynamic> json) {
-    authority = json['authority'];
+  factory AuthorityModel.fromJson(Map<String, dynamic> json) {
+    return AuthorityModel(
+      authority: json['authority'],
+    );
   }
 
   Map<String, dynamic> toJson() {
