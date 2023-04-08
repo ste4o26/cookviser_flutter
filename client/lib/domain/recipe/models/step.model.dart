@@ -1,12 +1,14 @@
 class StepModel {
-  int? number;
-  String? content;
+  int number;
+  String content;
 
-  StepModel({this.number, this.content});
+  StepModel({required this.number, required this.content});
 
-  StepModel.fromJson(Map<String, dynamic> json) {
-    number = json['number'];
-    content = json['content'];
+  factory StepModel.fromJson(Map<String, dynamic> json) {
+    return StepModel(
+      number: json['number'],
+      content: json['content'],
+    );
   }
 
   Map<String, dynamic> toJson() {

@@ -25,7 +25,7 @@ import javax.management.relation.RoleNotFoundException;
 
 import static com.ste4o26.cookviser_rest_api.init.ErrorMessages.PASSWORDS_NOT_MATCH;
 
-@CrossOrigin(origins = "http://localhost:4200", exposedHeaders = {"jwtToken"})
+@CrossOrigin( exposedHeaders = {"jwtToken"})
 @RestController
 @RequestMapping("/auth")
 public class AuthController extends GlobalExceptionHandler {

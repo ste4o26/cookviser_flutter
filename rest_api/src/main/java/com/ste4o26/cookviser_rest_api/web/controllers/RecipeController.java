@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 import static com.ste4o26.cookviser_rest_api.init.ErrorMessages.*;
 import static org.springframework.http.HttpStatus.*;
 
-@CrossOrigin(origins = "http://localhost:4200", exposedHeaders = {"jwtToken"})
+@CrossOrigin(exposedHeaders = {"jwtToken"})
 @RestController
 @RequestMapping("/recipe")
 public class RecipeController {
@@ -72,7 +72,7 @@ public class RecipeController {
     )
             throws CuisineDontExistsException {
         CuisineServiceModel cuisineServiceModel = this.cuisineService.fetchByName(cuisineName);
-        List<RecipeServiceModel> recipesByCuisine = this.recipeService.fetchNextByCuisine(cuisineServiceModel, pageNumber,recipesCount);
+        List<RecipeServiceModel> recipesByCuisine = this.recipeService.fetchNextByCuisine(cuisineServiceModel, pageNumber, recipesCount);
 
         List<RecipeResponseModel> collect = recipesByCuisine.stream()
                 .map(recipeServiceModel -> this.modelMapper.map(recipeServiceModel, RecipeResponseModel.class))

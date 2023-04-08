@@ -1,3 +1,4 @@
+import 'package:demo_app/domain/auth/views/register.modal.dart';
 import "package:demo_app/pages/cuisines.page.dart";
 import "package:flutter/material.dart";
 import "package:provider/provider.dart";
@@ -29,6 +30,9 @@ class CookviserApp extends StatelessWidget {
       title: 'Cookviser',
       routes: {
         '/': (context) => const Center(child: CuisinesPage()),
+        '/register': (context) => const Center(
+              child: Registration(),
+            )
       },
     );
   }

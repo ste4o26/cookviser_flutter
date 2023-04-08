@@ -1,10 +1,12 @@
 class RoleModel {
-  String? roleName;
+  String roleName;
 
-  RoleModel({this.roleName});
+  RoleModel({required this.roleName});
 
-  RoleModel.fromJson(Map<String, dynamic> json) {
-    roleName = json['roleName'];
+  factory RoleModel.fromJson(Map<String, dynamic> json) {
+    return RoleModel(
+      roleName: json['roleName'],
+    );
   }
 
   Map<String, dynamic> toJson() {

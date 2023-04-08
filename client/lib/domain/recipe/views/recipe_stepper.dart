@@ -32,23 +32,34 @@ class _ModalStepperState extends State<ModalStepper> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(
-                  child: TextButton(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.blue),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: TextButton(
                       onPressed: details.onStepCancel,
-                      child: const Text("PREVIOUS")),
+                      child: const Text("PREVIOUS"),
+                    ),
+                  ),
                 ),
                 const SizedBox(
                   width: 15,
                 ),
                 Expanded(
-                  child: TextButton(
-                    onPressed: details.onStepContinue,
-                    style: const ButtonStyle(
-                      backgroundColor:
-                          MaterialStatePropertyAll(Colors.blueAccent),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
                     ),
-                    child: const Text(
-                      "NEXT",
-                      style: TextStyle(color: Colors.white),
+                    child: TextButton(
+                      onPressed: details.onStepContinue,
+                      style: const ButtonStyle(
+                        backgroundColor: MaterialStatePropertyAll(Colors.blue),
+                      ),
+                      child: const Text(
+                        "NEXT",
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                   ),
                 ),
