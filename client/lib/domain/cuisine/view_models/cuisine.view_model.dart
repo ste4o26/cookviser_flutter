@@ -5,11 +5,7 @@ class CuisineViewModel {
 
   CuisineViewModel(this.cuisine);
 
-  String get name {
-    return this.cuisine.name;
-  }
+  String get name => this.cuisine.name;
 
-  String get imageUrl {
-    return this.cuisine.imageThumbnailUrl;
-  }
+  String get imageUrl => this.cuisine.imageThumbnailUrl;
 }

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 class ModalStepper extends StatefulWidget {
   final List<Step> steps;
@@ -8,6 +8,8 @@ class ModalStepper extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _ModalStepperState();
 }
+
+// TODO Discuss how can this class be reorganized and become more readable.
 
 class _ModalStepperState extends State<ModalStepper> {
   int currentStep = 0;
@@ -34,7 +36,7 @@ class _ModalStepperState extends State<ModalStepper> {
                 Expanded(
                   child: Container(
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.blue),
+                      border: Border.all(color: Colors.amber),
                       borderRadius: BorderRadius.circular(5),
                     ),
                     child: TextButton(
@@ -43,23 +45,16 @@ class _ModalStepperState extends State<ModalStepper> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  width: 15,
-                ),
+                const SizedBox(width: 15),
                 Expanded(
                   child: Container(
                     decoration: BoxDecoration(
+                      border: Border.all(color: Colors.amber),
                       borderRadius: BorderRadius.circular(5),
                     ),
                     child: TextButton(
                       onPressed: details.onStepContinue,
-                      style: const ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(Colors.blue),
-                      ),
-                      child: const Text(
-                        "NEXT",
-                        style: TextStyle(color: Colors.white),
-                      ),
+                      child: const Text("NEXT"),
                     ),
                   ),
                 ),

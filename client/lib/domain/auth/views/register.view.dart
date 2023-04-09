@@ -1,23 +1,25 @@
-import 'package:demo_app/domain/auth/services/register.service.dart';
+import 'package:demo_app/services/auth.service.dart';
 import 'package:flutter/material.dart';
 
-class Registration extends StatefulWidget {
-  const Registration({super.key});
+// TODO refactor
+
+class RegisterDialog extends StatefulWidget {
+  const RegisterDialog({super.key});
 
   @override
-  State<Registration> createState() => _RegistrationState();
+  State<RegisterDialog> createState() => _RegisterDialogState();
 }
 
-class _RegistrationState extends State<Registration> {
+class _RegisterDialogState extends State<RegisterDialog> {
   final _formKey = GlobalKey<FormState>();
   final _pass = TextEditingController();
   final _confPass = TextEditingController();
-  final _registeredUser = {};
+  final _registeredUser = <String, String>{};
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      content: Container(
+    return Dialog(
+      child: Container(
         width: MediaQuery.of(context).size.width / 3.5,
         height: MediaQuery.of(context).size.height / 1.5,
         padding: const EdgeInsets.all(20.0),
@@ -29,11 +31,11 @@ class _RegistrationState extends State<Registration> {
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: const Center(
                   child: Text(
-                    'Sing up',
+                    "Sing Up",
                     style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.deepPurple),
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
@@ -50,7 +52,6 @@ class _RegistrationState extends State<Registration> {
                   },
                   keyboardType: TextInputType.text,
                   decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
                     hintText: "Username",
                     labelText: "Enter your user name",
                     icon: Icon(Icons.person),
@@ -154,34 +155,16 @@ class _RegistrationState extends State<Registration> {
                       height: 50,
                       width: 150,
                       margin: const EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 40.0),
-                      child: TextButton(
-                        onPressed: () => _performLogin(),
-                        style: const ButtonStyle(
-                            backgroundColor:
-                                MaterialStatePropertyAll(Colors.deepPurple)),
-                        child: const Text(
-                          "Sing up",
-                          style: TextStyle(color: Colors.white),
-                        ),
+                        horizontal: 20.0,
+                        vertical: 40.0,
                       ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      height: 50,
-                      width: 150,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(color: Colors.deepPurple)),
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 40.0),
+                        border: Border.all(color: Colors.amber),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
                       child: TextButton(
-                        onPressed: () => Navigator.pushReplacementNamed(context,'/'),
-                        child: const Text(
-                          "Back",
-                          style: TextStyle(color: Colors.deepPurple),
-                        ),
+                        onPressed: () => {}, //TODO
+                        child: const Text("Sing up"),
                       ),
                     ),
                   ),
@@ -197,7 +180,7 @@ class _RegistrationState extends State<Registration> {
   _performLogin() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      RegisterService().register(_registeredUser);
+      AuthService().register(_registeredUser);
       Navigator.pushReplacementNamed(context, '/');
     }
   }

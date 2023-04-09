@@ -11,6 +11,7 @@ class CuisineModel {
         name: json["name"],
         imageThumbnailUrl: json["imageThumbnailUrl"]);
   }
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
