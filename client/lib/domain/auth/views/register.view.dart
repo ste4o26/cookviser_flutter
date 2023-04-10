@@ -1,5 +1,6 @@
 import 'package:demo_app/domain/user/view_models/user_register.view_model.dart';
 import 'package:demo_app/services/auth.service.dart';
+import 'package:demo_app/shered/input_field.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/field.validator.dart';
@@ -29,22 +30,33 @@ class _RegisterDialogState extends State<RegisterDialog> {
           key: _formKey,
           child: ListView(
             children: <Widget>[
-              const DialogTitle(),
-              CustomTextField(
+              Container(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: const Center(
+                  child: Text(
+                    "Sing Up",
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              CustomInputField(
                 onSaved: (value) => user.username = value!,
                 validationCallback: FieldValidator.validateUsername,
                 icon: const Icon(Icons.person),
                 hintText: 'Username',
                 labelText: 'Enter your username',
               ),
-              CustomTextField(
+              CustomInputField(
                 onSaved: (value) => user.email = value!,
                 validationCallback: FieldValidator.validateEmail,
                 icon: const Icon(Icons.email),
                 hintText: "email@example.com",
                 labelText: "E-mail Address",
               ),
-              CustomTextField(
+              CustomInputField(
                 onSaved: (value) => user.password = value!,
                 validationCallback: FieldValidator.validatePassword,
                 icon: const Icon(Icons.lock),
@@ -53,7 +65,7 @@ class _RegisterDialogState extends State<RegisterDialog> {
                 obscureText: true,
                 controller: _pass,
               ),
-              CustomTextField(
+              CustomInputField(
                 onSaved: (value) => user.confirmPassword = value!,
                 validationCallback: FieldValidator(passController: _pass)
                     .validateConfirmPassword,
@@ -62,7 +74,7 @@ class _RegisterDialogState extends State<RegisterDialog> {
                 labelText: "Confirm your password",
                 obscureText: true,
               ),
-              CustomTextField(
+              CustomInputField(
                 onSaved: (value) => user.description = value!,
                 maxLines: 4,
                 validationCallback: FieldValidator.validateDescription,
@@ -107,65 +119,4 @@ class _RegisterDialogState extends State<RegisterDialog> {
       Navigator.pushReplacementNamed(context, '/');
     }
   }
-}
-
-class CustomTextField extends StatelessWidget {
-  final void Function(String?)? onSaved;
-  final String? Function(String?)? validationCallback;
-  final String? hintText;
-  final String? labelText;
-  final Icon? icon;
-  final int? maxLines;
-  final bool? obscureText;
-  final TextEditingController? controller;
-
-  const CustomTextField(
-      {super.key,
-      required this.onSaved,
-      this.hintText,
-      this.labelText,
-      this.icon,
-      this.maxLines,
-      this.obscureText,
-      this.controller,
-      this.validationCallback});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(top: 20.0),
-      child: TextFormField(
-        maxLines: maxLines ?? 1,
-        onSaved: onSaved,
-        validator: validationCallback,
-        keyboardType: TextInputType.text,
-        obscureText: obscureText ?? false,
-        controller: controller,
-        decoration: InputDecoration(
-          border: const OutlineInputBorder(),
-          hintText: hintText,
-          labelText: labelText,
-          prefixIcon: icon,
-        ),
-      ),
-    );
-  }
-}
-
-class DialogTitle extends StatelessWidget {
-  const DialogTitle({super.key});
-
-  @override
-  Widget build(BuildContext context) => Container(
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        child: const Center(
-          child: Text(
-            "Sing Up",
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-      );
 }
