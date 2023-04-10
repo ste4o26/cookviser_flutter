@@ -1,5 +1,9 @@
+import 'package:demo_app/domain/user/view_models/user_register.view_model.dart';
 import 'package:demo_app/services/auth.service.dart';
+import 'package:demo_app/shered/input_field.dart';
 import 'package:flutter/material.dart';
+
+import '../../../utils/field.validator.dart';
 
 // TODO refactor
 
@@ -13,8 +17,7 @@ class RegisterDialog extends StatefulWidget {
 class _RegisterDialogState extends State<RegisterDialog> {
   final _formKey = GlobalKey<FormState>();
   final _pass = TextEditingController();
-  final _confPass = TextEditingController();
-  final _registeredUser = <String, String>{};
+  final user = UserRegisterViewModel();
 
   @override
   Widget build(BuildContext context) {
@@ -39,113 +42,45 @@ class _RegisterDialogState extends State<RegisterDialog> {
                   ),
                 ),
               ),
-              Container(
-                padding: const EdgeInsets.only(top: 10.0),
-                child: TextFormField(
-                  onSaved: (username) =>
-                      _registeredUser["username"] = username!,
-                  validator: (value) {
-                    if (value == null || value.isEmpty || value.length < 5) {
-                      return "Username must be more than 5 symbols";
-                    }
-                    return null;
-                  },
-                  keyboardType: TextInputType.text,
-                  decoration: const InputDecoration(
-                    hintText: "Username",
-                    labelText: "Enter your user name",
-                    icon: Icon(Icons.person),
-                  ),
-                ),
+              CustomInputField(
+                onSaved: (value) => user.username = value!,
+                validationCallback: FieldValidator.validateUsername,
+                icon: const Icon(Icons.person),
+                hintText: 'Username',
+                labelText: 'Enter your username',
               ),
-              Container(
-                padding: const EdgeInsets.only(top: 10.0),
-                child: TextFormField(
-                  onSaved: (email) => _registeredUser["email"] = email!,
-                  validator: (value) {
-                    final regex = RegExp(
-                        r"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-]+)(\.[a-zA-Z]{2,5}){1,2}");
-                    if (value == null ||
-                        value.isEmpty ||
-                        !regex.hasMatch(value)) {
-                      return "Invalid e-mail address";
-                    }
-                    return null;
-                  },
-                  keyboardType: TextInputType.emailAddress,
-                  // Use email input type for emails.
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: "email@example.com",
-                    labelText: "E-mail Address",
-                    icon: Icon(Icons.email),
-                  ),
-                ),
+              CustomInputField(
+                onSaved: (value) => user.email = value!,
+                validationCallback: FieldValidator.validateEmail,
+                icon: const Icon(Icons.email),
+                hintText: "email@example.com",
+                labelText: "E-mail Address",
               ),
-              Container(
-                padding: const EdgeInsets.only(top: 10.0),
-                child: TextFormField(
-                  onSaved: (password) =>
-                      _registeredUser["password"] = password!,
-                  validator: (value) {
-                    if (value == null || value.isEmpty || value.length < 8) {
-                      return "Password must be minimum 8 symbols";
-                    }
-                    return null;
-                  },
-                  controller: _pass,
-                  obscureText: true,
-                  // Use secure text for passwords.
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: "Password",
-                    labelText: "Enter your password",
-                    icon: Icon(Icons.lock),
-                  ),
-                ),
+              CustomInputField(
+                onSaved: (value) => user.password = value!,
+                validationCallback: FieldValidator.validatePassword,
+                icon: const Icon(Icons.lock),
+                hintText: "Password",
+                labelText: "Enter your password",
+                obscureText: true,
+                controller: _pass,
               ),
-              Container(
-                padding: const EdgeInsets.only(top: 10.0),
-                child: TextFormField(
-                  onSaved: (confirmPassword) =>
-                      _registeredUser["confirmPassword"] = confirmPassword!,
-                  validator: (value) {
-                    if (value != _pass.text) {
-                      return "Password did not match";
-                    }
-                    return null;
-                  },
-                  controller: _confPass,
-                  obscureText: true,
-                  // Use secure text for passwords.
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: "Confirm Password",
-                    labelText: "Enter your confirm password",
-                    icon: Icon(Icons.lock),
-                  ),
-                ),
+              CustomInputField(
+                onSaved: (value) => user.confirmPassword = value!,
+                validationCallback: FieldValidator(passController: _pass)
+                    .validateConfirmPassword,
+                icon: const Icon(Icons.lock),
+                hintText: "Confirm password",
+                labelText: "Confirm your password",
+                obscureText: true,
               ),
-              Container(
-                padding: const EdgeInsets.only(top: 10.0),
-                child: TextFormField(
-                  maxLines: 4,
-                  onSaved: (description) =>
-                      _registeredUser["description"] = description!,
-                  validator: (value) {
-                    if (value == null || value.isEmpty || value.length < 10) {
-                      return "Description must be minimum 10 symbols";
-                    }
-                    return null;
-                  },
-                  keyboardType: TextInputType.text,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: "Text here",
-                    labelText: "Description",
-                    icon: Icon(Icons.description_sharp),
-                  ),
-                ),
+              CustomInputField(
+                onSaved: (value) => user.description = value!,
+                maxLines: 4,
+                validationCallback: FieldValidator.validateDescription,
+                icon: const Icon(Icons.description),
+                hintText: 'Text here...',
+                labelText: 'Description',
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -163,7 +98,7 @@ class _RegisterDialogState extends State<RegisterDialog> {
                         borderRadius: BorderRadius.circular(5),
                       ),
                       child: TextButton(
-                        onPressed: () => {}, //TODO
+                        onPressed: () => _performLogin(),
                         child: const Text("Sing up"),
                       ),
                     ),
@@ -180,7 +115,7 @@ class _RegisterDialogState extends State<RegisterDialog> {
   _performLogin() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      AuthService().register(_registeredUser);
+      AuthService().register(user);
       Navigator.pushReplacementNamed(context, '/');
     }
   }
