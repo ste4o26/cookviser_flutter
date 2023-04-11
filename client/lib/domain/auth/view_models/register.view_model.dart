@@ -1,16 +1,17 @@
 class UserRegisterViewModel {
-  String? username;
-  String? email;
-  String? description;
-  String? password;
-  String? confirmPassword;
+  String username;
+  String email;
+  String description;
+  String password;
+  String confirmPassword;
 
-  UserRegisterViewModel(
-      {this.username,
-      this.email,
-      this.description,
-      this.password,
-      this.confirmPassword});
+  UserRegisterViewModel({
+    this.username = "",
+    this.email = "",
+    this.description = "",
+    this.password = "",
+    this.confirmPassword = "",
+  });
 
   factory UserRegisterViewModel.fromJson(Map<String, dynamic> json) {
     return UserRegisterViewModel(

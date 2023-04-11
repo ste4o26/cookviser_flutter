@@ -1,11 +1,11 @@
-import 'package:demo_app/domain/user/view_models/user_register.view_model.dart';
-import 'package:demo_app/services/auth.service.dart';
+import 'package:demo_app/domain/auth/view_models/register.view_model.dart';
+import 'package:demo_app/domain/user/view_models/user.view_model.dart';
+import 'package:demo_app/shered/form_button.dart';
 import 'package:demo_app/shered/input_field.dart';
+import 'package:demo_app/utils/field.validator.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '../../../utils/field.validator.dart';
-
-// TODO refactor
 
 class RegisterDialog extends StatefulWidget {
   const RegisterDialog({super.key});
@@ -15,9 +15,19 @@ class RegisterDialog extends StatefulWidget {
 }
 
 class _RegisterDialogState extends State<RegisterDialog> {
+  final user = UserRegisterViewModel();
   final _formKey = GlobalKey<FormState>();
   final _pass = TextEditingController();
-  final user = UserRegisterViewModel();
+
+  FormState? get state => this._formKey.currentState;
+
+  void register(Map? args) {
+    if (!this.state!.validate()) return;
+    
+    this.state!.save();
+    Provider.of<AuthViewModel>(context, listen: false).register(user);
+    Navigator.pushReplacementNamed(context, '/');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,21 +96,9 @@ class _RegisterDialogState extends State<RegisterDialog> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Expanded(
-                    child: Container(
-                      height: 50,
-                      width: 150,
-                      margin: const EdgeInsets.symmetric(
-                        horizontal: 20.0,
-                        vertical: 40.0,
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.amber),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: TextButton(
-                        onPressed: () => _performLogin(),
-                        child: const Text("Sing up"),
-                      ),
+                    child: FormButton(
+                      content: "Sign Up",
+                      callback: this.register,
                     ),
                   ),
                 ],
@@ -110,13 +108,5 @@ class _RegisterDialogState extends State<RegisterDialog> {
         ),
       ),
     );
-  }
-
-  _performLogin() {
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-      AuthService().register(user);
-      Navigator.pushReplacementNamed(context, '/');
-    }
   }
 }

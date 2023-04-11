@@ -1,3 +1,4 @@
+import 'package:demo_app/domain/recipe/models/recipe.model.dart';
 import 'package:demo_app/domain/user/models/role.model.dart';
 
 import 'authority.model.dart';
@@ -29,11 +30,23 @@ class UserModel {
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     var authoritiesData =
-        json["autorities"] is List ? json["autorities"] as List : [];
+        json["authorities"] is List ? json["authorities"] as List : [];
 
-    List<AuthorityModel> userAuthorities =
-        authoritiesData.map((authData) => AuthorityModel.fromJson(authData))
-            as List<AuthorityModel>;
+    var userAuthorities = authoritiesData
+        .map((authData) => AuthorityModel.fromJson(authData))
+        .toList();
+
+    var recipesData = json["myRecipes"] is List ? json["myRecipes"] as List : [];
+    var recipes = recipesData
+        .map((recipeData) => RecipeModel.fromJson(recipeData))
+        .map((recipe) => recipe.name)
+        .toList();
+
+    var cookedRecipesData = json["myCookedRecipes"] is List ? json["myCookedRecipes"] as List : [];
+    var cookedRecipes = cookedRecipesData
+        .map((recipeData) => RecipeModel.fromJson(recipeData))
+        .map((recipe) => recipe.name)
+        .toList();
 
     return UserModel(
       id: json["id"],
@@ -43,21 +56,24 @@ class UserModel {
       description: json["description"],
       role: RoleModel.fromJson(json['role']),
       authorities: userAuthorities,
-      myRecipes: json["myRecipes"],
-      myCookedRecipes: json["myCookedRecipes"],
+      myRecipes: recipes,
+      myCookedRecipes: cookedRecipes, // TODO convert like myRecipes
       overallRating: json["overallRating"],
     );
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    List userAuthorities =
+        authorities.map((authority) => authority.toJson()).toList();
+
     data["id"] = id;
     data["username"] = username;
     data["email"] = email;
     data["profileImageUrl"] = profileImageUrl;
     data["description"] = description;
     data["role"] = role.toJson();
-    data["authorities"] = authorities.map((authority) => authority.toJson()).toList();
+    data["authorities"] = userAuthorities;
     data["myRecipes"] = myRecipes;
     data["myCookedRecipes"] = myCookedRecipes;
     data["overallRating"] = overallRating;

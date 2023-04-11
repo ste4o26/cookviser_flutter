@@ -29,8 +29,8 @@ class FieldValidator {
   }
 
   static String? validatePassword(String? value) {
-    if (value == null || value.isEmpty || value.length < 8) {
-      return "Password must be minimum 8 symbols";
+    if (value == null || value.isEmpty || value.length < 6) {
+      return "Password must be minimum 6 symbols";
     }
     return null;
   }

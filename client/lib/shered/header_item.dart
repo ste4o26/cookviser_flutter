@@ -3,7 +3,7 @@ import "package:flutter/material.dart";
 class HeaderItem extends StatelessWidget {
   final String name;
   final Function callback;
-  final Map args;
+  final Map<String, dynamic> args;
   final Icon? icon;
 
   const HeaderItem(
@@ -27,7 +27,7 @@ class HeaderItem extends StatelessWidget {
           padding: const EdgeInsets.all(8),
           textStyle: const TextStyle(fontSize: 20),
         ),
-        onPressed: () => this.callback(args: args),
+        onPressed: () => this.callback(context, args),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
