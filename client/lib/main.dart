@@ -1,4 +1,5 @@
 import "package:demo_app/domain/recipe/views_models/recipes_list.view_model.dart";
+import "package:demo_app/domain/user/view_models/user.view_model.dart";
 import "package:demo_app/shered/router.dart";
 import "package:flutter/material.dart";
 import "package:provider/provider.dart";
@@ -13,6 +14,7 @@ void main() {
 MultiProvider createApp() {
   return MultiProvider(
     providers: [
+      ChangeNotifierProvider(create: (context) => AuthViewModel()),
       ChangeNotifierProvider(create: (context) => CuisineListViewModel()),
       ChangeNotifierProvider(create: (context) => RecipeListViewModel()),
     ],

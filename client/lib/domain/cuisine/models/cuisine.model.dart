@@ -3,7 +3,11 @@ class CuisineModel {
   String name;
   String imageThumbnailUrl;
 
-  CuisineModel({required this.id, required this.name, required this.imageThumbnailUrl});
+  CuisineModel({
+    required this.id,
+    required this.name,
+    required this.imageThumbnailUrl,
+  });
 
   factory CuisineModel.fromJson(Map<String, dynamic> json) {
     return CuisineModel(
