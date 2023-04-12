@@ -13,7 +13,7 @@ public interface CuisineRepository extends JpaRepository<CuisineEntity, String> 
     @Query("SELECT c FROM cuisines AS c " +
             "LEFT JOIN recipes AS r " +
             "ON c.id = r.cuisine.id " +
-            "GROUP BY c.name " +
+            "GROUP BY c.id " +
             "ORDER BY c.recipes.size DESC")
     List<CuisineEntity> findFirstFourMostPopulated(Pageable pageable);
 
