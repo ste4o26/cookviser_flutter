@@ -23,6 +23,7 @@ MultiProvider createApp() {
       ChangeNotifierProvider(
           create: (context) => MostPopulatedCuisineViewModel()),
       ChangeNotifierProvider(create: (context) => MostRatedRecipesViewModel()),
+      ChangeNotifierProvider(create: (context) => RatingViewModel()),
     ],
     child: const CookviserApp(),
   );
