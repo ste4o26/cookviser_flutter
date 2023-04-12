@@ -1,12 +1,9 @@
-import "package:flutter/material.dart";
-import "package:provider/provider.dart";
-
-import "package:demo_app/domain/recipe/views_models/recipes_list.view_model.dart";
-import "package:demo_app/shered/image.dart";
 import 'package:demo_app/domain/recipe/views/recipe_details.view.dart';
 import "package:demo_app/domain/recipe/views_models/recipe.view_model.dart";
-import "package:demo_app/shered/card.dart";
-import "package:demo_app/shered/rating.dart";
+import "package:demo_app/domain/recipe/views_models/recipes_list.view_model.dart";
+import "package:demo_app/shered/recipe_card.dart";
+import "package:flutter/material.dart";
+import "package:provider/provider.dart";
 
 class RecipeListView extends StatelessWidget {
   const RecipeListView({super.key});
@@ -34,32 +31,7 @@ class RecipeListView extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           itemCount: viewModel.recipes.length,
           itemBuilder: (context, index) {
-            RecipeViewModel recipe = viewModel.recipes[index];
-
-            return CustomCard(
-              children: [
-                InkWell(
-                  onTap: () => this.openDialogHandler(context, recipe),
-                  child: CustomImage(recipe.imageUrl),
-                ),
-                Text(
-                  recipe.name,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
-                ),
-                Text(
-                  "Cuisine: ${recipe.cuisineName}",
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15,
-                  ),
-                ),
-                const Rating(),
-                //TODO make this a statefull widget and pass calback to rating to update the rate of the recipe.
-              ],
-            );
+            return RecipeCard(recipe: viewModel.recipes[index]);
           },
         );
       },
@@ -67,5 +39,4 @@ class RecipeListView extends StatelessWidget {
   }
 }
 
-
-// 
+//

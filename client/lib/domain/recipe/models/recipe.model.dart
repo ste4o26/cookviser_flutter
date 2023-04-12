@@ -13,7 +13,7 @@ class RecipeModel {
   List<String> ingredients;
   String publisherUsername;
   CuisineModel cuisine;
-  int overallRating;
+  double overallRating;
   List<StepModel> steps;
   List<UserModel> cookedBy;
 
