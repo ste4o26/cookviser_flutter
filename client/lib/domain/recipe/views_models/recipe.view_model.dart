@@ -12,4 +12,5 @@ class RecipeViewModel {
   List<StepModel> get steps => recipe.steps;
   List<String> get ingredients => recipe.ingredients;
   String get imageUrl => recipe.recipeThumbnail;
+  double get ratingOverall => recipe.overallRating;
 }

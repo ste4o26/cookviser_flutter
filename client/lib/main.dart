@@ -1,3 +1,6 @@
+import "package:demo_app/domain/cuisine/view_models/most_populated_cuisine.view_model.dart";
+import "package:demo_app/domain/rating/view_models/rating_view_model.dart";
+import "package:demo_app/domain/recipe/views_models/most_rated_recipes.view_model.dart";
 import "package:demo_app/domain/recipe/views_models/recipes_list.view_model.dart";
 import "package:demo_app/domain/user/view_models/user.view_model.dart";
 import "package:demo_app/shered/router.dart";
@@ -17,6 +20,10 @@ MultiProvider createApp() {
       ChangeNotifierProvider(create: (context) => AuthViewModel()),
       ChangeNotifierProvider(create: (context) => CuisineListViewModel()),
       ChangeNotifierProvider(create: (context) => RecipeListViewModel()),
+      ChangeNotifierProvider(
+          create: (context) => MostPopulatedCuisineViewModel()),
+      ChangeNotifierProvider(create: (context) => MostRatedRecipesViewModel()),
+      ChangeNotifierProvider(create: (context) => RatingViewModel()),
     ],
     child: const CookviserApp(),
   );

@@ -56,6 +56,8 @@ public class RecipeController {
     ) {
         List<RecipeServiceModel> nextPageRecipes = this.recipeService.fetchNextRecipes(pageNumber, recipesCount);
 
+        nextPageRecipes.forEach((recipe) -> recipe.setOverallRating(rateService.calculateRecipeOverallRate(recipe)));
+
         List<RecipeResponseModel> collect = nextPageRecipes.stream()
                 .map(recipeServiceModel -> this.modelMapper.map(recipeServiceModel, RecipeResponseModel.class))
                 .collect(Collectors.toList());
@@ -73,6 +75,8 @@ public class RecipeController {
             throws CuisineDontExistsException {
         CuisineServiceModel cuisineServiceModel = this.cuisineService.fetchByName(cuisineName);
         List<RecipeServiceModel> recipesByCuisine = this.recipeService.fetchNextByCuisine(cuisineServiceModel, pageNumber, recipesCount);
+
+        recipesByCuisine.forEach((recipe) -> recipe.setOverallRating(rateService.calculateRecipeOverallRate(recipe)));
 
         List<RecipeResponseModel> collect = recipesByCuisine.stream()
                 .map(recipeServiceModel -> this.modelMapper.map(recipeServiceModel, RecipeResponseModel.class))
@@ -198,6 +202,8 @@ public class RecipeController {
     ) {
         RateServiceModel rateServiceModel = this.modelMapper.map(rateBindingModel, RateServiceModel.class);
         RateServiceModel rate = this.rateService.rate(rateServiceModel);
+
+         rate.getRecipe().setOverallRating(rateService.calculateRecipeOverallRate(rate.getRecipe()));
 
         RateResponseModel rateResponseModel = this.modelMapper.map(rate, RateResponseModel.class);
         return new ResponseEntity<>(rateResponseModel, CREATED);

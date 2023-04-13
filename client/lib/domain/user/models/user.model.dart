@@ -11,8 +11,8 @@ class UserModel {
   String description;
   RoleModel role;
   List<AuthorityModel> authorities;
-  List<String> myRecipes;
-  List<String> myCookedRecipes;
+  List<RecipeModel> myRecipes;
+  List<RecipeModel> myCookedRecipes;
   int overallRating;
 
   UserModel({
@@ -39,13 +39,11 @@ class UserModel {
     var recipesData = json["myRecipes"] is List ? json["myRecipes"] as List : [];
     var recipes = recipesData
         .map((recipeData) => RecipeModel.fromJson(recipeData))
-        .map((recipe) => recipe.name)
         .toList();
 
     var cookedRecipesData = json["myCookedRecipes"] is List ? json["myCookedRecipes"] as List : [];
     var cookedRecipes = cookedRecipesData
         .map((recipeData) => RecipeModel.fromJson(recipeData))
-        .map((recipe) => recipe.name)
         .toList();
 
     return UserModel(
@@ -74,8 +72,8 @@ class UserModel {
     data["description"] = description;
     data["role"] = role.toJson();
     data["authorities"] = userAuthorities;
-    data["myRecipes"] = myRecipes;
-    data["myCookedRecipes"] = myCookedRecipes;
+    data["myRecipes"] = myRecipes.map((e) => e.toJson()).toList();
+    data["myCookedRecipes"] = myCookedRecipes.map((e) => e.toJson()).toList();
     data["overallRating"] = overallRating;
     return data;
   }

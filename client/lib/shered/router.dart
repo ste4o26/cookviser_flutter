@@ -15,7 +15,7 @@ class RouterGenerator {
 
     switch (uri) {
       case "/":
-        return MaterialPageRoute(builder: (_) => HomePage());
+        return MaterialPageRoute(builder: (_) => const HomePage());
       case "/cuisines":
         return MaterialPageRoute(builder: (_) => const CuisinesPage());
       case "/recipes_by_cuisine":
