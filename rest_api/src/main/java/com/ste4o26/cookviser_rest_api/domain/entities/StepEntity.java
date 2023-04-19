@@ -2,10 +2,12 @@ package com.ste4o26.cookviser_rest_api.domain.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity(name = "steps")
 @Table(name = "steps")
 @NoArgsConstructor

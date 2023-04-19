@@ -199,11 +199,13 @@ public class RecipeController {
     public ResponseEntity<RateResponseModel> postRate(
             Authentication authentication,
             @RequestBody RateBindingModel rateBindingModel
-    ) {
+    ) throws RecipeNotExistsException {
         RateServiceModel rateServiceModel = this.modelMapper.map(rateBindingModel, RateServiceModel.class);
         RateServiceModel rate = this.rateService.rate(rateServiceModel);
 
-         rate.getRecipe().setOverallRating(rateService.calculateRecipeOverallRate(rate.getRecipe()));
+        rate.setRecipe(recipeService.fetchById(rate.getRecipe().getId()));
+        rate.setUser(userService.fetchByUsername(rate.getUser().getUsername()));
+        rate.getRecipe().setOverallRating(rateService.calculateRecipeOverallRate(rate.getRecipe()));
 
         RateResponseModel rateResponseModel = this.modelMapper.map(rate, RateResponseModel.class);
         return new ResponseEntity<>(rateResponseModel, CREATED);
