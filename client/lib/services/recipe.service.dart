@@ -4,7 +4,6 @@ import 'package:demo_app/domain/rating/models/rating_model.dart';
 import "package:demo_app/domain/recipe/models/recipe.model.dart";
 import "package:demo_app/services/base.service.dart";
 import "package:http/http.dart" as http;
-import "package:provider/provider.dart";
 
 // TODO handle the requests properly!
 class RecipeService with BaseService {
@@ -73,10 +72,10 @@ class RecipeService with BaseService {
     return data.map((recipe) => RecipeModel.fromJson(recipe)).toList();
   }
 
-  Future<RatingModel> rate(RatingModel rating, String token) async {
+  Future<RatingModel> rate(RatingModel rating, String userToken) async {
     final uri = constructURI(endpoints["rate"]!);
     final requestBody = jsonEncode(rating.toJson());
-    final headers = {"Authorization": "Bearer $token"};
+    final headers = {"Authorization": "Bearer $userToken"};
     headers.addAll(commonHeaders);
     final response = await http.post(uri, body: requestBody, headers: headers);
     if (response.statusCode != 201) {

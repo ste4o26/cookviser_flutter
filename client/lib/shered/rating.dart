@@ -1,7 +1,6 @@
 import 'package:demo_app/domain/rating/models/rating_model.dart';
 import 'package:demo_app/domain/rating/view_models/rating_view_model.dart';
 import 'package:demo_app/domain/recipe/models/recipe.model.dart';
-import 'package:demo_app/domain/user/models/user.model.dart';
 import 'package:demo_app/domain/user/view_models/user.view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -25,11 +24,11 @@ class Rating extends StatefulWidget {
 }
 
 class _RatingState extends State<Rating> {
-  late UserModel? _loggedUser;
+  late AuthViewModel _loggedUser;
 
   @override
   void didChangeDependencies() {
-    _loggedUser = Provider.of<AuthViewModel>(context, listen: true).user;
+    _loggedUser = Provider.of<AuthViewModel>(context, listen: true);
     super.didChangeDependencies();
   }
 
@@ -40,7 +39,7 @@ class _RatingState extends State<Rating> {
       children: [
         RatingBar.builder(
           tapOnlyMode: true,
-          ignoreGestures: _loggedUser == null,
+          ignoreGestures: _loggedUser.user == null,
           initialRating: widget.recipe.overallRating,
           itemSize: 25,
           maxRating: 5,
@@ -52,7 +51,7 @@ class _RatingState extends State<Rating> {
           width: 8,
         ),
         Text(
-          "${widget.recipe.overallRating}",
+          widget.recipe.overallRating.toStringAsFixed(2),
           style: const TextStyle(fontSize: 18),
         )
       ],
@@ -60,11 +59,10 @@ class _RatingState extends State<Rating> {
   }
 
   _rate(int value) async {
-    final token = Provider.of<AuthViewModel>(context, listen: false).token;
-    var rate =
-        RatingModel(rating: value, user: _loggedUser!, recipe: widget.recipe);
+    var rate = RatingModel(
+        rating: value, user: _loggedUser.user!, recipe: widget.recipe);
     rate = await Provider.of<RatingViewModel>(context, listen: false)
-        .rate(rate, token);
+        .rate(rate, _loggedUser.token!);
     setState(() {
       widget.recipe.overallRating = rate.recipe.overallRating;
     });

@@ -11,17 +11,21 @@ class MostPopulatedCuisines extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Provider.of<MostPopulatedCuisineViewModel>(context, listen: false).fetch();
-    return SizedBox(
+    return Container(
+      margin: const EdgeInsets.only(top: 50),
       width: MediaQuery.of(context).size.width / 1.2,
       height: 450,
       child: Column(
         children: [
-           const Expanded(
-             child: Text(
-               "Most Populated Cuisines: ",
-               style: TextStyle(fontSize: 36,fontWeight: FontWeight.bold,),
-             ),
-           ),
+          const Expanded(
+            child: Text(
+              "Most Populated Cuisines: ",
+              style: TextStyle(
+                fontSize: 36,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
           SizedBox(
             height: 350,
             child: ScrollConfiguration(

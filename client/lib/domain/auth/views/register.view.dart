@@ -2,7 +2,7 @@ import 'package:demo_app/domain/auth/view_models/register.view_model.dart';
 import 'package:demo_app/domain/user/view_models/user.view_model.dart';
 import 'package:demo_app/shered/form_button.dart';
 import 'package:demo_app/shered/input_field.dart';
-import 'package:demo_app/utils/field.validator.dart';
+import 'package:demo_app/utils/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

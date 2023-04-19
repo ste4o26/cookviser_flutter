@@ -11,7 +11,8 @@ class MostRatedRecipes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Provider.of<MostRatedRecipesViewModel>(context, listen: false).fetch();
-    return SizedBox(
+    return Container(
+      margin: const EdgeInsets.only(top: 50),
       width: MediaQuery.of(context).size.width / 1.2,
       height: 450,
       child: Column(
