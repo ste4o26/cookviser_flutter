@@ -1,9 +1,10 @@
 import 'package:demo_app/domain/auth/view_models/login.view_model.dart';
+import 'package:demo_app/domain/auth/views/register.view.dart';
 import 'package:demo_app/domain/user/view_models/user.view_model.dart';
 import 'package:demo_app/services/auth.service.dart';
 import 'package:demo_app/shered/form_button.dart';
 import 'package:demo_app/shered/input_field.dart';
-import 'package:demo_app/utils/field.validator.dart';
+import 'package:demo_app/utils/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -33,7 +34,7 @@ class _LoginDialogState extends State<LoginDialog> {
       child: Container(
         width: MediaQuery.of(context).size.width / 3.5,
         height: MediaQuery.of(context).size.height / 3,
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 50.0),
         child: Form(
           key: this._formKey,
           child: ListView(
@@ -53,7 +54,20 @@ class _LoginDialogState extends State<LoginDialog> {
                 hintText: 'Password',
                 labelText: 'Enter your password',
               ),
-              FormButton(content: "Sign In", callback: this.login)
+              FormButton(content: "Sign In", callback: this.login),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("Don't have an account?"),
+                  TextButton(
+                      onPressed: () => showDialog(
+                            context: context,
+                            builder: (BuildContext context) =>
+                                const Center(child: RegisterDialog()),
+                          ),
+                      child: const Text("Sign up"))
+                ],
+              )
             ],
           ),
         ),
