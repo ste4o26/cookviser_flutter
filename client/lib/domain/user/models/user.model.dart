@@ -13,7 +13,7 @@ class UserModel {
   List<AuthorityModel> authorities;
   List<RecipeModel> myRecipes;
   List<RecipeModel> myCookedRecipes;
-  int overallRating;
+  double overallRating;
 
   UserModel({
     required this.id,
@@ -52,7 +52,7 @@ class UserModel {
       email: json["email"],
       profileImageUrl: json["profileImageUrl"],
       description: json["description"],
-      role: RoleModel.fromJson(json['role']),
+      role: RoleModel.fromJson(json["role"]),
       authorities: userAuthorities,
       myRecipes: recipes,
       myCookedRecipes: cookedRecipes, // TODO convert like myRecipes

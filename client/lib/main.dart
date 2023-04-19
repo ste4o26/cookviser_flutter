@@ -2,6 +2,7 @@ import "package:demo_app/domain/cuisine/view_models/most_populated_cuisine.view_
 import "package:demo_app/domain/rating/view_models/rating_view_model.dart";
 import "package:demo_app/domain/recipe/views_models/most_rated_recipes.view_model.dart";
 import "package:demo_app/domain/recipe/views_models/recipes_list.view_model.dart";
+import "package:demo_app/domain/user/view_models/most_liked_users_view_model.dart";
 import "package:demo_app/domain/user/view_models/user.view_model.dart";
 import "package:demo_app/shered/router.dart";
 import "package:flutter/material.dart";
@@ -24,6 +25,7 @@ MultiProvider createApp() {
           create: (context) => MostPopulatedCuisineViewModel()),
       ChangeNotifierProvider(create: (context) => MostRatedRecipesViewModel()),
       ChangeNotifierProvider(create: (context) => RatingViewModel()),
+      ChangeNotifierProvider(create: (context) => BestThreeUserViewModel()),
     ],
     child: const CookviserApp(),
   );
