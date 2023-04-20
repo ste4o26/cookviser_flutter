@@ -1,14 +1,14 @@
+import "package:demo_app/domain/recipe/models/recipe.model.dart";
+import "package:demo_app/domain/recipe/view_models/recipes_list.view_model.dart";
 import 'package:demo_app/domain/recipe/views/recipe_details.view.dart';
-import "package:demo_app/domain/recipe/views_models/recipe.view_model.dart";
-import "package:demo_app/domain/recipe/views_models/recipes_list.view_model.dart";
-import "package:demo_app/shered/recipe_card.dart";
+import 'package:demo_app/domain/recipe/views/recipe_card_view.dart';
 import "package:flutter/material.dart";
 import "package:provider/provider.dart";
 
 class RecipeListView extends StatelessWidget {
   const RecipeListView({super.key});
 
-  void openDialogHandler(BuildContext context, RecipeViewModel recipe) {
+  void openDialogHandler(BuildContext context, RecipeModel recipe) {
     showDialog(
       context: context,
       builder: (BuildContext context) => Center(
@@ -18,10 +18,8 @@ class RecipeListView extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Consumer<RecipeListViewModel>(
-      builder: (context, viewModel, child) {
-        return GridView.builder(
+  Widget build(BuildContext context) => Consumer<RecipeListViewModel>(
+        builder: (context, viewModel, child) => GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: MediaQuery.of(context).size.width ~/ 350,
             crossAxisSpacing: 10,
@@ -33,10 +31,8 @@ class RecipeListView extends StatelessWidget {
           itemBuilder: (context, index) {
             return RecipeCard(recipe: viewModel.recipes[index]);
           },
-        );
-      },
-    );
-  }
+        ),
+      );
 }
 
 //

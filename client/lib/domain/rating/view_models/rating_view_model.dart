@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 class RatingViewModel with ChangeNotifier{
   final service = RecipeService();
   
-  Future<RatingModel> rate(rating,token){
-    return service.rate(rating, token);
+  Future<RatingModel> rate(rating,token) async {
+    return await service.rate(rating, token);
   }
 }

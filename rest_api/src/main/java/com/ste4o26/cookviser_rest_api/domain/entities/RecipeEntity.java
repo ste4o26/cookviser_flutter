@@ -2,14 +2,16 @@ package com.ste4o26.cookviser_rest_api.domain.entities;
 
 import com.ste4o26.cookviser_rest_api.domain.entities.enums.CategoryName;
 import lombok.*;
+
 import javax.persistence.*;
 import java.util.Set;
 
+@Data
 @Entity(name = "recipes")
 @Table(name = "recipes")
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@EqualsAndHashCode(callSuper = true)
 public class RecipeEntity extends BaseEntity {
     @Column(name = "name", nullable = false)
     private String name;

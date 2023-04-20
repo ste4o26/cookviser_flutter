@@ -1,13 +1,15 @@
 package com.ste4o26.cookviser_rest_api.domain.entities;
 
 import lombok.*;
+
 import javax.persistence.*;
 
+@Data
 @Entity(name = "rates")
 @Table(name = "rates")
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@EqualsAndHashCode(callSuper = true)
 public class RateEntity extends BaseEntity {
     @Column(name = "rate_value")
     private int rateValue;

@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Set;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity(name = "users")
 @Table(name = "users")
 @NoArgsConstructor
