@@ -1,6 +1,6 @@
 import 'package:demo_app/domain/auth/view_models/login.view_model.dart';
 import 'package:demo_app/domain/auth/views/register.view.dart';
-import 'package:demo_app/domain/user/view_models/user.view_model.dart';
+import 'package:demo_app/domain/auth/view_models/auth.view_model.dart';
 import 'package:demo_app/services/auth.service.dart';
 import 'package:demo_app/shared/form_button.dart';
 import 'package:demo_app/shared/input_field.dart';

@@ -1,7 +1,7 @@
 import 'package:demo_app/domain/rating/models/rating_model.dart';
 import 'package:demo_app/domain/rating/view_models/rating_view_model.dart';
 import 'package:demo_app/domain/recipe/models/recipe.model.dart';
-import 'package:demo_app/domain/user/view_models/user.view_model.dart';
+import 'package:demo_app/domain/auth/view_models/auth.view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
