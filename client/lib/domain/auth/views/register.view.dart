@@ -1,5 +1,5 @@
 import 'package:demo_app/domain/auth/view_models/register.view_model.dart';
-import 'package:demo_app/domain/user/view_models/user.view_model.dart';
+import 'package:demo_app/domain/auth/view_models/auth.view_model.dart';
 import 'package:demo_app/shared/form_button.dart';
 import 'package:demo_app/shared/input_field.dart';
 import 'package:demo_app/utils/validator.dart';

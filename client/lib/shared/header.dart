@@ -1,6 +1,6 @@
 import "package:demo_app/domain/auth/views/login.view.dart";
 import "package:demo_app/domain/auth/views/register.view.dart";
-import "package:demo_app/domain/user/view_models/user.view_model.dart";
+import "package:demo_app/domain/auth/view_models/auth.view_model.dart";
 import "package:demo_app/shared/header_item.dart";
 import "package:flutter/material.dart";
 import "package:provider/provider.dart";
