@@ -1,5 +1,5 @@
 import "package:demo_app/domain/cuisine/view_models/cuisine_list.view_model.dart";
-import "package:demo_app/shered/cuisine_card.dart";
+import 'package:demo_app/domain/cuisine/views/cuisine_card_view.dart';
 import "package:flutter/material.dart";
 import "package:provider/provider.dart";
 

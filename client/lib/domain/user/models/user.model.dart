@@ -29,20 +29,22 @@ class UserModel {
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
-    var authoritiesData =
+    final authoritiesData =
         json["authorities"] is List ? json["authorities"] as List : [];
 
-    var userAuthorities = authoritiesData
+    final userAuthorities = authoritiesData
         .map((authData) => AuthorityModel.fromJson(authData))
         .toList();
 
-    var recipesData = json["myRecipes"] is List ? json["myRecipes"] as List : [];
-    var recipes = recipesData
+    final recipesData =
+        json["myRecipes"] is List ? json["myRecipes"] as List : [];
+    final recipes = recipesData
         .map((recipeData) => RecipeModel.fromJson(recipeData))
         .toList();
 
-    var cookedRecipesData = json["myCookedRecipes"] is List ? json["myCookedRecipes"] as List : [];
-    var cookedRecipes = cookedRecipesData
+    final cookedRecipesData =
+        json["myCookedRecipes"] is List ? json["myCookedRecipes"] as List : [];
+    final cookedRecipes = cookedRecipesData
         .map((recipeData) => RecipeModel.fromJson(recipeData))
         .toList();
 
@@ -55,7 +57,8 @@ class UserModel {
       role: RoleModel.fromJson(json["role"]),
       authorities: userAuthorities,
       myRecipes: recipes,
-      myCookedRecipes: cookedRecipes, // TODO convert like myRecipes
+      myCookedRecipes: cookedRecipes,
+      // TODO convert like myRecipes
       overallRating: json["overallRating"],
     );
   }
