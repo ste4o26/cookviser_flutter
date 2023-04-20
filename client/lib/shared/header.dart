@@ -1,32 +1,43 @@
 import "package:demo_app/domain/auth/views/login.view.dart";
 import "package:demo_app/domain/auth/views/register.view.dart";
-import "package:demo_app/domain/auth/view_models/auth.view_model.dart";
-import "package:demo_app/shared/header_item.dart";
+import 'package:demo_app/domain/auth/view_models/auth.view_model.dart';
 import "package:flutter/material.dart";
+import "package:demo_app/shared/header_item.dart";
 import "package:provider/provider.dart";
 
-class Header extends StatelessWidget implements PreferredSizeWidget {
+class Header extends StatefulWidget implements PreferredSizeWidget {
   const Header({super.key});
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+ 
+  @override
+  State<StatefulWidget> createState() => _HeaderState();
+}
 
-  void openLoginDialogHandler(BuildContext context, Map<String, dynamic> args) {
+class _HeaderState extends State<Header> {
+  void loginHandler(BuildContext context, Map<String, dynamic> args) {
     showDialog(
       context: context,
       builder: (BuildContext context) => Center(child: LoginDialog()),
     );
   }
 
-  void openRegisterDialogHandler(
-      BuildContext context, Map<String, dynamic> args) {
+  void registerHandler(BuildContext context, Map<String, dynamic> args) {
     showDialog(
       context: context,
       builder: (BuildContext context) => const Center(child: RegisterDialog()),
     );
   }
 
-  void goToPageHandler(BuildContext context, Map<String, dynamic> args) {
+  void logoutHandler(BuildContext context, Map<String, dynamic> args) {
+    String? token = args["token"];
+    if (token != null) {
+      Provider.of<AuthViewModel>(context, listen: false).logout();
+    }
+  }
+
+  void redirectHandler(BuildContext context, Map<String, dynamic> args) {
     Navigator.pushNamed(
       context,
       args["route"],
@@ -35,65 +46,74 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Widget build(BuildContext context) => LayoutBuilder(
-        builder: (context, constraints) => Container(
-          color: Colors.amber,
-          height: 50,
-          width: constraints.maxWidth,
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  void initState() {
+    super.initState();
+    Provider.of<AuthViewModel>(context, listen: false).loadLoggedInUser();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.amber,
+      alignment: Alignment.centerLeft,
+      height: 50,
+      width: MediaQuery.of(context).size.width,
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
             children: [
-              Row(
-                children: [
-                  HeaderItem(
-                    "Home",
-                    args: <String, dynamic>{"route": "/"},
-                    callback: this.goToPageHandler,
-                  ),
-                  HeaderItem(
-                    "Cuisines",
-                    args: <String, dynamic>{"route": "/cuisines"},
-                    callback: this.goToPageHandler,
-                  ),
-                  HeaderItem(
-                    "Recipes",
-                    args: <String, dynamic>{"route": "/all_recipes"},
-                    callback: this.goToPageHandler,
-                  ),
-                ],
+              HeaderItem(
+                "Home",
+                args: <String, dynamic>{"route": "/"},
+                callback: this.redirectHandler,
               ),
-              Consumer<AuthViewModel>(
-                builder: (context, viewModel, child) {
-                  return Row(
-                    children: viewModel.token != null
-                        ? [
-                            HeaderItem(
-                              "My Profile",
-                              args: <String, dynamic>{
-                                "route": "/my_profile",
-                                "user": viewModel.user,
-                              },
-                              callback: this.goToPageHandler,
-                            )
-                          ]
-                        : [
-                            HeaderItem(
-                              "Sign In",
-                              args: <String, dynamic>{"route": "/sign_in"},
-                              callback: this.openLoginDialogHandler,
-                            ),
-                            HeaderItem(
-                              "Sign Up",
-                              args: <String, dynamic>{"route": "/sign_up"},
-                              callback: this.openRegisterDialogHandler,
-                            ),
-                          ],
-                  );
-                },
+              HeaderItem(
+                "Cuisines",
+                args: <String, dynamic>{"route": "/cuisines"},
+                callback: this.redirectHandler,
+              ),
+              HeaderItem(
+                "Recipes",
+                args: <String, dynamic>{"route": "/all_recipes"},
+                callback: this.redirectHandler,
               ),
             ],
           ),
-        ),
-      );
+          Consumer<AuthViewModel>(
+            builder: (context, viewModel, child) {
+              return Row(
+                children: viewModel.token != null
+                    ? [
+                        HeaderItem(
+                          "My Profile",
+                          args: <String, dynamic>{"route": "/my_profile"},
+                          callback: this.redirectHandler,
+                        ),
+                        HeaderItem(
+                          "Sign Out",
+                          args: <String, dynamic>{"token": viewModel.token},
+                          callback: this.logoutHandler,
+                        )
+                      ]
+                    : [
+                        HeaderItem(
+                          "Sign In",
+                          args: <String, dynamic>{},
+                          callback: this.loginHandler,
+                        ),
+                        HeaderItem(
+                          "Sign Up",
+                          args: <String, dynamic>{},
+                          callback: this.registerHandler,
+                        ),
+                      ],
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
 }

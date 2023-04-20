@@ -18,8 +18,7 @@ class RecipeService with BaseService {
     "rate": "recipe/rate",
   };
 
-  Future<List<RecipeModel>> fetchNextPageByCuisine(String name, int page,
-      {int count = 10}) async {
+  Future<List<RecipeModel>> fetchNextPageByCuisine(String name, int page, {int count = 10}) async {
     final Map<String, String> args = {
       "cuisineName": name,
       "pageNumber": page.toString(),
@@ -28,8 +27,9 @@ class RecipeService with BaseService {
 
     Uri uri = this.constructURI(endpoints["next_by_cuisine"] ?? "", args: args);
     final response = await http.get(uri);
-    if (response.statusCode != 200)
+    if (response.statusCode != 200) {
       throw Exception("Unable to perform request!");
+    }
 
     final data = jsonDecode(response.body) as List;
     return data.map((cuisine) => RecipeModel.fromJson(cuisine)).toList();
@@ -43,8 +43,9 @@ class RecipeService with BaseService {
 
     Uri uri = this.constructURI(endpoints["next_page"] ?? "", args: args);
     final response = await http.get(uri);
-    if (response.statusCode != 200)
+    if (response.statusCode != 200) {
       throw Exception("Unable to perform request!");
+    }
 
     final data = jsonDecode(response.body) as List;
     return data.map((cuisine) => RecipeModel.fromJson(cuisine)).toList();
@@ -53,8 +54,9 @@ class RecipeService with BaseService {
   Future<List<RecipeModel>> fetchAll() async {
     Uri uri = this.constructURI(endpoints["all"] ?? "");
     final response = await http.get(uri);
-    if (response.statusCode != 200)
+    if (response.statusCode != 200) {
       throw Exception("Unable to perform request!");
+    }
 
     final data = jsonDecode(response.body) as List;
     return data.map((cuisine) => RecipeModel.fromJson(cuisine)).toList();
