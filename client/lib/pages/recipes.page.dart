@@ -16,7 +16,7 @@ class RecipesPage extends StatefulWidget {
 
 class _RecipesState extends State<RecipesPage> {
   int _page = 0;
-  late final Future<void> _future;
+  late Future<void> _future;
 
   // TODO keep state for is last page.
 
