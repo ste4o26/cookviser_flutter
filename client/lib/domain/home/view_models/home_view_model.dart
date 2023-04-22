@@ -10,6 +10,7 @@ class HomeViewModel extends ChangeNotifier {
   final cuisineService = CuisineService();
   final recipeService = RecipeService();
   final userService = UserService();
+
   List<CuisineModel> cuisines = [];
   List<RecipeModel> recipes = [];
   List<UserModel> users = [];

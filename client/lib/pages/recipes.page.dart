@@ -53,8 +53,7 @@ class _RecipesState extends State<RecipesPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) => Scaffold(
         appBar: const Header(),
         body: FutureBuilder(
           future: _future,
@@ -70,6 +69,6 @@ class _RecipesState extends State<RecipesPage> {
         bottomNavigationBar: PaginationBar(
           page: page,
           callback: updatePageHandler,
-        ));
-  }
+        ),
+      );
 }

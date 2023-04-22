@@ -15,7 +15,7 @@ class CuisinesPage extends StatefulWidget {
 
 class _CuisinesPageState extends State<CuisinesPage> {
   int _page = 0;
-  late final Future<void> _future;
+  late Future<void> _future;
 
   int get page => _page;
 
@@ -29,7 +29,7 @@ class _CuisinesPageState extends State<CuisinesPage> {
 
     setState(() {
       this.page = page;
-      Provider.of<CuisineListViewModel>(context, listen: false)
+      _future = Provider.of<CuisineListViewModel>(context, listen: false)
           .fetchByPage(this.page);
     });
   }

@@ -9,8 +9,6 @@ class ModalStepper extends StatefulWidget {
   State<StatefulWidget> createState() => _ModalStepperState();
 }
 
-// TODO Discuss how can this class be reorganized and become more readable.
-
 class _ModalStepperState extends State<ModalStepper> {
   int currentStep = 0;
 

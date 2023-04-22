@@ -1,3 +1,4 @@
+import "package:demo_app/constants.dart";
 import "package:demo_app/domain/recipe/models/recipe.model.dart";
 import "package:demo_app/domain/recipe/view_models/recipes_list.view_model.dart";
 import 'package:demo_app/domain/recipe/views/recipe_details.view.dart';
@@ -18,21 +19,20 @@ class RecipeListView extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => Consumer<RecipeListViewModel>(
-        builder: (context, viewModel, child) => GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: MediaQuery.of(context).size.width ~/ 350,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 50,
-          ),
-          shrinkWrap: true,
-          padding: const EdgeInsets.all(10),
-          itemCount: viewModel.recipes.length,
-          itemBuilder: (context, index) {
-            return RecipeCard(recipe: viewModel.recipes[index]);
-          },
+  Widget build(BuildContext context) => LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) =>
+            Consumer<RecipeListViewModel>(
+          builder: (context, viewModel, child) => GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: constraints.maxWidth ~/ customCardSize,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 50,
+              ),
+              shrinkWrap: true,
+              padding: const EdgeInsets.all(10),
+              itemCount: viewModel.recipes.length,
+              itemBuilder: (context, index) =>
+                  RecipeCard(recipe: viewModel.recipes[index])),
         ),
       );
 }
-
-//

@@ -13,7 +13,7 @@ class UserCard extends StatelessWidget {
         builder: (context, constraints) => CustomCard(
           children: [
             InkWell(
-              onTap: () {},
+              onTap: () {}, //TODO implement load user profile
               child: CircleAvatar(
                 radius: constraints.maxHeight * 0.35,
                 backgroundImage: NetworkImage(user.profileImageUrl),

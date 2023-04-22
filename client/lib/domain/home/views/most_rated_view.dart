@@ -1,5 +1,5 @@
 import 'package:demo_app/shared/custom_scrollable_view.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class MostRated extends StatelessWidget {
   const MostRated({required this.title, required this.child, super.key});

@@ -1,3 +1,4 @@
+import "package:demo_app/constants.dart";
 import "package:flutter/material.dart";
 
 class CustomCard extends StatelessWidget {
@@ -10,9 +11,10 @@ class CustomCard extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       constraints: const BoxConstraints(
-        minHeight: 320,
-        maxHeight: 350,
-        minWidth: 350,
+        minHeight: customCardSize,
+        maxHeight: customCardSize,
+        minWidth: customCardSize,
+        maxWidth: customCardSize,
       ),
       child: Card(
         elevation: 4,

@@ -8,81 +8,65 @@ class UserDetails extends StatelessWidget {
   const UserDetails({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, BoxConstraints constraints) {
-      return SingleChildScrollView(
-        child: Container(
-          constraints: BoxConstraints(
-            maxHeight: 800,
-            maxWidth: constraints.maxWidth,
-          ),
-          margin: const EdgeInsets.only(top: 100),
-          child: Consumer<AuthViewModel>(
-            builder: (context, viewModel, child) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "Username: ${viewModel.user!.username}",
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    "Email: ${viewModel.user!.email}",
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    "Rating: ${viewModel.user!.overallRating}",
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    viewModel.user!.description,
-                    style: const TextStyle(fontSize: 20),
-                  ),
-                  Container(
-                    constraints: BoxConstraints(
-                      maxHeight: 400,
-                      maxWidth: constraints.maxWidth,
-                    ),
-                    child: Column(
-                      children: [
-                        const Text(
-                          "My Recipes",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
+  Widget build(BuildContext context) => LayoutBuilder(
+      builder: (context, BoxConstraints constraints) => SingleChildScrollView(
+            child: Container(
+              constraints: BoxConstraints(
+                maxHeight: 800,
+                maxWidth: constraints.maxWidth,
+              ),
+              margin: const EdgeInsets.only(top: 100),
+              child: Consumer<AuthViewModel>(
+                  builder: (context, viewModel, child) => Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text("Username: ${viewModel.user!.username}",
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              )),
+                          Text("Email: ${viewModel.user!.email}",
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              )),
+                          Text("Rating: ${viewModel.user!.overallRating}",
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              )),
+                          Text(
+                            viewModel.user!.description,
+                            style: const TextStyle(fontSize: 20),
                           ),
-                        ),
-                        CustomScrollableView(
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: viewModel.user!.myRecipes.length,
-                            itemBuilder: (context, index) {
-                              return RecipeCard(
-                                recipe: viewModel.user!.myRecipes[index],
-                              );
-                            },
+                          Container(
+                            constraints: BoxConstraints(
+                              maxHeight: 400,
+                              maxWidth: constraints.maxWidth,
+                            ),
+                            child: Column(
+                              children: [
+                                const Text("My Recipes",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    )),
+                                CustomScrollableView(
+                                  child: ListView.builder(
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: viewModel.user!.myRecipes.length,
+                                    itemBuilder: (context, index) => RecipeCard(
+                                      recipe: viewModel.user!.myRecipes[index],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              );
-            },
-          ),
-        ),
-      );
-    });
-  }
+                        ],
+                      )),
+            ),
+          ));
 }

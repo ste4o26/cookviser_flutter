@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
                       padding: const EdgeInsets.symmetric(vertical: 50),
                       children: <Widget>[
                         MostRated(
-                          title: "Top 3 users with most rated recipes: ",
+                          title: "Best chefs",
                           child: Consumer<HomeViewModel>(
                             builder: (context, viewModel, child) =>
                                 ListView.builder(
@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         MostRated(
-                          title: "Most populated cuisines: ",
+                          title: "Best cuisines",
                           child: Consumer<HomeViewModel>(
                             builder: (context, viewModel, child) =>
                                 ListView.builder(
@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         MostRated(
-                          title: "Most rated recipes: ",
+                          title: "Best recipes",
                           child: Consumer<HomeViewModel>(
                             builder: (context, viewModel, child) =>
                                 ListView.builder(
