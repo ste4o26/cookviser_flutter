@@ -1,6 +1,7 @@
 import "package:demo_app/pages/cuisines.page.dart";
 import "package:demo_app/pages/home.page.dart";
 import "package:demo_app/pages/not_found.page.dart";
+import "package:demo_app/pages/profile.page.dart";
 import "package:demo_app/pages/recipes.page.dart";
 import "package:flutter/material.dart";
 
@@ -16,6 +17,8 @@ class RouterGenerator {
     switch (uri) {
       case "/":
         return MaterialPageRoute(builder: (_) => const HomePage());
+      case "/profile":
+        return MaterialPageRoute(builder: (_) => const ProfilePage());
       case "/cuisines":
         return MaterialPageRoute(builder: (_) => const CuisinesPage());
       case "/recipes_by_cuisine":

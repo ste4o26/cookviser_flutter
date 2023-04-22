@@ -88,7 +88,7 @@ class _HeaderState extends State<Header> {
                     ? [
                         HeaderItem(
                           "My Profile",
-                          args: <String, dynamic>{"route": "/my_profile"},
+                          args: <String, dynamic>{"route": "/profile"},
                           callback: this.redirectHandler,
                         ),
                         HeaderItem(
