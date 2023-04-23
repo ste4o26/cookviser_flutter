@@ -1,5 +1,5 @@
-import "package:demo_app/constants.dart";
-import "package:flutter/material.dart";
+import 'package:demo_app/constants.dart';
+import 'package:flutter/material.dart';
 
 class CustomCard extends StatelessWidget {
   final List<Widget> children;

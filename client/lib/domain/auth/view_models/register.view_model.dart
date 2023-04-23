@@ -6,11 +6,11 @@ class UserRegisterViewModel {
   String confirmPassword;
 
   UserRegisterViewModel({
-    this.username = "",
-    this.email = "",
-    this.description = "",
-    this.password = "",
-    this.confirmPassword = "",
+    this.username = '',
+    this.email = '',
+    this.description = '',
+    this.password = '',
+    this.confirmPassword = '',
   });
 
   factory UserRegisterViewModel.fromJson(Map<String, dynamic> json) {

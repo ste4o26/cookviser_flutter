@@ -23,7 +23,7 @@ class UserCard extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  "username: ${user.username}",
+                  user.username,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 )
               ],
@@ -32,7 +32,7 @@ class UserCard extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  "email: ${user.email}",
+                  user.email,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 )
               ],

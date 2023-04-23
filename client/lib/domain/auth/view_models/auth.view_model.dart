@@ -12,32 +12,34 @@ class AuthViewModel extends ChangeNotifier {
   String? _token;
   UserModel? _user;
 
-  String? get token => this._token;
-  UserModel? get user => this._user;
+  String? get token => _token;
+  UserModel? get user => _user;
 
   Future<void> register(UserRegisterViewModel user) async {
-    this._user = await this._authService.register(user);
+    _user = await _authService.register(user);
     notifyListeners();
   }
-  
+
   Future<void> login(UserLoginViewModel user) async {
-    Map<String, dynamic> data = await this._authService.login(user);
-    this._token = data["token"];
-    this._user = data["user"];
+    Map<String, dynamic> data = await _authService.login(user);
+    _token = data['token'];
+    _user = data['user'];
     notifyListeners();
   }
 
   Future<void> logout() async {
-    this._token = null;
-    this._user = null;
-    await this._authService.logout();
+    _token = null;
+    _user = null;
+    await _authService.logout();
     notifyListeners();
   }
 
   Future<void> loadLoggedInUser() async {
-    this._token = await this._authService.getToken();
-    final username = await this._authService.getUsername() ?? "";
-    this._user = await this._userService.fetchByUsername(username);
+    _token = await _authService.getToken();
+    final username = await _authService.getUsername();
+    if (username == null) return;
+
+    _user = await _userService.fetchByUsername(username);
     notifyListeners();
   }
 }

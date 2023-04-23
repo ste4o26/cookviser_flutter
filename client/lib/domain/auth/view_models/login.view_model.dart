@@ -3,14 +3,14 @@ class UserLoginViewModel {
   String password;
 
   UserLoginViewModel({
-    this.username = "",
-    this.password = "",
+    this.username = '',
+    this.password = '',
   });
 
   factory UserLoginViewModel.fromJson(Map<String, dynamic> json) {
     return UserLoginViewModel(
-        username: json['username'],
-        password: json['password'],
+      username: json['username'],
+      password: json['password'],
     );
   }
 

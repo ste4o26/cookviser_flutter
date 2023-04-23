@@ -21,17 +21,17 @@ class UserDetails extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text("Username: ${viewModel.user!.username}",
+                          Text('Username: ${viewModel.user!.username}',
                               style: const TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                               )),
-                          Text("Email: ${viewModel.user!.email}",
+                          Text('Email: ${viewModel.user!.email}',
                               style: const TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                               )),
-                          Text("Rating: ${viewModel.user!.overallRating}",
+                          Text('Rating: ${viewModel.user!.overallRating}',
                               style: const TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
@@ -47,7 +47,7 @@ class UserDetails extends StatelessWidget {
                             ),
                             child: Column(
                               children: [
-                                const Text("My Recipes",
+                                const Text('My Recipes',
                                     style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold,

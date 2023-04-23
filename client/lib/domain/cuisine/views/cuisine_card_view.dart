@@ -1,3 +1,4 @@
+import 'package:demo_app/constants.dart';
 import 'package:demo_app/domain/cuisine/models/cuisine.model.dart';
 import 'package:demo_app/shared/card.dart';
 import 'package:demo_app/shared/image.dart';
@@ -14,8 +15,8 @@ class CuisineCard extends StatelessWidget {
           InkWell(
             onTap: () => Navigator.pushReplacementNamed(
               context,
-              "/recipes_by_cuisine",
-              arguments: {"cuisineName": cuisine.name},
+              Routes.cuisineRecipes.name,
+              arguments: {'cuisineName': cuisine.name},
             ),
             child: CustomImage(cuisine.imageThumbnailUrl),
           ),

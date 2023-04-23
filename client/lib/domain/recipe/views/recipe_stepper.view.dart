@@ -1,4 +1,4 @@
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
 
 class ModalStepper extends StatefulWidget {
   final List<Step> steps;
@@ -39,7 +39,7 @@ class _ModalStepperState extends State<ModalStepper> {
                     ),
                     child: TextButton(
                       onPressed: details.onStepCancel,
-                      child: const Text("PREVIOUS"),
+                      child: const Text('PREVIOUS'),
                     ),
                   ),
                 ),
@@ -52,7 +52,7 @@ class _ModalStepperState extends State<ModalStepper> {
                     ),
                     child: TextButton(
                       onPressed: details.onStepContinue,
-                      child: const Text("NEXT"),
+                      child: const Text('NEXT'),
                     ),
                   ),
                 ),

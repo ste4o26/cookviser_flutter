@@ -11,9 +11,9 @@ class CuisineModel {
 
   factory CuisineModel.fromJson(Map<String, dynamic> json) {
     return CuisineModel(
-        id: json["id"],
-        name: json["name"],
-        imageThumbnailUrl: json["imageThumbnailUrl"]);
+        id: json['id'],
+        name: json['name'],
+        imageThumbnailUrl: json['imageThumbnailUrl']);
   }
 
   Map<String, dynamic> toJson() {

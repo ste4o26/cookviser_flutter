@@ -1,4 +1,4 @@
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
 
 class RecipeIngredients extends StatelessWidget {
   final List<String> ingredients;
@@ -9,7 +9,7 @@ class RecipeIngredients extends StatelessWidget {
   Widget build(BuildContext context) => Column(
         children: [
           const Text(
-            "Ingredients: ",
+            'Ingredients: ',
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,

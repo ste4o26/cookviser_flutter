@@ -1,9 +1,9 @@
-import "package:demo_app/domain/recipe/view_models/recipes_list.view_model.dart";
+import 'package:demo_app/domain/recipe/view_models/recipes_list.view_model.dart';
 import 'package:demo_app/domain/recipe/views/recipes_list.view.dart';
-import "package:demo_app/shared/header.dart";
-import "package:demo_app/shared/pagination_bar.dart";
-import "package:flutter/material.dart";
-import "package:provider/provider.dart";
+import 'package:demo_app/shared/header.dart';
+import 'package:demo_app/shared/pagination_bar.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class RecipesPage extends StatefulWidget {
   final String? cuisineName;
@@ -45,7 +45,7 @@ class _RecipesState extends State<RecipesPage> {
   void executeProvider() {
     if (widget.cuisineName != null) {
       _future = Provider.of<RecipeListViewModel>(context, listen: false)
-          .fetchNextPageByCuisine(widget.cuisineName ?? "", page);
+          .fetchNextPageByCuisine(widget.cuisineName ?? '', page);
     } else {
       _future = Provider.of<RecipeListViewModel>(context, listen: false)
           .fetchNextPage(page);

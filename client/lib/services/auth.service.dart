@@ -1,29 +1,23 @@
-import "dart:convert";
-import "package:demo_app/domain/auth/view_models/login.view_model.dart";
-import "package:demo_app/domain/auth/view_models/register.view_model.dart";
-import "package:demo_app/domain/user/models/user.model.dart";
-import "package:demo_app/services/base.service.dart";
-import "package:demo_app/services/preferences.service.dart";
-import "package:http/http.dart" as http;
+import 'dart:convert';
+import 'package:demo_app/constants.dart';
+import 'package:demo_app/domain/auth/view_models/login.view_model.dart';
+import 'package:demo_app/domain/auth/view_models/register.view_model.dart';
+import 'package:demo_app/domain/user/models/user.model.dart';
+import 'package:demo_app/services/base.service.dart';
+import 'package:demo_app/services/preferences.service.dart';
+import 'package:http/http.dart' as http;
 
-// TODO handle the requests properly!
 class AuthService with BaseService {
-  static const commonHeaders = {
-    "Content-Type": "application/json; charset=UTF-8"
-  };
-
-  static const Map<String, String> endpoints = {
-    "login": "auth/login",
-    "register": "auth/register",
-  };
-
   final PreferencesService preferencesService = PreferencesService();
 
   Future<UserModel> register(UserRegisterViewModel user) async {
-    Uri uri = this.constructURI(endpoints["register"] ?? "");
+    Uri uri = constructURI(AuthEndpoints.register.endpoint);
     final requestBody = jsonEncode(user.toJson());
-    final response =
-        await http.post(uri, body: requestBody, headers: commonHeaders);
+    final response = await http.post(
+      uri,
+      body: requestBody,
+      headers: Headers.contentType.header,
+    );
 
     final data = jsonDecode(response.body);
     if (response.statusCode != 201) throw Exception(data);
@@ -31,38 +25,41 @@ class AuthService with BaseService {
   }
 
   Future<Map<String, dynamic>> login(UserLoginViewModel user) async {
-    Uri uri = this.constructURI(endpoints["login"] ?? "");
+    Uri uri = constructURI(AuthEndpoints.login.endpoint);
     final requestBody = jsonEncode(user.toJson());
-    final response =
-        await http.post(uri, body: requestBody, headers: commonHeaders);
+    final response = await http.post(
+      uri,
+      body: requestBody,
+      headers: Headers.contentType.header,
+    );
 
-    if (response.statusCode == 401) throw Exception("Invalid credentials!");
-    
+    if (response.statusCode == 401) throw Exception('Invalid credentials!');
+
     final data = jsonDecode(response.body);
     final userModel = UserModel.fromJson(data);
-    
-    final token = response.headers["jwttoken"];
+
+    final token = response.headers['jwttoken'];
     if (token == null) return const <String, dynamic>{};
 
-    await this.preferencesService.setString("token", token);
-    await this.preferencesService.setString("username", userModel.username);
+    await preferencesService.setString('token', token);
+    await preferencesService.setString('username', userModel.username);
 
-    return <String, dynamic> {
-      "token": token,
-      "user": userModel,
+    return <String, dynamic>{
+      'token': token,
+      'user': userModel,
     };
   }
 
   Future<void> logout() async {
-    await this.preferencesService.remove("token");
-    await this.preferencesService.remove("username");
+    await preferencesService.remove('token');
+    await preferencesService.remove('username');
   }
 
   Future<String?> getToken() async {
-    return await this.preferencesService.getString("token");
+    return await preferencesService.getString('token');
   }
 
   Future<String?> getUsername() async {
-    return await this.preferencesService.getString("username");
+    return await preferencesService.getString('username');
   }
 }

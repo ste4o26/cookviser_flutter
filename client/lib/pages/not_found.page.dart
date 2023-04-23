@@ -12,13 +12,13 @@ class NotFoundPage extends StatelessWidget {
           Container(
               alignment: Alignment.center,
               child: const Text(
-                "Page Not Found",
+                'Page Not Found',
                 style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
               )),
-          const Text("The page you are looking for does not seem to exists"),
+          const Text('The page you are looking for does not seem to exists'),
           TextButton(
-            child: const Text("Home Page"),
-            onPressed: () => Navigator.pushNamed(context, "/"),
+            child: const Text('Home Page'),
+            onPressed: () => Navigator.pushNamed(context, '/'),
           ),
         ]));
   }
@@ -30,19 +30,19 @@ class NotFoundCode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: const [
-      Text("4",
+      Text('4',
           style: TextStyle(
             fontSize: 350,
             fontWeight: FontWeight.bold,
             color: Color.fromARGB(255, 19, 194, 254),
           )),
-      Text("0",
+      Text('0',
           style: TextStyle(
             fontSize: 350,
             fontWeight: FontWeight.bold,
             color: Color.fromARGB(255, 19, 194, 254),
           )),
-      Text("4",
+      Text('4',
           style: TextStyle(
             fontSize: 350,
             fontWeight: FontWeight.bold,

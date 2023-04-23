@@ -32,7 +32,7 @@ class RecipeCard extends StatelessWidget {
             ),
           ),
           Text(
-            "Cuisine: ${recipe.cuisine.name}",
+            'Cuisine: ${recipe.cuisine.name}',
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 15,

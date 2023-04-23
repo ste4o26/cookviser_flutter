@@ -1,10 +1,10 @@
-import "package:demo_app/constants.dart";
-import "package:demo_app/domain/recipe/models/recipe.model.dart";
-import "package:demo_app/domain/recipe/view_models/recipes_list.view_model.dart";
+import 'package:demo_app/constants.dart';
+import 'package:demo_app/domain/recipe/models/recipe.model.dart';
+import 'package:demo_app/domain/recipe/view_models/recipes_list.view_model.dart';
 import 'package:demo_app/domain/recipe/views/recipe_details.view.dart';
 import 'package:demo_app/domain/recipe/views/recipe_card_view.dart';
-import "package:flutter/material.dart";
-import "package:provider/provider.dart";
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class RecipeListView extends StatelessWidget {
   const RecipeListView({super.key});

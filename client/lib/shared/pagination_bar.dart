@@ -1,4 +1,4 @@
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
 
 class PaginationBar extends StatelessWidget {
   final int page;
@@ -28,7 +28,7 @@ class PaginationBar extends StatelessWidget {
                 child: const Icon(Icons.arrow_back),
               ),
             ),
-            Text("${this.page + 1}"),
+            Text('${this.page + 1}'),
             Padding(
               padding: const EdgeInsets.all(8),
               child: ElevatedButton(

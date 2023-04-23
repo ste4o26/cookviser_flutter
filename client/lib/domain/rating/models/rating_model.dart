@@ -10,17 +10,17 @@ class RatingModel {
 
   factory RatingModel.fromJson(Map<String, dynamic> json) {
     return RatingModel(
-      rating: json["rateValue"],
-      user: UserModel.fromJson(json["user"]),
-      recipe: RecipeModel.fromJson(json["recipe"]),
+      rating: json['rateValue'],
+      user: UserModel.fromJson(json['user']),
+      recipe: RecipeModel.fromJson(json['recipe']),
     );
   }
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
-    data["rateValue"] = rating;
-    data["user"] = user.toJson();
-    data["recipe"] = recipe.toJson();
+    data['rateValue'] = rating;
+    data['user'] = user.toJson();
+    data['recipe'] = recipe.toJson();
     return data;
   }
 }

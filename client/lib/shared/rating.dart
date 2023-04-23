@@ -2,6 +2,7 @@ import 'package:demo_app/domain/rating/models/rating_model.dart';
 import 'package:demo_app/domain/rating/view_models/rating_view_model.dart';
 import 'package:demo_app/domain/recipe/models/recipe.model.dart';
 import 'package:demo_app/domain/auth/view_models/auth.view_model.dart';
+import 'package:demo_app/domain/user/models/user.model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
@@ -12,11 +13,11 @@ class Rating extends StatefulWidget {
 
   const Rating(
     this.recipe, {
+    super.key,
     this.icon = const Icon(
       Icons.star,
       color: Colors.yellow,
     ),
-    super.key,
   });
 
   @override
@@ -24,47 +25,64 @@ class Rating extends StatefulWidget {
 }
 
 class _RatingState extends State<Rating> {
-  late AuthViewModel _loggedUser;
+  late Future<void> _future;
 
   @override
   void didChangeDependencies() {
-    _loggedUser = Provider.of<AuthViewModel>(context, listen: true);
+    _future =
+        Provider.of<AuthViewModel>(context, listen: false).loadLoggedInUser();
     super.didChangeDependencies();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        RatingBar.builder(
-          tapOnlyMode: true,
-          ignoreGestures: _loggedUser.user == null,
-          initialRating: widget.recipe.overallRating,
-          itemSize: 25,
-          maxRating: 5,
-          minRating: 1,
-          itemBuilder: (context, _) => widget.icon,
-          onRatingUpdate: (rating) => _rate(rating.toInt()),
-        ),
-        const SizedBox(
-          width: 8,
-        ),
-        Text(
-          widget.recipe.overallRating.toStringAsFixed(2),
-          style: const TextStyle(fontSize: 18),
-        )
-      ],
-    );
-  }
+  void _rate(UserModel? user, int value) async {
+    if (user == null) return;
 
-  _rate(int value) async {
-    var rate = RatingModel(
-        rating: value, user: _loggedUser.user!, recipe: widget.recipe);
-    rate = await Provider.of<RatingViewModel>(context, listen: false)
-        .rate(rate, _loggedUser.token!);
+    RatingModel rate = RatingModel(
+      rating: value,
+      user: user,
+      recipe: widget.recipe,
+    );
+
+    double? overalRating = await Provider.of<RatingViewModel>(
+      context,
+      listen: false,
+    ).rate(rate);
+    if (overalRating == null) return;
+
     setState(() {
       widget.recipe.overallRating = rate.recipe.overallRating;
     });
   }
+
+  @override
+  Widget build(BuildContext context) => FutureBuilder(
+        future: _future,
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) => Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Consumer<AuthViewModel>(
+              builder: (
+                BuildContext context,
+                AuthViewModel viewModel,
+                child,
+              ) =>
+                  RatingBar.builder(
+                tapOnlyMode: true,
+                ignoreGestures: viewModel.user == null,
+                initialRating: widget.recipe.overallRating,
+                itemSize: 25,
+                maxRating: 5,
+                minRating: 1,
+                itemBuilder: (context, _) => widget.icon,
+                onRatingUpdate: (rating) => _rate(viewModel.user, rating.toInt()),
+              ),
+            ),
+            const SizedBox(width: 8),
+            Text(
+              widget.recipe.overallRating.toStringAsFixed(2),
+              style: const TextStyle(fontSize: 18),
+            ),
+          ],
+        ),
+      );
 }

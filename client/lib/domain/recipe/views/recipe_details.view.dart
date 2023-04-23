@@ -1,7 +1,7 @@
-import "dart:core";
-import "package:demo_app/domain/recipe/models/recipe.model.dart";
-import "package:demo_app/shared/image.dart";
-import "package:flutter/material.dart";
+import 'dart:core';
+import 'package:demo_app/domain/recipe/models/recipe.model.dart';
+import 'package:demo_app/shared/image.dart';
+import 'package:flutter/material.dart';
 
 import 'package:demo_app/domain/recipe/views/recipe_ingredients.view.dart';
 import 'package:demo_app/domain/recipe/views/recipe_stepper.view.dart';
@@ -15,7 +15,7 @@ class RecipeDialog extends StatelessWidget {
 
   get steps => recipe.steps
       .map((step) => Step(
-            title: const Text(""),
+            title: const Text(''),
             content: Text(step.content),
           ))
       .toList();
@@ -50,7 +50,7 @@ class RecipeDialog extends StatelessWidget {
                   Column(
                     children: [
                       const Text(
-                        "Steps",
+                        'Steps',
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 20),
                       ),

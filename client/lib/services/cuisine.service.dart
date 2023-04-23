@@ -1,13 +1,14 @@
-import "dart:convert";
+import 'dart:convert';
 
-import "package:demo_app/constants.dart";
-import "package:demo_app/domain/cuisine/models/cuisine.model.dart";
-import "package:http/http.dart" as http;
+import 'package:demo_app/constants.dart';
+import 'package:demo_app/domain/cuisine/models/cuisine.model.dart';
+import 'package:demo_app/services/base.service.dart';
+import 'package:http/http.dart' as http;
 
 // TODO handle the requests properly!
-class CuisineService {
+class CuisineService with BaseService {
   Future<List<CuisineModel>> fetchAll() async {
-    Uri uri = Uri.parse("$DOMAIN_URL/cuisine/all");
+    Uri uri = constructURI(CuisineEndpoints.all.endpoint);
     final response = await http.get(uri);
 
     if (response.statusCode == 200) {
@@ -15,11 +16,11 @@ class CuisineService {
       return data.map((cuisine) => CuisineModel.fromJson(cuisine)).toList();
     }
 
-    throw Exception("Unable to perform request!");
+    throw Exception('Unable to perform request!');
   }
 
-  Future<List<CuisineModel>> mostPopulated() async {
-    Uri uri = Uri.parse("$DOMAIN_URL/cuisine/first-four-most-populated");
+  Future<List<CuisineModel>> fetchMostPopulated() async {
+    Uri uri = constructURI(CuisineEndpoints.mostPopulated.endpoint);
     final response = await http.get(uri);
 
     if (response.statusCode == 200) {
@@ -27,6 +28,6 @@ class CuisineService {
       return data.map((cuisine) => CuisineModel.fromJson(cuisine)).toList();
     }
 
-    throw Exception("Unable to perform request!");
+    throw Exception('Unable to perform request!');
   }
 }
