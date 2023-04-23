@@ -1,12 +1,12 @@
-import 'package:demo_app/domain/home/view_models/home_view_model.dart';
-import 'package:demo_app/domain/rating/view_models/rating_view_model.dart';
-import 'package:demo_app/domain/recipe/view_models/recipes_list.view_model.dart';
-import 'package:demo_app/domain/auth/view_models/auth.view_model.dart';
-import 'package:demo_app/shared/router.dart';
+import 'package:demo_app/pages/view_models/home.dart';
+import 'package:demo_app/domain/rating/view_models/rating.dart';
+import 'package:demo_app/pages/view_models/recipes.dart';
+import 'package:demo_app/pages/view_models/auth.dart';
+import 'package:demo_app/router.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'domain/cuisine/view_models/cuisine_list.view_model.dart';
+import 'pages/view_models/cuisines.dart';
 
 void main() {
   final app = createApp();

@@ -10,14 +10,14 @@ class PaginationBar extends StatelessWidget {
     required this.callback,
   });
 
-  void prevPageHandler() => callback(page - 1);
+  void prevPageHandler() async => await callback(page - 1);
 
-  void nextPageHandler() => callback(page + 1);
+  void nextPageHandler() async => await callback(page + 1);
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.all(10),
-        child: Container(
+      padding: const EdgeInsets.all(10),
+      child: Container(
           width: 400,
           height: 50,
           alignment: Alignment.center,
@@ -25,22 +25,18 @@ class PaginationBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Padding(
-                padding: const EdgeInsets.all(8),
-                child: ElevatedButton(
-                  onPressed: prevPageHandler,
-                  child: const Icon(Icons.arrow_back),
-                ),
-              ),
+                  padding: const EdgeInsets.all(8),
+                  child: ElevatedButton(
+                    onPressed: prevPageHandler,
+                    child: const Icon(Icons.arrow_back),
+                  )),
               Text('${page + 1}'),
               Padding(
-                padding: const EdgeInsets.all(8),
-                child: ElevatedButton(
-                  onPressed: nextPageHandler,
-                  child: const Icon(Icons.arrow_forward),
-                ),
-              ),
+                  padding: const EdgeInsets.all(8),
+                  child: ElevatedButton(
+                    onPressed: nextPageHandler,
+                    child: const Icon(Icons.arrow_forward),
+                  )),
             ],
-          ),
-        ),
-      );
+          )));
 }
