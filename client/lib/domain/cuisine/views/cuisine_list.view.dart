@@ -21,7 +21,7 @@ class CuisineList extends StatelessWidget {
           ) =>
               GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: constraints.maxWidth ~/ customCardSize,
+              crossAxisCount: constraints.maxWidth ~/ CUSTOM_CARD_SIZE,
               crossAxisSpacing: 10,
               mainAxisSpacing: 50,
             ),

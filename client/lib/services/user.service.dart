@@ -28,8 +28,9 @@ class UserService extends BaseService {
     Uri uri = constructURI(UserEndpoints.betsThree.endpoint);
     final response = await http.get(uri, headers: Headers.contentType.header);
     final data = jsonDecode(response.body) as List;
-    if (response.statusCode != 200)
+    if (response.statusCode != 200) {
       throw Exception('Unable to perform request!');
+    }
     return data.map((e) => UserModel.fromJson(e)).toList();
   }
 }

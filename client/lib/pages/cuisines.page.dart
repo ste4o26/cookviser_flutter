@@ -19,7 +19,7 @@ class _CuisinesPageState extends State<CuisinesPage> {
 
   int get page => _page;
 
-  void set page(int page) {
+  set page(int page) {
     if (page < 0) return;
     _page = page;
   }

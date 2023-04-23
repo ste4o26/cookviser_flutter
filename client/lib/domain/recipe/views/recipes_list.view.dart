@@ -24,7 +24,7 @@ class RecipeListView extends StatelessWidget {
             Consumer<RecipeListViewModel>(
           builder: (context, viewModel, child) => GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: constraints.maxWidth ~/ customCardSize,
+                crossAxisCount: constraints.maxWidth ~/ CUSTOM_CARD_SIZE,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 50,
               ),

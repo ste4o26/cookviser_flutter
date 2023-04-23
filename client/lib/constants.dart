@@ -1,5 +1,5 @@
 const String DOMAIN_URL = 'http://localhost:8080';
-const double customCardSize = 350;
+const double CUSTOM_CARD_SIZE = 350;
 
 enum Routes {
   home('/'),

@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:demo_app/domain/auth/view_models/login.view_model.dart';
 import 'package:demo_app/domain/auth/views/register.view.dart';
 import 'package:demo_app/domain/auth/view_models/auth.view_model.dart';
@@ -18,7 +16,6 @@ class LoginDialog extends StatefulWidget {
 
 class _LoginDialogState extends State<LoginDialog> {
   final user = UserLoginViewModel();
-  late Future<void> _future;
   final _formKey = GlobalKey<FormState>();
 
   FormState? get state => _formKey.currentState;
@@ -37,53 +34,50 @@ class _LoginDialogState extends State<LoginDialog> {
 
   @override
   Widget build(BuildContext context) => LayoutBuilder(
-        builder: (context, constraints) => Dialog(
+      builder: (context, constraints) => Dialog(
           child: Container(
-            width: constraints.maxWidth * 0.25,
-            height: constraints.maxHeight * 0.45,
-            padding: const EdgeInsets.all(50),
-            child: Form(
-              key: _formKey,
-              child: ListView(
-                children: <Widget>[
-                  const Center(child: Text('Sign In')),
-                  CustomInputField(
-                    onSaved: (value) => user.username = value ?? '',
-                    onChanged: isInvalidForm,
-                    validationCallback: FieldValidator.validateUsername,
-                    icon: const Icon(Icons.person),
-                    hintText: 'Username',
-                    labelText: 'Enter your username',
-                  ),
-                  CustomInputField(
-                    onSaved: (value) => user.password = value ?? '',
-                    onChanged: isInvalidForm,
-                    validationCallback: FieldValidator.validatePassword,
-                    icon: const Icon(Icons.person),
-                    obscureText: true,
-                    hintText: 'Password',
-                    labelText: 'Enter your password',
-                  ),
-                  FormButton(
-                    content: 'Sign In',
-                    callback: loginHandler,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text("Don't have an account?"),
-                      TextButton(
-                          onPressed: () => showDialog(
-                                context: context,
-                                builder: (context) => const RegisterDialog(),
-                              ),
-                          child: const Text('Sign up'))
+              width: constraints.maxWidth * 0.25,
+              height: constraints.maxHeight * 0.45,
+              padding: const EdgeInsets.all(50),
+              child: Form(
+                  key: _formKey,
+                  child: ListView(
+                    children: <Widget>[
+                      const Center(child: Text('Sign In')),
+                      CustomInputField(
+                        onSaved: (value) => user.username = value ?? '',
+                        onChanged: isInvalidForm,
+                        validationCallback: FieldValidator.validateUsername,
+                        icon: const Icon(Icons.person),
+                        hintText: 'Username',
+                        labelText: 'Enter your username',
+                      ),
+                      CustomInputField(
+                        onSaved: (value) => user.password = value ?? '',
+                        onChanged: isInvalidForm,
+                        validationCallback: FieldValidator.validatePassword,
+                        icon: const Icon(Icons.person),
+                        obscureText: true,
+                        hintText: 'Password',
+                        labelText: 'Enter your password',
+                      ),
+                      FormButton(
+                        content: 'Sign In',
+                        callback: loginHandler,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text("Don't have an account?"),
+                          TextButton(
+                              onPressed: () => showDialog(
+                                    context: context,
+                                    builder: (context) =>
+                                        const RegisterDialog(),
+                                  ),
+                              child: const Text('Sign up'))
+                        ],
+                      )
                     ],
-                  )
-                ],
-              ),
-            ),
-          ),
-        ),
-      );
+                  )))));
 }
