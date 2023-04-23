@@ -1,3 +1,4 @@
+import 'package:demo_app/constants.dart';
 import 'package:demo_app/shared/custom_scrollable_view.dart';
 import 'package:flutter/material.dart';
 
@@ -13,22 +14,18 @@ class MostRated extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => LayoutBuilder(
-        builder: (context, constraints) => Container(
+      builder: (context, constraints) => Container(
           margin: const EdgeInsets.only(top: 50),
           width: constraints.maxWidth * 0.8,
-          height: 450,
+          height: CUSTOM_CARD_SIZE + 100,
           child: Column(
             children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 36,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              Text(title,
+                  style: const TextStyle(
+                    fontSize: 36,
+                    fontWeight: FontWeight.bold,
+                  )),
               CustomScrollableView(child: child),
             ],
-          ),
-        ),
-      );
+          )));
 }

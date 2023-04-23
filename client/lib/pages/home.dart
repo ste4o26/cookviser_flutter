@@ -1,6 +1,6 @@
 import 'package:demo_app/pages/view_models/home.dart';
 import 'package:demo_app/domain/cuisine/views/cuisine_card.dart';
-import 'package:demo_app/domain/home/views/most_rated_view.dart';
+import 'package:demo_app/domain/home/views/most_rated.dart';
 import 'package:demo_app/domain/recipe/views/recipe_card.dart';
 import 'package:demo_app/domain/user/views/user_card.dart';
 import 'package:demo_app/shared/navigation/header.dart';
@@ -25,8 +25,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: const Header(),
-        body: FutureBuilder(
+      appBar: const Header(),
+      body: FutureBuilder(
           future: _future,
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) =>
               snapshot.connectionState != ConnectionState.done
@@ -39,48 +39,41 @@ class _HomePageState extends State<HomePage> {
                       padding: const EdgeInsets.symmetric(vertical: 50),
                       children: <Widget>[
                         MostRated(
-                          title: 'Best chefs',
-                          child: Consumer<HomeViewModel>(
-                            builder: (context, viewModel, child) =>
-                                ListView.builder(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              itemCount: viewModel.users.length,
-                              itemBuilder: (context, index) =>
-                                  UserCard(user: viewModel.users[index]),
-                            ),
-                          ),
-                        ),
+                            title: 'Best chefs',
+                            child: Consumer<HomeViewModel>(
+                                builder: (context, viewModel, child) =>
+                                    ListView.builder(
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: viewModel.users.length,
+                                      itemBuilder: (context, index) => UserCard(
+                                          user: viewModel.users[index]),
+                                    ))),
                         MostRated(
-                          title: 'Best cuisines',
-                          child: Consumer<HomeViewModel>(
-                            builder: (context, viewModel, child) =>
-                                ListView.builder(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              itemCount: viewModel.cuisines.length,
-                              itemBuilder: (context, index) => CuisineCard(
-                                cuisine: viewModel.cuisines[index],
-                              ),
-                            ),
-                          ),
-                        ),
+                            title: 'Best cuisines',
+                            child: Consumer<HomeViewModel>(
+                                builder: (context, viewModel, child) =>
+                                    ListView.builder(
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: viewModel.cuisines.length,
+                                      itemBuilder: (context, index) =>
+                                          CuisineCard(
+                                              cuisine:
+                                                  viewModel.cuisines[index]),
+                                    ))),
                         MostRated(
-                          title: 'Best recipes',
-                          child: Consumer<HomeViewModel>(
-                            builder: (context, viewModel, child) =>
-                                ListView.builder(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              itemCount: viewModel.recipes.length,
-                              itemBuilder: (context, index) => RecipeCard(
-                                recipe: viewModel.recipes[index],
-                              ),
-                            ),
-                          ),
-                        ),
+                            title: 'Best recipes',
+                            child: Consumer<HomeViewModel>(
+                                builder: (context, viewModel, child) =>
+                                    ListView.builder(
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: viewModel.recipes.length,
+                                      itemBuilder: (context, index) =>
+                                          RecipeCard(
+                                              recipe: viewModel.recipes[index]),
+                                    )))
                       ],
-                    ),
-        ),
-      );
+                    )));
 }
