@@ -8,8 +8,8 @@ enum Routes {
   cuisines('/cuisines'),
   recipes('/recipes'),
   signIn('/sign_in'),
-  signUp('/sign_up');
-
+  signUp('/sign_up'),
+  allUsers('/all_users');
   const Routes(this.name);
   final String name;
 }
@@ -52,7 +52,10 @@ enum AuthEndpoints {
 
 enum UserEndpoints {
   betsThree('$DOMAIN_URL/user/best-three'),
-  byUsername('$DOMAIN_URL/user/by-username');
+  byUsername('$DOMAIN_URL/user/by-username'),
+  allUsers('$DOMAIN_URL/user/all'),
+  promote('$DOMAIN_URL/user/promote'),
+  demote('$DOMAIN_URL/user/demote');
 
   const UserEndpoints(this.endpoint);
   final String endpoint;

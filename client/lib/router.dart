@@ -4,6 +4,7 @@ import 'package:demo_app/pages/home.dart';
 import 'package:demo_app/pages/not_found.dart';
 import 'package:demo_app/pages/profile.dart';
 import 'package:demo_app/pages/recipes.dart';
+import 'package:demo_app/pages/users.dart';
 import 'package:demo_app/utils/guards.dart';
 import 'package:go_router/go_router.dart';
 
@@ -29,6 +30,9 @@ class AppRouter {
       GoRoute(
           path: Routes.home.name,
           builder: (context, state) => const HomePage()),
+      GoRoute(
+          path: Routes.allUsers.name,
+          builder: (context, state) => const UsersPage()),
     ],
     errorBuilder: (context, state) =>
         NotFoundPage(error: state.error.toString()),
