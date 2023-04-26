@@ -4,6 +4,7 @@ import 'package:demo_app/domain/auth/views/register.dart';
 import 'package:demo_app/pages/view_models/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:demo_app/shared/navigation/header_item.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class Header extends StatefulWidget implements PreferredSizeWidget {
@@ -46,13 +47,8 @@ class _HeaderState extends State<Header> {
     }
   }
 
-  void redirectHandler(BuildContext context, Map<String, dynamic> args) {
-    Navigator.pushNamed(
-      context,
-      args['route'],
-      arguments: args['arguments'] ?? {},
-    );
-  }
+  void redirectHandler(BuildContext context, Map<String, dynamic> args) =>
+      GoRouter.of(context).go(args["route"]);
 
   @override
   void didChangeDependencies() {
@@ -88,13 +84,14 @@ class _HeaderState extends State<Header> {
                       ),
                       HeaderItem(
                         'Recipes',
-                        args: <String, dynamic>{'route': Routes.recipes.name},
+                        args: <String, dynamic>{'route': "${Routes.recipes.name}/all"},
                         callback: redirectHandler,
                       ),
                     ],
                   ),
                   Consumer<AuthViewModel>(
-                      builder: (BuildContext context, AuthViewModel viewModel, child) =>
+                      builder: (BuildContext context, AuthViewModel viewModel,
+                              child) =>
                           Row(
                             children: viewModel.token != null
                                 ? [

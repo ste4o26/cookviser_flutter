@@ -22,19 +22,21 @@ MultiProvider createApp() {
       ChangeNotifierProvider(create: (context) => RatingViewModel()),
       ChangeNotifierProvider(create: (context) => HomeViewModel()),
     ],
-    child: const CookviserApp(),
+    child: CookviserApp(),
   );
 }
 
 class CookviserApp extends StatelessWidget {
-  const CookviserApp({super.key});
+  final CustomRouter _router = CustomRouter();
+  CookviserApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
         title: 'Cookviser',
-        initialRoute: '/',
-        onGenerateRoute: RouterGenerator.generate,
+        routerDelegate: _router.routerDelegate,
+        routeInformationParser: _router.routeInformationParser,
+        routeInformationProvider: _router.routeInformationProvider,
         theme: ThemeData.from(
           colorScheme: ColorScheme.fromSwatch(
             cardColor: Colors.white,

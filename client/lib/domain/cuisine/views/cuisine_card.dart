@@ -3,6 +3,7 @@ import 'package:demo_app/domain/cuisine/models/cuisine.dart';
 import 'package:demo_app/shared/card.dart';
 import 'package:demo_app/shared/image.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CuisineCard extends StatelessWidget {
   final CuisineModel cuisine;
@@ -13,10 +14,8 @@ class CuisineCard extends StatelessWidget {
   Widget build(BuildContext context) => CustomCard(
         children: [
           InkWell(
-            onTap: () => Navigator.pushReplacementNamed(
-              context,
-              Routes.cuisineRecipes.name,
-              arguments: {'cuisineName': cuisine.name},
+            onTap: () => context.go(
+              "${Routes.recipes.name}/${cuisine.name}",
             ),
             child: CustomImage(cuisine.imageThumbnailUrl),
           ),
