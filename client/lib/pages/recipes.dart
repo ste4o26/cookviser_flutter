@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class RecipesPage extends StatefulWidget {
-  final String? cuisineName;
+  final String cuisine;
 
-  const RecipesPage({this.cuisineName, super.key});
+  const RecipesPage({required this.cuisine, super.key});
 
   @override
   State<RecipesPage> createState() => _RecipesState();
@@ -43,9 +43,9 @@ class _RecipesState extends State<RecipesPage> {
   }
 
   void executeProvider() {
-    if (widget.cuisineName != null) {
+    if (widget.cuisine != "all") {
       _future = Provider.of<RecipeListViewModel>(context, listen: false)
-          .fetchNextPageByCuisine(widget.cuisineName ?? '', page);
+          .fetchNextPageByCuisine(widget.cuisine ?? '', page);
     } else {
       _future = Provider.of<RecipeListViewModel>(context, listen: false)
           .fetchNextPage(page);

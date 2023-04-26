@@ -4,38 +4,33 @@ import 'package:demo_app/pages/home.dart';
 import 'package:demo_app/pages/not_found.dart';
 import 'package:demo_app/pages/profile.dart';
 import 'package:demo_app/pages/recipes.dart';
-import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-class RouterGenerator {
-  static Route<dynamic> generate(RouteSettings settings) {
-    MaterialPageRoute? route;
-    final uri = settings.name;
+class CustomRouter {
+  final GoRouter _router = GoRouter(
+    routes: <GoRoute>[
+      GoRoute(
+        path: Routes.cuisines.name,
+        builder: (context, state) => const CuisinesPage(),
+      ),
+      GoRoute(
+          path: "${Routes.recipes.name}/:cuisine",
+          builder: (context, state) =>
+              RecipesPage(cuisine: state.params["cuisine"] ?? "")),
+      GoRoute(
+          path: Routes.profile.name,
+          builder: (context, state) => const ProfilePage()),
+      GoRoute(
+          path: Routes.home.name,
+          builder: (context, state) => const HomePage()),
+    ],
+    errorBuilder: (context, state) =>
+        NotFoundPage(error: state.error.toString()),
+  );
 
-    Map args = {};
-    if (settings.arguments is Map) {
-      args = convertArguments(settings.arguments);
-    }
+  get routerDelegate => _router.routerDelegate;
 
-    if (uri == Routes.home.name) {
-      route = MaterialPageRoute(builder: (_) => const HomePage());
-    } else if (uri == Routes.profile.name) {
-      route = MaterialPageRoute(builder: (_) => const ProfilePage());
-    } else if (uri == Routes.cuisines.name) {
-      route = MaterialPageRoute(builder: (_) => const CuisinesPage());
-    } else if (uri == Routes.cuisineRecipes.name) {
-      route = MaterialPageRoute(
-        builder: (_) => RecipesPage(cuisineName: args['cuisineName']),
-      );
-    } else if (uri == Routes.recipes.name) {
-      route = MaterialPageRoute(builder: (_) => const RecipesPage());
-    } else {
-      route = MaterialPageRoute(builder: (_) => const NotFoundPage());
-    }
+  get routeInformationParser => _router.routeInformationParser;
 
-    return route;
-  }
-
-  static convertArguments(Object? arguments) {
-    return arguments is Map ? arguments : {};
-  }
+  get routeInformationProvider => _router.routeInformationProvider;
 }

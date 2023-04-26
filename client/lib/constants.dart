@@ -5,8 +5,9 @@ enum Routes {
   home('/'),
   profile('/profile'),
   cuisines('/cuisines'),
-  recipes('/all_recipes'),
-  cuisineRecipes('/recipes_by_cuisine'),
+  recipes('/recipes'),
+  // cuisineRecipes('/recipes_by_cuisine'),
+  // cuisineRecipes('/recipes/'),
   signIn('/sign_in'),
   signUp('/sign_up');
 
