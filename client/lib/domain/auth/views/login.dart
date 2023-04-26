@@ -1,4 +1,3 @@
-import 'package:demo_app/constants.dart';
 import 'package:demo_app/domain/auth/models/login.dart';
 import 'package:demo_app/domain/auth/views/register.dart';
 import 'package:demo_app/pages/view_models/auth.dart';
@@ -6,7 +5,6 @@ import 'package:demo_app/shared/form/submit_button.dart';
 import 'package:demo_app/shared/form/input_field.dart';
 import 'package:demo_app/utils/validator.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class LoginDialog extends StatefulWidget {
@@ -23,7 +21,7 @@ class _LoginDialogState extends State<LoginDialog> {
   FormState? get state => _formKey.currentState;
 
   void loginHandler() async {
-    GoRouter.of(context).go(Routes.home.name);
+    Navigator.pop(context);
     await Provider.of<AuthViewModel>(context, listen: false).login(user);
   }
 
