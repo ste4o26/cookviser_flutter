@@ -2,12 +2,11 @@ const String DOMAIN_URL = 'http://localhost:8080';
 const double CUSTOM_CARD_SIZE = 350;
 
 enum Routes {
-  home('/'),
+  root("/"),
+  home('/home'),
   profile('/profile'),
   cuisines('/cuisines'),
   recipes('/recipes'),
-  // cuisineRecipes('/recipes_by_cuisine'),
-  // cuisineRecipes('/recipes/'),
   signIn('/sign_in'),
   signUp('/sign_up');
 
