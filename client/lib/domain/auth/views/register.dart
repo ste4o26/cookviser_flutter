@@ -1,11 +1,9 @@
-import 'package:demo_app/constants.dart';
 import 'package:demo_app/domain/auth/models/register.dart';
 import 'package:demo_app/pages/view_models/auth.dart';
 import 'package:demo_app/shared/form/submit_button.dart';
 import 'package:demo_app/shared/form/input_field.dart';
 import 'package:demo_app/utils/validator.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class RegisterDialog extends StatefulWidget {
@@ -24,7 +22,7 @@ class _RegisterDialogState extends State<RegisterDialog> {
   FormState? get state => _formKey.currentState;
 
   void registerHandler() async {
-    GoRouter.of(context).go(Routes.home.name);
+    Navigator.pop(context);
     await Provider.of<AuthViewModel>(context, listen: false).register(user);
   }
 
