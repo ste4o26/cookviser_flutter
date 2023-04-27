@@ -2,6 +2,7 @@ import 'package:demo_app/pages/view_models/home.dart';
 import 'package:demo_app/domain/rating/view_models/rating.dart';
 import 'package:demo_app/pages/view_models/recipes.dart';
 import 'package:demo_app/pages/view_models/auth.dart';
+import 'package:demo_app/pages/view_models/users.dart';
 import 'package:demo_app/router.dart';
 import 'package:demo_app/utils/guards.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,7 @@ MultiProvider createApp() {
       ChangeNotifierProvider(create: (context) => RecipeListViewModel()),
       ChangeNotifierProvider(create: (context) => RatingViewModel()),
       ChangeNotifierProvider(create: (context) => HomeViewModel()),
+      ChangeNotifierProvider(create: (context) => UsersViewModel()),
     ],
     child: const CookviserApp(),
   );

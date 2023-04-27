@@ -1,7 +1,5 @@
+import 'package:demo_app/constants.dart';
 import 'package:demo_app/domain/recipe/models/recipe.dart';
-import 'package:demo_app/domain/user/models/role.dart';
-
-import 'authority.dart';
 
 class UserModel {
   String id;
@@ -9,8 +7,8 @@ class UserModel {
   String email;
   String profileImageUrl;
   String description;
-  RoleModel role;
-  List<AuthorityModel> authorities;
+  Role role;
+  List<Authority> authorities;
   List<RecipeModel> myRecipes;
   List<RecipeModel> myCookedRecipes;
   double overallRating;
@@ -32,9 +30,18 @@ class UserModel {
     final authoritiesData =
         json['authorities'] is List ? json['authorities'] as List : [];
 
-    final userAuthorities = authoritiesData
-        .map((authData) => AuthorityModel.fromJson(authData))
-        .toList();
+    final userAuthorities = authoritiesData.map((authData) {
+      switch (authData['authority']) {
+        case 'UPDATE':
+          return Authority.update;
+        case 'DELETE':
+          return Authority.delete;
+        case 'WRITE':
+          return Authority.write;
+        default:
+          return Authority.read;
+      }
+    }).toList();
 
     final recipesData =
         json['myRecipes'] is List ? json['myRecipes'] as List : [];
@@ -47,6 +54,11 @@ class UserModel {
     final cookedRecipes = cookedRecipesData
         .map((recipeData) => RecipeModel.fromJson(recipeData))
         .toList();
+    final role = json['role']['roleName'] == Role.admin.name
+        ? Role.admin
+        : json['role']['roleName'] == Role.moderator.name
+            ? Role.moderator
+            : Role.user;
 
     return UserModel(
       id: json['id'],
@@ -54,7 +66,7 @@ class UserModel {
       email: json['email'],
       profileImageUrl: json['profileImageUrl'],
       description: json['description'],
-      role: RoleModel.fromJson(json['role']),
+      role: role,
       authorities: userAuthorities,
       myRecipes: recipes,
       myCookedRecipes: cookedRecipes,
@@ -65,14 +77,14 @@ class UserModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     List userAuthorities =
-        authorities.map((authority) => authority.toJson()).toList();
+        authorities.map((authority) => {'authority': authority.name}).toList();
 
     data['id'] = id;
     data['username'] = username;
     data['email'] = email;
     data['profileImageUrl'] = profileImageUrl;
     data['description'] = description;
-    data['role'] = role.toJson();
+    data['role'] = { "role": role.name};
     data['authorities'] = userAuthorities;
     data['myRecipes'] = myRecipes.map((e) => e.toJson()).toList();
     data['myCookedRecipes'] = myCookedRecipes.map((e) => e.toJson()).toList();

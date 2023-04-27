@@ -87,6 +87,11 @@ class _HeaderState extends State<Header> {
                         args: <String, dynamic>{'route': "${Routes.recipes.name}/all"},
                         callback: redirectHandler,
                       ),
+                      HeaderItem(
+                        'Users',
+                        args: <String, dynamic>{'route': Routes.allUsers.name},
+                        callback: redirectHandler,
+                      ),
                     ],
                   ),
                   Consumer<AuthViewModel>(
