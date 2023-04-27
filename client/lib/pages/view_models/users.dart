@@ -12,15 +12,13 @@ class UsersViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<UserModel> promote(String username) async {
-    final user = await _service.promote(username);
+  Future<void> promote(int index) async {
+    users[index] = await _service.promote(users[index].username);
     notifyListeners();
-    return user;
   }
 
-  Future<UserModel> demote(String username) async {
-    final user = await _service.demote(username);
+  Future<void> demote(int index) async {
+    users[index] = await _service.demote(users[index].username);
     notifyListeners();
-    return user;
   }
 }

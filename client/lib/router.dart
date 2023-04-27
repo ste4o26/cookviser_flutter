@@ -31,8 +31,10 @@ class AppRouter {
           path: Routes.home.name,
           builder: (context, state) => const HomePage()),
       GoRoute(
-          path: Routes.allUsers.name,
-          builder: (context, state) => const UsersPage()),
+        path: Routes.allUsers.name,
+        builder: (context, state) => const UsersPage(),
+        redirect: (context, state) => _guards.authorityGuard(context, state),
+      ),
     ],
     errorBuilder: (context, state) =>
         NotFoundPage(error: state.error.toString()),

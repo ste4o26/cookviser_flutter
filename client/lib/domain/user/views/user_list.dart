@@ -44,8 +44,8 @@ class UsersList extends StatelessWidget {
                   ),
                 ),
                 Text(
-                    'Current role: ${viewModel.users[index].role.roleName.substring(5)}'),
-                viewModel.users[index].role.roleName == 'ROLE_USER'
+                    'Current role: ${viewModel.users[index].role.name.substring(5)}'),
+                viewModel.users[index].role == Role.user
                     ? TextButton(
                         onPressed: () async {
                           final confirm = await _showDialog(context,
@@ -53,10 +53,7 @@ class UsersList extends StatelessWidget {
                               false;
 
                           if (confirm) {
-                            viewModel
-                                .promote(viewModel.users[index].username)
-                                .then(
-                                    (value) => viewModel.users[index] = value);
+                            await viewModel.promote(index);
                           }
                         },
                         child: const Text(
@@ -73,10 +70,7 @@ class UsersList extends StatelessWidget {
                               false;
 
                           if (confirm) {
-                            viewModel
-                                .demote((viewModel.users[index].username))
-                                .then(
-                                    (value) => viewModel.users[index] = value);
+                            await viewModel.demote(index);
                           }
                         },
                         child: const Text(
