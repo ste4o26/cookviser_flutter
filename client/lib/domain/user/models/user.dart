@@ -76,16 +76,15 @@ class UserModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    List userAuthorities = authorities
-        .map((authority) => {}['authority'] = authority.name)
-        .toList();
+    List userAuthorities =
+        authorities.map((authority) => {'authority': authority.name}).toList();
 
     data['id'] = id;
     data['username'] = username;
     data['email'] = email;
     data['profileImageUrl'] = profileImageUrl;
     data['description'] = description;
-    data['role'] = {}['roleName'] = role.name;
+    data['role'] = { "role": role.name};
     data['authorities'] = userAuthorities;
     data['myRecipes'] = myRecipes.map((e) => e.toJson()).toList();
     data['myCookedRecipes'] = myCookedRecipes.map((e) => e.toJson()).toList();
