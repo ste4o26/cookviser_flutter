@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class HeaderItem extends StatelessWidget {
+class NavigationItem extends StatelessWidget {
   final String name;
   final Function callback;
   final Map<String, dynamic> args;
   final Icon? icon;
 
-  const HeaderItem(
+  const NavigationItem(
     this.name, {
     required this.callback,
     required this.args,
@@ -16,11 +16,11 @@ class HeaderItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: 0,
-        horizontal: 15,
-      ),
-      child: TextButton(
+        padding: const EdgeInsets.symmetric(
+          vertical: 0,
+          horizontal: 15,
+        ),
+        child: TextButton(
           style: TextButton.styleFrom(
             foregroundColor: Colors.black,
             padding: const EdgeInsets.all(8),
@@ -28,7 +28,7 @@ class HeaderItem extends StatelessWidget {
           ),
           onPressed: () => callback(context, args),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 name,
@@ -42,5 +42,7 @@ class HeaderItem extends StatelessWidget {
                     height: 0,
                   ),
             ],
-          )));
+          ),
+        ),
+      );
 }

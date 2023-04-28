@@ -1,6 +1,7 @@
 import 'package:demo_app/pages/view_models/auth.dart';
 import 'package:demo_app/domain/user/views/user_details.dart';
 import 'package:demo_app/shared/navigation/header.dart';
+import 'package:demo_app/shared/scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -22,10 +23,9 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-      appBar: const Header(),
-      body: Center(
-          child: LayoutBuilder(
+  Widget build(BuildContext context) => AppScaffold(
+          body: Center(
+              child: LayoutBuilder(
         builder: (context, constraints) => Container(
           constraints: BoxConstraints(
             maxHeight: constraints.maxHeight * 0.8,
