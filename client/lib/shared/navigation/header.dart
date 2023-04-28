@@ -4,12 +4,14 @@ import 'package:demo_app/domain/auth/views/register.dart';
 import 'package:demo_app/pages/view_models/auth.dart';
 import 'package:demo_app/shared/navigation/navigation_item.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class AppHeader extends StatelessWidget implements PreferredSizeWidget {
-  final Function callback;
+  const AppHeader({super.key});
 
-  const AppHeader({super.key, required this.callback});
+  void redirectHandler(BuildContext context, Map<String, dynamic> args) =>
+      GoRouter.of(context).go(args["route"]);
 
   void loginHandler(BuildContext context, Map<String, dynamic> args) {
     showDialog(
@@ -27,7 +29,7 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
 
   void logoutHandler(BuildContext context, Map<String, dynamic> args) {
     Provider.of<AuthViewModel>(context, listen: false).logout();
-    callback(context, <String, dynamic>{'route': Routes.home.name});
+    redirectHandler(context, <String, dynamic>{'route': Routes.home.name});
   }
 
   @override
@@ -41,19 +43,19 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
                 NavigationItem(
                   'Home',
                   args: <String, dynamic>{'route': Routes.home.name},
-                  callback: callback,
+                  callback: redirectHandler,
                 ),
                 NavigationItem(
                   'Cuisines',
                   args: <String, dynamic>{'route': Routes.cuisines.name},
-                  callback: callback,
+                  callback: redirectHandler,
                 ),
                 NavigationItem(
                   'Recipes',
                   args: <String, dynamic>{
                     'route': "${Routes.recipes.name}/all"
                   },
-                  callback: callback,
+                  callback: redirectHandler,
                 ),
               ],
             ),
@@ -68,7 +70,7 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
                                     args: <String, dynamic>{
                                       'route': Routes.profile.name
                                     },
-                                    callback: callback,
+                                    callback: redirectHandler,
                                   ),
                                   NavigationItem(
                                     'Sign Out',

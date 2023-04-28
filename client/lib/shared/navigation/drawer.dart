@@ -2,12 +2,14 @@ import 'package:demo_app/constants.dart';
 import 'package:demo_app/pages/view_models/auth.dart';
 import 'package:demo_app/shared/navigation/navigation_item.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class AppDrawer extends StatelessWidget {
-  final Function callback;
+  const AppDrawer({super.key});
 
-  const AppDrawer({super.key, required this.callback});
+  void redirectHandler(BuildContext context, Map<String, dynamic> args) =>
+      GoRouter.of(context).go(args["route"]);
 
   @override
   Widget build(BuildContext context) => Consumer<AuthViewModel>(
@@ -36,7 +38,7 @@ class AppDrawer extends StatelessWidget {
                     NavigationItem(
                       'Active users',
                       args: <String, dynamic>{'route': Routes.allUsers.name},
-                      callback: callback,
+                      callback: redirectHandler,
                       icon: const Icon(Icons.person),
                     ),
                   ],
