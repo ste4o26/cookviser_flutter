@@ -1,9 +1,9 @@
-import 'package:demo_app/pages/view_models/home.dart';
 import 'package:demo_app/domain/cuisine/views/cuisine_card.dart';
 import 'package:demo_app/domain/home/views/most_rated.dart';
 import 'package:demo_app/domain/recipe/views/recipe_card.dart';
 import 'package:demo_app/domain/user/views/user_card.dart';
-import 'package:demo_app/shared/navigation/header.dart';
+import 'package:demo_app/pages/view_models/home.dart';
+import 'package:demo_app/shared/scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,8 +24,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-      appBar: const Header(),
+  Widget build(BuildContext context) => AppScaffold(
       body: FutureBuilder(
           future: _future,
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) =>

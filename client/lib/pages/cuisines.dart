@@ -1,10 +1,9 @@
 import 'package:demo_app/domain/cuisine/views/cuisines_list.dart';
-import 'package:demo_app/shared/navigation/header.dart';
+import 'package:demo_app/pages/view_models/cuisines.dart';
 import 'package:demo_app/shared/pagination_bar.dart';
-
+import 'package:demo_app/shared/scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:demo_app/pages/view_models/cuisines.dart';
 
 class CuisinesPage extends StatefulWidget {
   const CuisinesPage({super.key});
@@ -42,8 +41,7 @@ class _CuisinesPageState extends State<CuisinesPage> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: const Header(),
+  Widget build(BuildContext context) => AppScaffold(
         body: FutureBuilder(
           future: _future,
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) =>
