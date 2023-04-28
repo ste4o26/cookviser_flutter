@@ -9,7 +9,8 @@ enum Routes {
   recipes('/recipes'),
   signIn('/sign_in'),
   signUp('/sign_up'),
-  allUsers('/all_users');
+  allUsers('/all_users'),
+  newRecipe('/recipe/new');
 
   const Routes(this.name);
 
@@ -18,7 +19,8 @@ enum Routes {
 
 enum Headers {
   contentType(
-      <String, String>{'Content-Type': 'application/json; charset=UTF-8'}),
+    <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+  ),
   authorization(<String, String>{'Authorization': 'Bearer '});
 
   const Headers(this.header);
@@ -43,7 +45,6 @@ enum CuisineEndpoints {
   mostPopulated('$DOMAIN_URL/cuisine/first-four-most-populated');
 
   const CuisineEndpoints(this.endpoint);
-
   final String endpoint;
 }
 
@@ -52,7 +53,6 @@ enum AuthEndpoints {
   register('$DOMAIN_URL/auth/register');
 
   const AuthEndpoints(this.endpoint);
-
   final String endpoint;
 }
 
@@ -64,7 +64,6 @@ enum UserEndpoints {
   demote('$DOMAIN_URL/user/demote');
 
   const UserEndpoints(this.endpoint);
-
   final String endpoint;
 }
 
@@ -74,7 +73,6 @@ enum Role {
   user('ROLE_USER');
 
   const Role(this.name);
-
   final String name;
 }
 
@@ -85,6 +83,15 @@ enum Authority {
   read('READ');
 
   const Authority(this.name);
+  final String name;
+}
 
+enum Category {
+  drinks('DRINKS'),
+  appetizers('APPETIZERS'),
+  mains('MAINS'),
+  deserts('DESSERTS');
+
+  const Category(this.name);
   final String name;
 }

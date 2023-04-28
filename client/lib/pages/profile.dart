@@ -62,7 +62,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   color: Color.fromARGB(255, 242, 215, 142),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10))),
-                              child: const UserDetails(),
+                              child: UserDetails(),
                             ),
                           ),
                           Positioned(

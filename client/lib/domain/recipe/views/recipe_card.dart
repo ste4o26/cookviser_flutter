@@ -19,14 +19,14 @@ class RecipeCard extends StatelessWidget {
                 builder: (BuildContext context) => Center(
                       child: RecipeDialog(recipe),
                     )),
-            child: CustomImage(recipe.recipeThumbnail),
+            child: CustomImage(recipe.recipeThumbnail!),
           ),
-          Text(recipe.name,
+          Text(recipe.name!,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               )),
-          Text('Cuisine: ${recipe.cuisine.name}',
+          Text('Cuisine: ${recipe.cuisine?.name}',
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 15,

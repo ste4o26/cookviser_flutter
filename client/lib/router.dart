@@ -3,6 +3,7 @@ import 'package:demo_app/pages/cuisines.dart';
 import 'package:demo_app/pages/home.dart';
 import 'package:demo_app/pages/not_found.dart';
 import 'package:demo_app/pages/profile.dart';
+import 'package:demo_app/pages/recipe_new.dart';
 import 'package:demo_app/pages/recipes.dart';
 import 'package:demo_app/pages/users.dart';
 import 'package:demo_app/utils/guards.dart';
@@ -17,8 +18,12 @@ class AppRouter {
           path: Routes.cuisines.name,
           builder: (context, state) => const CuisinesPage()),
       GoRoute(
+        path: Routes.newRecipe.name,
+        builder: (context, state) => RecipePage(),
+        redirect: (context, state) => _guards.loggedInGuard(context, state),
+      ),
+      GoRoute(
           path: "${Routes.recipes.name}/:cuisine",
-          // redirect: _guards.customGuard, //This is an example of how to use a specific guard per route.
           builder: (context, state) =>
               RecipesPage(cuisine: state.params["cuisine"] ?? "")),
       GoRoute(

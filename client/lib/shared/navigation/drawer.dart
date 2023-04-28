@@ -13,9 +13,8 @@ class AppDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Consumer<AuthViewModel>(
-        builder: (BuildContext context, AuthViewModel viewModel, child) =>
-            Drawer(
-          child: ListView(
+      builder: (BuildContext context, AuthViewModel viewModel, child) => Drawer(
+              child: ListView(
             children: [
               const DrawerHeader(
                 child: Center(
@@ -23,11 +22,16 @@ class AppDrawer extends StatelessWidget {
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
-                  Text('User Action', style: TextStyle(fontSize: 20)),
-                  Divider(color: Colors.black)
+                children: [
+                  const Text('User Action', style: TextStyle(fontSize: 20)),
+                  const Divider(color: Colors.black),
+                  NavigationItem('New Recipe',
+                        args: <String, dynamic>{'route': Routes.newRecipe.name},
+                        callback: redirectHandler,
+                        icon: const Icon(Icons.restaurant)),
                 ],
               ),
+              const SizedBox(height: 100),
               if (viewModel.user?.role == Role.moderator ||
                   viewModel.user?.role == Role.admin)
                 Column(
@@ -35,16 +39,12 @@ class AppDrawer extends StatelessWidget {
                   children: [
                     const Text('Admin Action', style: TextStyle(fontSize: 20)),
                     const SizedBox(height: 20),
-                    NavigationItem(
-                      'Active users',
-                      args: <String, dynamic>{'route': Routes.allUsers.name},
-                      callback: redirectHandler,
-                      icon: const Icon(Icons.person),
-                    ),
+                    NavigationItem('Active users',
+                        args: <String, dynamic>{'route': Routes.allUsers.name},
+                        callback: redirectHandler,
+                        icon: const Icon(Icons.person)),
                   ],
                 ),
             ],
-          ),
-        ),
-      );
+          )));
 }

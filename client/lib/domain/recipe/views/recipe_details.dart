@@ -10,10 +10,10 @@ class RecipeDialog extends StatelessWidget {
   final RecipeModel recipe;
 
   RecipeDialog(this.recipe, {super.key}) {
-    recipe.steps.sort((first, second) => first.number.compareTo(second.number));
+    recipe.steps!.sort((first, second) => first.number.compareTo(second.number));
   }
 
-  get steps => recipe.steps
+  get steps => recipe.steps!
       .map((step) => Step(
             title: const Text(''),
             content: Text(step.content),
@@ -34,18 +34,18 @@ class RecipeDialog extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Text(
-                    recipe.name,
+                    recipe.name!,
                     style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const Divider(color: Colors.amber, height: 30),
-                  CustomImage(recipe.recipeThumbnail),
+                  CustomImage(recipe.recipeThumbnail!),
                   const SizedBox(height: 30),
-                  Center(child: Text(recipe.description)),
+                  Center(child: Text(recipe.description!)),
                   const SizedBox(height: 30),
-                  RecipeIngredients(recipe.ingredients),
+                  RecipeIngredients(recipe.ingredients!),
                   const SizedBox(height: 30),
                   Column(
                     children: [

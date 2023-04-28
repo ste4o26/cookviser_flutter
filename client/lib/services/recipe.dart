@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:demo_app/constants.dart';
 import 'package:demo_app/domain/rating/models/rating.dart';
@@ -81,5 +82,13 @@ class RecipeService with BaseService {
     }
     final data = jsonDecode(response.body);
     return RatingModel.fromJson(data);
+  }
+
+  Future<RecipeModel?> post(RecipeModel recipe) async {
+    return Future(() => null);
+  }
+
+  Future<RecipeModel?> uploadImage(File image, String recipeId) async {
+    return Future(() => null);
   }
 }

@@ -8,15 +8,6 @@ class Guards {
 
   Guards(this._viewModel);
 
-  // This is an example guard
-  String? customGuard(BuildContext context, GoRouterState state) {
-    if (_viewModel.token == null) {
-      return Routes.home.name;
-    } else {
-      return null;
-    }
-  }
-
   String? authorityGuard(BuildContext context, GoRouterState state) {
     if (_viewModel.token != null) {
       final authorities = _viewModel.user!.authorities;
@@ -26,6 +17,10 @@ class Guards {
       }
     }
     return Routes.home.name;
-    ;
+  }
+
+  String? loggedInGuard(BuildContext context, GoRouterState state) {
+    if (_viewModel.token != null) return null;
+    return Routes.home.name;
   }
 }
