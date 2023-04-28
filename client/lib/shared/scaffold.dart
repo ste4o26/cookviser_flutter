@@ -26,8 +26,8 @@ class _AppScaffoldState extends State<AppScaffold> {
   Widget build(BuildContext context) => Consumer<AuthViewModel>(
         builder: (BuildContext context, AuthViewModel viewModel, child) =>
             Scaffold(
-          drawer: viewModel.token != null ? const AppDrawer() : null,
-          appBar: const AppHeader(),
+          drawer: viewModel.token != null ? AppDrawer() : null,
+          appBar: AppHeader(),
           body: widget.body,
           bottomNavigationBar: widget.bottomNavigationBar,
         ),

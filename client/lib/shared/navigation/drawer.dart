@@ -21,9 +21,9 @@ class AppDrawer extends StatelessWidget {
                 child: Center(
                     child: Text('Welcome', style: TextStyle(fontSize: 20))),
               ),
-              const Column(
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
+                children: const [
                   Text('User Action', style: TextStyle(fontSize: 20)),
                   Divider(color: Colors.black)
                 ],
