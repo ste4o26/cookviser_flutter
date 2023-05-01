@@ -1,12 +1,12 @@
 class CuisineModel {
-  String id;
-  String name;
-  String imageThumbnailUrl;
+  String? id;
+  String? name;
+  String? imageThumbnailUrl;
 
   CuisineModel({
-    required this.id,
-    required this.name,
-    required this.imageThumbnailUrl,
+    this.id,
+    this.name,
+    this.imageThumbnailUrl,
   });
 
   factory CuisineModel.fromJson(Map<String, dynamic> json) {
