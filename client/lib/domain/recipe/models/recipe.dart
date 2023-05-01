@@ -33,12 +33,13 @@ class RecipeModel {
     this.cookedBy = const [],
   });
 
-  RecipeModel.create();
+  RecipeModel.create() {
+    steps = [];
+  }
 
   factory RecipeModel.fromJson(Map<String, dynamic> json) {
-    var ingredientsData = json['ingredients'] as List;
-    var ingredients =
-        ingredientsData.map((ingredient) => ingredient.toString()).toList();
+    var ingredientsData = json['ingredients'] is List ? json['ingredients'] as List : [];
+    var ingredients = ingredientsData.map((ingredient) => ingredient.toString()).toList();
 
     var stepsData = json['steps'] is List ? json['steps'] as List : [];
     var steps = stepsData.map((step) => StepModel.fromJson(step)).toList();
@@ -50,8 +51,7 @@ class RecipeModel {
       id: json['id'],
       name: json['name'],
       description: json['description'],
-      recipeThumbnail:
-          json['recipeThumbnail'] ?? 'https://picsum.photos/200/300',
+      recipeThumbnail: json['recipeThumbnail'] ?? 'https://picsum.photos/200/300',
       portions: json['portions'],
       duration: json['duration'],
       category: json['category'],

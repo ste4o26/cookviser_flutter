@@ -13,7 +13,6 @@ class RegisterDialog extends StatefulWidget {
   State<RegisterDialog> createState() => _RegisterDialogState();
 }
 
-
 class _RegisterDialogState extends State<RegisterDialog> {
   final user = UserRegisterViewModel();
   final _formKey = GlobalKey<FormState>();
@@ -58,7 +57,7 @@ class _RegisterDialogState extends State<RegisterDialog> {
                   CustomInputField(
                     onSaved: (value) => user.username = value!,
                     onChanged: isInvalidForm,
-                    validationCallback: FieldValidator.validateUsername,
+                    validationCallback: FieldValidator.nameValidator,
                     icon: const Icon(Icons.person),
                     hintText: 'Username',
                     labelText: 'Enter your username',
@@ -66,7 +65,7 @@ class _RegisterDialogState extends State<RegisterDialog> {
                   CustomInputField(
                     onSaved: (value) => user.email = value!,
                     onChanged: isInvalidForm,
-                    validationCallback: FieldValidator.validateEmail,
+                    validationCallback: FieldValidator.emailValidator,
                     icon: const Icon(Icons.email),
                     hintText: 'email@example.com',
                     labelText: 'E-mail Address',
@@ -74,7 +73,7 @@ class _RegisterDialogState extends State<RegisterDialog> {
                   CustomInputField(
                     onSaved: (value) => user.password = value!,
                     onChanged: isInvalidForm,
-                    validationCallback: FieldValidator.validatePassword,
+                    validationCallback: FieldValidator.passwordValidator,
                     icon: const Icon(Icons.lock),
                     hintText: 'Password',
                     labelText: 'Enter your password',
@@ -84,8 +83,8 @@ class _RegisterDialogState extends State<RegisterDialog> {
                   CustomInputField(
                     onSaved: (value) => user.confirmPassword = value!,
                     onChanged: isInvalidForm,
-                    validationCallback: FieldValidator(passController: _pass)
-                        .validateConfirmPassword,
+                    validationCallback:
+                        FieldValidator(passController: _pass).passwordConfirmationValidator,
                     icon: const Icon(Icons.lock),
                     hintText: 'Confirm password',
                     labelText: 'Confirm your password',
@@ -95,7 +94,7 @@ class _RegisterDialogState extends State<RegisterDialog> {
                     onSaved: (value) => user.description = value!,
                     onChanged: isInvalidForm,
                     maxLines: 4,
-                    validationCallback: FieldValidator.validateDescription,
+                    validationCallback: FieldValidator.descriptionValidator,
                     icon: const Icon(Icons.description),
                     hintText: 'Text here...',
                     labelText: 'Description',

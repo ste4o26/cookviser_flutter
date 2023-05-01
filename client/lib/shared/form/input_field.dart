@@ -23,7 +23,7 @@ class CustomInputField extends StatelessWidget {
     this.obscureText,
     this.controller,
     this.validationCallback,
-    this.keyboardType = TextInputType.text
+    this.keyboardType = TextInputType.text,
   });
 
   @override

@@ -33,7 +33,10 @@ enum RecipeEndpoints {
   nextPage('$DOMAIN_URL/recipe/next-recipes'),
   nextPageByCuisine('$DOMAIN_URL/recipe/next-by-cuisine'),
   bestFour('$DOMAIN_URL/recipe/best-four'),
-  rate('$DOMAIN_URL/recipe/rate');
+  rate('$DOMAIN_URL/recipe/rate'),
+  create('$DOMAIN_URL/recipe/create'),
+  uploadImage('$DOMAIN_URL/recipe/upload-recipe-image'),
+  byId('$DOMAIN_URL/recipe/');
 
   const RecipeEndpoints(this.endpoint);
 
