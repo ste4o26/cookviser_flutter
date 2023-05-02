@@ -18,6 +18,12 @@ class FieldValidator {
     }
     return null;
   }
+  static String? validateCuisineName(String? value) {
+    if (value == null || value.isEmpty || value.length < 5) {
+      return 'Cuisine name must be more than 5 symbols';
+    }
+    return null;
+  }
 
   static String? validateEmail(String? value) {
     final regex =

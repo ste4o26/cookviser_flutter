@@ -1,4 +1,5 @@
 import 'package:demo_app/constants.dart';
+import 'package:demo_app/domain/cuisine/views/create_cuisine.dart';
 import 'package:demo_app/pages/view_models/auth.dart';
 import 'package:demo_app/shared/navigation/navigation_item.dart';
 import 'package:flutter/material.dart';
@@ -21,9 +22,9 @@ class AppDrawer extends StatelessWidget {
                 child: Center(
                     child: Text('Welcome', style: TextStyle(fontSize: 20))),
               ),
-              Column(
+              const Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
+                children: [
                   Text('User Action', style: TextStyle(fontSize: 20)),
                   Divider(color: Colors.black)
                 ],
@@ -40,6 +41,13 @@ class AppDrawer extends StatelessWidget {
                       args: <String, dynamic>{'route': Routes.allUsers.name},
                       callback: redirectHandler,
                       icon: const Icon(Icons.person),
+                    ),
+                    NavigationItem(
+                      'Create cuisine',
+                      args: const {},
+                      callback: (context, args) =>
+                          showDialog(context: context, builder: (context) => const CreateCuisine()) ,
+                      icon: const Icon(Icons.dinner_dining_outlined),
                     ),
                   ],
                 ),

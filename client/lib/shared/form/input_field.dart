@@ -10,6 +10,7 @@ class CustomInputField extends StatelessWidget {
   final int? maxLines;
   final bool? obscureText;
   final TextEditingController? controller;
+  final String? initialValue;
 
   const CustomInputField({
     super.key,
@@ -22,12 +23,14 @@ class CustomInputField extends StatelessWidget {
     this.obscureText,
     this.controller,
     this.validationCallback,
+    this.initialValue,
   });
 
   @override
   Widget build(BuildContext context) => Container(
         padding: const EdgeInsets.only(top: 20.0),
         child: TextFormField(
+          initialValue: initialValue ?? '',
           maxLines: maxLines ?? 1,
           onChanged: onChanged,
           onSaved: onSaved,

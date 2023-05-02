@@ -17,11 +17,11 @@ class CuisineCard extends StatelessWidget {
             onTap: () => context.go(
               "${Routes.recipes.name}/${cuisine.name}",
             ),
-            child: CustomImage(cuisine.imageThumbnailUrl),
+            child: CustomImage(cuisine.imageThumbnailUrl!),
           ),
           Padding(
               padding: const EdgeInsets.all(10),
-              child: Text(cuisine.name,
+              child: Text(cuisine.name!,
                   style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
