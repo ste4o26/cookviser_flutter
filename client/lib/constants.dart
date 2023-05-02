@@ -45,7 +45,8 @@ enum RecipeEndpoints {
 
 enum CuisineEndpoints {
   all('$DOMAIN_URL/cuisine/all'),
-  mostPopulated('$DOMAIN_URL/cuisine/first-four-most-populated');
+  mostPopulated('$DOMAIN_URL/cuisine/first-four-most-populated'),
+  create('$DOMAIN_URL/cuisine/create');
 
   const CuisineEndpoints(this.endpoint);
   final String endpoint;

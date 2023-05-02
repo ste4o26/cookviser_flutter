@@ -1,4 +1,5 @@
 import 'package:demo_app/constants.dart';
+import 'package:demo_app/domain/cuisine/views/create_cuisine.dart';
 import 'package:demo_app/pages/view_models/auth.dart';
 import 'package:demo_app/shared/navigation/navigation_item.dart';
 import 'package:flutter/material.dart';
@@ -39,10 +40,19 @@ class AppDrawer extends StatelessWidget {
                   children: [
                     const Text('Admin Action', style: TextStyle(fontSize: 20)),
                     const SizedBox(height: 20),
-                    NavigationItem('Active users',
-                        args: <String, dynamic>{'route': Routes.allUsers.name},
-                        callback: redirectHandler,
-                        icon: const Icon(Icons.person)),
+                    NavigationItem(
+                      'Active users',
+                      args: <String, dynamic>{'route': Routes.allUsers.name},
+                      callback: redirectHandler,
+                      icon: const Icon(Icons.person),
+                    ),
+                    NavigationItem(
+                      'Create cuisine',
+                      args: const {},
+                      callback: (context, args) =>
+                          showDialog(context: context, builder: (context) => const CreateCuisine()) ,
+                      icon: const Icon(Icons.dinner_dining_outlined),
+                    ),
                   ],
                 ),
             ],
