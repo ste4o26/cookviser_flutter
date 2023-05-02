@@ -11,4 +11,9 @@ class CuisineListViewModel extends ChangeNotifier {
     cuisines = await service.fetchAll();
     notifyListeners();
   }
+
+  Future<void> fetchAll() async {
+    cuisines = await service.fetchAll();
+    notifyListeners();
+  }
 }

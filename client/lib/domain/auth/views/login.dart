@@ -46,7 +46,7 @@ class _LoginDialogState extends State<LoginDialog> {
                       CustomInputField(
                         onSaved: (value) => user.username = value ?? '',
                         onChanged: isInvalidForm,
-                        validationCallback: FieldValidator.validateUsername,
+                        validationCallback: FieldValidator.nameValidator,
                         icon: const Icon(Icons.person),
                         hintText: 'Username',
                         labelText: 'Enter your username',
@@ -54,7 +54,7 @@ class _LoginDialogState extends State<LoginDialog> {
                       CustomInputField(
                         onSaved: (value) => user.password = value ?? '',
                         onChanged: isInvalidForm,
-                        validationCallback: FieldValidator.validatePassword,
+                        validationCallback: FieldValidator.passwordValidator,
                         icon: const Icon(Icons.person),
                         obscureText: true,
                         hintText: 'Password',
@@ -71,8 +71,7 @@ class _LoginDialogState extends State<LoginDialog> {
                           TextButton(
                               onPressed: () => showDialog(
                                     context: context,
-                                    builder: (context) =>
-                                        const RegisterDialog(),
+                                    builder: (context) => const RegisterDialog(),
                                   ),
                               child: const Text('Sign up'))
                         ],

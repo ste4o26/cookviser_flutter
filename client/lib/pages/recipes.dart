@@ -46,7 +46,7 @@ class _RecipesState extends State<RecipesPage> {
   void executeProvider() {
     if (widget.cuisine != "all") {
       _future = Provider.of<RecipeListViewModel>(context, listen: false)
-          .fetchNextPageByCuisine(widget.cuisine ?? '', page);
+          .fetchNextPageByCuisine(widget.cuisine, page);
     } else {
       _future = Provider.of<RecipeListViewModel>(context, listen: false)
           .fetchNextPage(page);

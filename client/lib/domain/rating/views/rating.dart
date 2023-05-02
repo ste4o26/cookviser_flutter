@@ -71,7 +71,7 @@ class _RatingState extends State<Rating> {
                       RatingBar.builder(
                         tapOnlyMode: true,
                         ignoreGestures: viewModel.user == null,
-                        initialRating: widget.recipe.overallRating,
+                        initialRating: widget.recipe.overallRating!,
                         itemSize: 25,
                         maxRating: 5,
                         minRating: 1,
@@ -81,7 +81,7 @@ class _RatingState extends State<Rating> {
                       )),
               const SizedBox(width: 8),
               Text(
-                widget.recipe.overallRating.toStringAsFixed(2),
+                widget.recipe.overallRating!.toStringAsFixed(2),
                 style: const TextStyle(fontSize: 18),
               ),
             ],

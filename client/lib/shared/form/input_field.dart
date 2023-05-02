@@ -10,6 +10,7 @@ class CustomInputField extends StatelessWidget {
   final int? maxLines;
   final bool? obscureText;
   final TextEditingController? controller;
+  final TextInputType keyboardType;
   final String? initialValue;
 
   const CustomInputField({
@@ -23,6 +24,7 @@ class CustomInputField extends StatelessWidget {
     this.obscureText,
     this.controller,
     this.validationCallback,
+    this.keyboardType = TextInputType.text,
     this.initialValue,
   });
 
@@ -35,7 +37,7 @@ class CustomInputField extends StatelessWidget {
           onChanged: onChanged,
           onSaved: onSaved,
           validator: validationCallback,
-          keyboardType: TextInputType.text,
+          keyboardType: keyboardType,
           obscureText: obscureText ?? false,
           controller: controller,
           decoration: InputDecoration(
