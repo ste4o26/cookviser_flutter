@@ -30,11 +30,9 @@ class _RecipePage extends State<RecipePage> {
   final _formKey = GlobalKey<FormState>();
   final RecipeModel _recipe = RecipeModel.create();
 
+  late XFile _image;
   late Future _recipeFuture;
   late Future _cuisinesFuture;
-
-  File _image = File('default');
-  Uint8List _webImage = Uint8List(8);
 
   FormState get state => _formKey.currentState!;
 
@@ -46,16 +44,10 @@ class _RecipePage extends State<RecipePage> {
 
   void createHandler() {
     setState(() {
-      if (kIsWeb) {
-        _recipeFuture =
-            Provider.of<RecipeViewModel>(context, listen: false).post(_recipe, _webImage);
-      } else if (!kIsWeb) {
-        // TODO think of a way to work with either a file or a uint8 file(web format)
-        // _recipeFuture =
-        //     Provider.of<RecipeViewModel>(context, listen: false).post(_recipe, _image);
-      }
+      _recipeFuture =
+          Provider.of<RecipeViewModel>(context, listen: false).post(_recipe, _image);
     });
-    context.go(constants.Routes.home.name); //TODO once update is implemented remove the redirection!!!
+    context.go(constants.Routes.home.name);
   }
 
   void nameSaveHandler(String? name) => setState(() => _recipe.name = name);
@@ -72,19 +64,11 @@ class _RecipePage extends State<RecipePage> {
     setState(() => _recipe.ingredients = ingredients.split(", ").toList());
   }
 
-  Future<void> selectImageHandler() async {
+  void selectImageHandler() async {
     final ImagePicker picker = ImagePicker();
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
     if (image == null) return;
-
-    if (!kIsWeb) {
-      setState(() => _image = File(image.path));
-    }
-
-    if (kIsWeb) {
-      final Uint8List bites = await image.readAsBytes();
-      setState(() => _webImage = bites);
-    }
+    setState(() => _image = image);
   }
 
   @override
@@ -228,14 +212,14 @@ class _RecipePage extends State<RecipePage> {
                                                           .map((cuisine) =>
                                                               DropdownMenuItem(
                                                                 value: cuisine,
-                                                                child: Text(cuisine.name),
+                                                                child: Text(cuisine.name!),
                                                               ))
                                                           .toSet()
                                                           .toList(),
                                                     )))),
                                     Padding(
                                         padding: const EdgeInsets.only(top: 20),
-                                        child: DynamicInputTable(data: _recipe.steps!)),
+                                        child: DynamicInputTable(data: _recipe.steps ?? [])),
                                     Padding(
                                         padding: const EdgeInsets.only(top: 20),
                                         child: Column(children: [

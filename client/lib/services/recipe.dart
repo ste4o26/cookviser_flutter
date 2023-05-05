@@ -126,13 +126,17 @@ class RecipeService with BaseService {
     return RecipeModel.fromJson(data);
   }
 
-  Future<RecipeModel> fetchById(String recipeId) async {
+  Future<RecipeModel?> fetchById(String recipeId) async {
     Uri uri = constructURI(
       RecipeEndpoints.byId.endpoint,
       args: {'recipeId': recipeId},
     );
 
-    final response = await http.get(uri);
+    final token = await _service.getToken();
+    final headers = {'Authorization': 'Bearer $token'};
+    if (token == null) return null;
+
+    final response = await http.get(uri, headers: headers);
     if (response.statusCode != 200) {
       throw Exception('Unable to perform request!');
     }
@@ -153,7 +157,7 @@ class RecipeService with BaseService {
     final token = await _service.getToken();
     if (token == null) return [];
     headers["Authorization"] = '${headers["Authorization"]}$token';
-    final response = await http.get(uri ,headers: headers);
+    final response = await http.get(uri, headers: headers);
 
     if (response.statusCode != 200) {
       throw Exception('Unable to perform request!');
