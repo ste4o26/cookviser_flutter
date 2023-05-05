@@ -45,14 +45,14 @@ class _RatingState extends State<Rating> {
       recipe: widget.recipe,
     );
 
-    double? overalRating = await Provider.of<RatingViewModel>(
+    double? overallRating = await Provider.of<RatingViewModel>(
       context,
       listen: false,
     ).rate(rate);
-    if (overalRating == null) return;
+    if (overallRating == null) return;
 
     setState(() {
-      widget.recipe.overallRating = rate.recipe.overallRating;
+      widget.recipe.overallRating = overallRating;
     });
   }
 
