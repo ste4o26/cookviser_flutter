@@ -36,7 +36,8 @@ enum RecipeEndpoints {
   rate('$DOMAIN_URL/recipe/rate'),
   create('$DOMAIN_URL/recipe/create'),
   uploadImage('$DOMAIN_URL/recipe/upload-recipe-image'),
-  byId('$DOMAIN_URL/recipe/');
+  byId('$DOMAIN_URL/recipe/'),
+  search('$DOMAIN_URL/recipe/search');
 
   const RecipeEndpoints(this.endpoint);
 

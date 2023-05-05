@@ -20,4 +20,9 @@ class RecipeListViewModel extends ChangeNotifier {
     recipes = await _service.fetchAll();
     notifyListeners();
   }
+
+  Future<void> search(String value) async {
+    recipes = await _service.search(value);
+    notifyListeners();
+  }
 }

@@ -1,6 +1,7 @@
-import 'package:demo_app/pages/view_models/recipes.dart';
+import 'package:demo_app/constants.dart';
 import 'package:demo_app/domain/recipe/views/recipes_list.dart';
-import 'package:demo_app/shared/navigation/header.dart';
+import 'package:demo_app/pages/view_models/auth.dart';
+import 'package:demo_app/pages/view_models/recipes.dart';
 import 'package:demo_app/shared/pagination_bar.dart';
 import 'package:demo_app/shared/scaffold.dart';
 import 'package:flutter/material.dart';
@@ -44,18 +45,24 @@ class _RecipesState extends State<RecipesPage> {
   }
 
   void executeProvider() {
-    if (widget.cuisine != "all") {
+    widget.cuisine != "all" ? fetchByCuisine() : fetchAll();
+  }
+
+  void fetchByCuisine() =>
       _future = Provider.of<RecipeListViewModel>(context, listen: false)
           .fetchNextPageByCuisine(widget.cuisine, page);
-    } else {
+
+  void fetchAll() =>
       _future = Provider.of<RecipeListViewModel>(context, listen: false)
           .fetchNextPage(page);
-    }
-  }
+
+  void search(String value) => _future =
+      Provider.of<RecipeListViewModel>(context, listen: false).search(value);
 
   @override
   Widget build(BuildContext context) => AppScaffold(
-        body: FutureBuilder(
+      body: Consumer<AuthViewModel>(
+        builder: (context, viewModel, child) => FutureBuilder(
           future: _future,
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) =>
               snapshot.connectionState != ConnectionState.done
@@ -64,11 +71,31 @@ class _RecipesState extends State<RecipesPage> {
                           height: 150,
                           width: 150,
                           child: CircularProgressIndicator()))
-                  : const RecipeListView(),
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        if (viewModel.token != null && widget.cuisine == 'all')
+                          Container(
+                            padding: const EdgeInsets.symmetric(vertical: 30),
+                            width: CUSTOM_CARD_SIZE * 2,
+                            child: TextFormField(
+                              onChanged: (value) => value.trim().length >= 5
+                                  ? search(value)
+                                  : fetchAll(),
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: "Search",
+                                prefixIcon: Icon(Icons.search),
+                              ),
+                            ),
+                          ),
+                        const RecipeListView()
+                      ],
+                    ),
         ),
-        bottomNavigationBar: PaginationBar(
-          page: page,
-          callback: updatePageHandler,
-        ),
-      );
+      ),
+      bottomNavigationBar: PaginationBar(
+        page: page,
+        callback: updatePageHandler,
+      ));
 }
