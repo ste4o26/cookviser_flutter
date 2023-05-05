@@ -140,4 +140,26 @@ class RecipeService with BaseService {
     final data = jsonDecode(response.body);
     return RecipeModel.fromJson(data);
   }
+
+  Future<List<RecipeModel>> search(String value) async {
+    Uri uri = constructURI(
+      RecipeEndpoints.search.endpoint,
+      args: {'searchValue': value},
+    );
+
+    final headers = <String, String>{};
+    headers.addAll(Headers.authorization.header);
+    headers.addAll(Headers.contentType.header);
+    final token = await _service.getToken();
+    if (token == null) return [];
+    headers["Authorization"] = '${headers["Authorization"]}$token';
+    final response = await http.get(uri ,headers: headers);
+
+    if (response.statusCode != 200) {
+      throw Exception('Unable to perform request!');
+    }
+
+    final data = jsonDecode(response.body) as List;
+    return data.map((cuisine) => RecipeModel.fromJson(cuisine)).toList();
+  }
 }
