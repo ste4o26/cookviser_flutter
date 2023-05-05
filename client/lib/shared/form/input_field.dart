@@ -11,6 +11,27 @@ class CustomInputField extends StatelessWidget {
   final bool? obscureText;
   final TextEditingController? controller;
   final TextInputType keyboardType;
+  @override
+  Widget build(BuildContext context) => Container(
+        padding: const EdgeInsets.only(top: 20.0),
+        child: TextFormField(
+          initialValue: initialValue ,
+          maxLines: maxLines ?? 1,
+          onChanged: onChanged,
+          onSaved: onSaved,
+          validator: validationCallback,
+          keyboardType: keyboardType,
+          obscureText: obscureText ?? false,
+          controller: controller,
+          decoration: InputDecoration(
+            border: const OutlineInputBorder(),
+            hintText: hintText,
+            labelText: labelText,
+            prefixIcon: icon,
+          ),
+        ),
+      );
+
   final String? initialValue;
 
   const CustomInputField({
@@ -27,25 +48,4 @@ class CustomInputField extends StatelessWidget {
     this.keyboardType = TextInputType.text,
     this.initialValue,
   });
-
-  @override
-  Widget build(BuildContext context) => Container(
-        padding: const EdgeInsets.only(top: 20.0),
-        child: TextFormField(
-          initialValue: initialValue ?? '',
-          maxLines: maxLines ?? 1,
-          onChanged: onChanged,
-          onSaved: onSaved,
-          validator: validationCallback,
-          keyboardType: keyboardType,
-          obscureText: obscureText ?? false,
-          controller: controller,
-          decoration: InputDecoration(
-            border: const OutlineInputBorder(),
-            hintText: hintText,
-            labelText: labelText,
-            prefixIcon: icon,
-          ),
-        ),
-      );
 }
