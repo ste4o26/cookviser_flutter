@@ -1,25 +1,21 @@
-import 'dart:developer';
-
 import 'package:demo_app/domain/recipe/models/step.dart';
 import 'package:flutter/material.dart';
 
-// TODO refactor so it can work with generic types instead of hardcoded StepModel !!!
-
 class DynamicInputTable extends StatefulWidget {
-  List<StepModel> data;
+  final List<StepModel> data;
 
-  DynamicInputTable({required this.data, super.key});
+  const DynamicInputTable({required this.data, super.key});
 
   @override
   State<StatefulWidget> createState() => _DynamicInputTableState();
 }
 
 class _DynamicInputTableState extends State<DynamicInputTable> {
-  TextEditingController _controller = TextEditingController();
+  List<Widget> get stepInputRows =>
+      widget.data.map((step) => _getInputRow(step)).toList();
 
   void addRowHandler() {
     final step = StepModel(number: widget.data.length, content: '');
-    // TODO figure out how to use the controller.
     setState(() => widget.data.add(step));
   }
 
@@ -30,8 +26,16 @@ class _DynamicInputTableState extends State<DynamicInputTable> {
     }
 
     setState(() {
-      widget.data.removeWhere((currentStep) => currentStep.number == step.number);
+      widget.data.removeAt(index);
     });
+  }
+
+  @override
+  void initState() {
+    if (widget.data.isEmpty) {
+      addRowHandler();
+    }
+    super.initState();
   }
 
   @override
@@ -41,30 +45,29 @@ class _DynamicInputTableState extends State<DynamicInputTable> {
             maxWidth: constraints.maxWidth * 0.5,
             maxHeight: constraints.maxHeight * 0.4,
           ),
-          child: Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-            ...widget.data.map((step) => _getInputRow(step)).toList(),
+          child: Column(children: [
+            ...stepInputRows,
             _getAddButton(),
           ])));
 
-  Widget _getInputRow(StepModel step) {
-    print("${step.number} ${step.content}");
-    return LayoutBuilder(
-        builder: (context, constraints) => Row(mainAxisSize: MainAxisSize.max, children: [
-              Container(
-                  constraints: BoxConstraints(maxWidth: constraints.maxWidth * 0.1),
-                  child: TextButton(
-                      onPressed: () => removeRowHandler(step),
-                      child: const Icon(Icons.delete, color: Colors.black))),
-              Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: Container(
-                      constraints: BoxConstraints(maxWidth: constraints.maxWidth * 0.9),
-                      child: TextFormField(
-                        controller: _controller,
-                        // onChanged: (val) => step.content = val,
-                      )))
-            ]));
-  }
+  Widget _getInputRow(StepModel step) => LayoutBuilder(
+      builder: (context, constraints) => Row(mainAxisSize: MainAxisSize.max, children: [
+            Container(
+                constraints: BoxConstraints(maxWidth: constraints.maxWidth * 0.1),
+                child: TextButton(
+                    onPressed: () => removeRowHandler(step),
+                    child: const Icon(Icons.delete, color: Colors.black))),
+            Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: Container(
+                  constraints: BoxConstraints(maxWidth: constraints.maxWidth * 0.9),
+                  child: TextFormField(
+                      key: ObjectKey(step.content),
+                      initialValue: step.content,
+                      onChanged: (val) => step.content = val,
+                      onSaved: (val) => step.content = val!),
+                ))
+          ]));
 
   Widget _getAddButton() => Padding(
       padding: const EdgeInsets.only(top: 10),
