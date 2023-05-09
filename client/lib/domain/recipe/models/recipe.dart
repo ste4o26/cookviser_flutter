@@ -22,8 +22,8 @@ class RecipeModel {
     this.name,
     this.description,
     this.recipeThumbnail = 'https://picsum.photos/200/300',
-    this.portions,
-    this.duration,
+    this.portions = 0,
+    this.duration = 0,
     this.category,
     this.ingredients = const [],
     this.publisherUsername,
@@ -35,6 +35,8 @@ class RecipeModel {
 
   RecipeModel.create() {
     steps = [];
+    portions = 0;
+    duration = 0;
   }
 
   factory RecipeModel.fromJson(Map<String, dynamic> json) {

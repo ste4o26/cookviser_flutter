@@ -11,6 +11,8 @@ class DynamicInputTable extends StatefulWidget {
 }
 
 class _DynamicInputTableState extends State<DynamicInputTable> {
+  bool _isCreated = false;
+
   List<Widget> get stepInputRows =>
       widget.data.map((step) => _getInputRow(step)).toList();
 
@@ -34,6 +36,8 @@ class _DynamicInputTableState extends State<DynamicInputTable> {
   void initState() {
     if (widget.data.isEmpty) {
       addRowHandler();
+    } else {
+      _isCreated = true;
     }
     super.initState();
   }
@@ -55,7 +59,7 @@ class _DynamicInputTableState extends State<DynamicInputTable> {
             Container(
                 constraints: BoxConstraints(maxWidth: constraints.maxWidth * 0.1),
                 child: TextButton(
-                    onPressed: () => removeRowHandler(step),
+                    onPressed: _isCreated ? null : () => removeRowHandler(step),
                     child: const Icon(Icons.delete, color: Colors.black))),
             Padding(
                 padding: const EdgeInsets.only(top: 10),
@@ -64,6 +68,7 @@ class _DynamicInputTableState extends State<DynamicInputTable> {
                   child: TextFormField(
                       key: ObjectKey(step.content),
                       initialValue: step.content,
+                      enabled: !_isCreated,
                       onChanged: (val) => step.content = val,
                       onSaved: (val) => step.content = val!),
                 ))
@@ -72,7 +77,7 @@ class _DynamicInputTableState extends State<DynamicInputTable> {
   Widget _getAddButton() => Padding(
       padding: const EdgeInsets.only(top: 10),
       child: TextButton(
-          onPressed: addRowHandler,
+          onPressed:  _isCreated ? null : addRowHandler,
           style: ButtonStyle(
               shape: MaterialStateProperty.all(RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
