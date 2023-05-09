@@ -23,8 +23,8 @@ class FormButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(5),
         ),
         child: TextButton(
+          onPressed: callback == null ? null : () => callback(),
           child: Text(content),
-          onPressed: () => callback(),
         ),
       );
 }

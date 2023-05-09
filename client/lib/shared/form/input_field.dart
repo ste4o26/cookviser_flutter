@@ -9,13 +9,16 @@ class CustomInputField extends StatelessWidget {
   final Icon? icon;
   final int? maxLines;
   final bool? obscureText;
+  final bool enabled;
   final TextEditingController? controller;
   final TextInputType keyboardType;
+
   @override
   Widget build(BuildContext context) => Container(
         padding: const EdgeInsets.only(top: 20.0),
         child: TextFormField(
-          initialValue: initialValue ,
+          enabled: enabled,
+          initialValue: initialValue,
           maxLines: maxLines ?? 1,
           onChanged: onChanged,
           onSaved: onSaved,
@@ -47,5 +50,6 @@ class CustomInputField extends StatelessWidget {
     this.validationCallback,
     this.keyboardType = TextInputType.text,
     this.initialValue,
+    this.enabled = true,
   });
 }

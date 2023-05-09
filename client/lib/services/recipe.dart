@@ -70,13 +70,17 @@ class RecipeService with BaseService {
     return data.map((recipe) => RecipeModel.fromJson(recipe)).toList();
   }
 
-// TODO remove the user token parameter since it can be accessed via Auth service
-  Future<RatingModel> rate(RatingModel rating, String userToken) async {
+  Future<RatingModel?> rate(RatingModel rating) async {
     final uri = constructURI(RecipeEndpoints.rate.endpoint);
     final requestBody = jsonEncode(rating.toJson());
-    final headers = {'Authorization': 'Bearer $userToken'};
-    headers.addAll(commonHeaders);
-
+    
+    final headers = <String, String>{};
+    headers.addAll(Headers.authorization.header);
+    headers.addAll(Headers.contentType.header);
+    final token = await _service.getToken();
+    if (token == null) return null;
+    headers["Authorization"] = '${headers["Authorization"]}$token';
+    
     final response = await http.post(uri, body: requestBody, headers: headers);
     if (response.statusCode != 201) {
       throw Exception('Unable to perform request!');
@@ -86,7 +90,7 @@ class RecipeService with BaseService {
     return RatingModel.fromJson(data);
   }
 
-  Future<RecipeModel?> post(RecipeModel recipe) async {
+  Future<RecipeModel> post(RecipeModel recipe) async {
     final uri = constructURI(RecipeEndpoints.create.endpoint);
     final requestBody = jsonEncode(recipe.toJson());
     final String? token = await _service.getToken();
@@ -102,7 +106,7 @@ class RecipeService with BaseService {
     return RecipeModel.fromJson(data);
   }
 
-  Future<RecipeModel?> uploadImage(Uint8List webImage, String recipeId) async {
+  Future<RecipeModel> uploadImage(Uint8List webImage, String recipeId) async {
     Uri uri = constructURI(
       RecipeEndpoints.uploadImage.endpoint,
       args: {'recipeId': recipeId},
@@ -132,7 +136,7 @@ class RecipeService with BaseService {
       args: {'recipeId': recipeId},
     );
 
-    final response = await http.get(uri);
+    final response = await http.get(uri, );
     if (response.statusCode != 200) {
       throw Exception('Unable to perform request!');
     }
@@ -153,7 +157,7 @@ class RecipeService with BaseService {
     final token = await _service.getToken();
     if (token == null) return [];
     headers["Authorization"] = '${headers["Authorization"]}$token';
-    final response = await http.get(uri ,headers: headers);
+    final response = await http.get(uri, headers: headers);
 
     if (response.statusCode != 200) {
       throw Exception('Unable to perform request!');

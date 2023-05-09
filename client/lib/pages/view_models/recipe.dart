@@ -1,12 +1,13 @@
-import 'dart:typed_data';
+import 'dart:io';
 
 import 'package:demo_app/domain/cuisine/models/cuisine.dart';
 import 'package:demo_app/domain/recipe/models/recipe.dart';
 import 'package:demo_app/services/recipe.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import 'package:image_picker/image_picker.dart';
 
 class RecipeViewModel extends ChangeNotifier {
-  RecipeModel? recipe;
+  RecipeModel recipe = RecipeModel.create();
   List<CuisineModel> cuisines = [];
   final RecipeService _service = RecipeService();
 
@@ -15,10 +16,19 @@ class RecipeViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> post(RecipeModel recipeModel, Uint8List webImage) async {
+  Future<void> post(RecipeModel recipeModel, XFile sourceImage) async {
     RecipeModel? postedRecipe = await _service.post(recipeModel);
-    String recipeId = postedRecipe!.id ?? "";
-    recipe = await _service.uploadImage(webImage, recipeId);
+    String recipeId = postedRecipe.id ?? '';
+    final image = await _convertImage(sourceImage);
+    if (image == null) return;
+
+    recipe = await _service.uploadImage(image, recipeId);
     notifyListeners();
+  }
+
+  Future<dynamic> _convertImage(XFile sourceImage) async {
+    if (!kIsWeb) return File(sourceImage.path);
+    if (kIsWeb) return await sourceImage.readAsBytes();
+    return null;
   }
 }
