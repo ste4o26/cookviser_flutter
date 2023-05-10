@@ -16,7 +16,7 @@ class AdminService extends BaseService {
     headers.addAll(Headers.contentType.header);
     final token = await service.getToken();
     if (token == null) return [];
-    headers["Authorization"] = '${headers["Authorization"]}$token';
+    headers['Authorization'] = '${headers['Authorization']}$token';
     final response = await http.get(uri, headers: headers);
     final data = jsonDecode(response.body) as List;
     if (response.statusCode != 200) {
@@ -31,7 +31,7 @@ class AdminService extends BaseService {
     headers.addAll(Headers.authorization.header);
     headers.addAll(Headers.contentType.header);
     final token = await service.getToken();
-    headers["Authorization"] = '${headers["Authorization"]}$token';
+    headers['Authorization'] = '${headers['Authorization']}$token';
     final response = await http.put(
       uri,
       body: username,
@@ -50,7 +50,7 @@ class AdminService extends BaseService {
     headers.addAll(Headers.authorization.header);
     headers.addAll(Headers.contentType.header);
     final token = await service.getToken();
-    headers["Authorization"] = '${headers["Authorization"]}$token';
+    headers['Authorization'] = '${headers['Authorization']}$token';
 
     final response = await http.put(
       uri,

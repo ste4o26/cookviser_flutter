@@ -10,7 +10,7 @@ class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
 
   void redirectHandler(BuildContext context, Map<String, dynamic> args) =>
-      GoRouter.of(context).go(args["route"]);
+      GoRouter.of(context).go(args['route']);
 
   @override
   Widget build(BuildContext context) => Consumer<AuthViewModel>(
@@ -18,8 +18,7 @@ class AppDrawer extends StatelessWidget {
               child: ListView(
             children: [
               const DrawerHeader(
-                child: Center(
-                    child: Text('Welcome', style: TextStyle(fontSize: 20))),
+                child: Center(child: Text('Welcome', style: TextStyle(fontSize: 20))),
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -52,8 +51,7 @@ class AppDrawer extends StatelessWidget {
                       'Create cuisine',
                       args: const {},
                       callback: (context, args) => showDialog(
-                          context: context,
-                          builder: (context) => const CreateCuisine()),
+                          context: context, builder: (context) => const CreateCuisine()),
                       icon: const Icon(Icons.dinner_dining_outlined),
                     ),
                   ],

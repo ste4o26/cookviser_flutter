@@ -1,7 +1,6 @@
 import 'package:demo_app/domain/cuisine/models/cuisine.dart';
 import 'package:demo_app/services/cuisine.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 
 class CuisineViewModel extends ChangeNotifier {

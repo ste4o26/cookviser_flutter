@@ -34,8 +34,6 @@ class _RatingState extends State<Rating> {
     super.didChangeDependencies();
   }
 
-  // TODO check if it is okay to pass async functions as
-  // callbacks to onPressed or other handler functions of that kind!!!
   void _rate(UserModel? user, int value) async {
     if (user == null) return;
 

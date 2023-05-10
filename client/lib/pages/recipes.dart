@@ -20,11 +20,9 @@ class _RecipesState extends State<RecipesPage> {
   int _page = 0;
   late Future<void> _future;
 
-  // TODO keep state for is last page.
-
   int get page => _page;
 
-  void set page(int page) {
+  set page(int page) {
     if (page < 0) return;
     _page = page;
   }
