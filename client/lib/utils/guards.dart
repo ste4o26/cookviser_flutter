@@ -21,6 +21,11 @@ class Guards {
 
   String? loggedInGuard(BuildContext context, GoRouterState state) {
     if (_viewModel.token != null) return null;
+
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        duration: Duration(seconds: 1),
+        content: Center(child: Text('You must Sign in'))));
+
     return Routes.home.name;
   }
 }

@@ -68,7 +68,8 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
                                   NavigationItem(
                                     'My Profile',
                                     args: <String, dynamic>{
-                                      'route': Routes.profile.name
+                                      'route':
+                                          "${Routes.profile.name}/${viewModel.user!.username}",
                                     },
                                     callback: redirectHandler,
                                   ),
