@@ -8,7 +8,6 @@ import 'package:demo_app/services/base.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
-// TODO handle the requests properly!
 class RecipeService with BaseService {
   final AuthService _service = AuthService();
   static const commonHeaders = {'Content-Type': 'application/json; charset=UTF-8'};

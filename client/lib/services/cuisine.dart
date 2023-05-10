@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
-
 import 'package:demo_app/constants.dart';
 import 'package:demo_app/domain/cuisine/models/cuisine.dart';
 import 'package:demo_app/services/auth.dart';
@@ -8,7 +6,6 @@ import 'package:demo_app/services/base.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
-// TODO handle the requests properly!
 class CuisineService with BaseService {
   final AuthService service = AuthService();
 
