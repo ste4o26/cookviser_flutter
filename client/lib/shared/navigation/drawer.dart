@@ -26,10 +26,11 @@ class AppDrawer extends StatelessWidget {
                 children: [
                   const Text('User Action', style: TextStyle(fontSize: 20)),
                   const Divider(color: Colors.black),
+                  const SizedBox(height: 20),
                   NavigationItem('New Recipe',
-                        args: <String, dynamic>{'route': Routes.newRecipe.name},
-                        callback: redirectHandler,
-                        icon: const Icon(Icons.restaurant)),
+                      args: <String, dynamic>{'route': Routes.newRecipe.name},
+                      callback: redirectHandler,
+                      icon: const Icon(Icons.restaurant)),
                 ],
               ),
               const SizedBox(height: 100),
@@ -39,6 +40,7 @@ class AppDrawer extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Text('Admin Action', style: TextStyle(fontSize: 20)),
+                    const Divider(color: Colors.black),
                     const SizedBox(height: 20),
                     NavigationItem(
                       'Active users',
@@ -49,8 +51,9 @@ class AppDrawer extends StatelessWidget {
                     NavigationItem(
                       'Create cuisine',
                       args: const {},
-                      callback: (context, args) =>
-                          showDialog(context: context, builder: (context) => const CreateCuisine()) ,
+                      callback: (context, args) => showDialog(
+                          context: context,
+                          builder: (context) => const CreateCuisine()),
                       icon: const Icon(Icons.dinner_dining_outlined),
                     ),
                   ],
