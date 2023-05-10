@@ -1,7 +1,9 @@
+import 'package:demo_app/constants.dart';
 import 'package:demo_app/domain/user/models/user.dart';
 import 'package:demo_app/shared/card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:go_router/go_router.dart';
 
 class UserCard extends StatelessWidget {
   final UserModel user;
@@ -13,7 +15,8 @@ class UserCard extends StatelessWidget {
         builder: (context, constraints) => CustomCard(
           children: [
             InkWell(
-              onTap: () {}, //TODO implement load user profile
+              onTap: () =>
+                  context.go("${Routes.profile.name}/${user.username}"),
               child: CircleAvatar(
                 radius: constraints.maxHeight * 0.35,
                 backgroundImage: NetworkImage(user.profileImageUrl),

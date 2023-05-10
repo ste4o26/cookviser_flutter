@@ -1,9 +1,10 @@
 import 'package:demo_app/domain/rating/view_models/rating.dart';
-import 'package:demo_app/pages/view_models/recipe.dart';
-import 'package:demo_app/pages/view_models/recipes.dart';
 import 'package:demo_app/pages/view_models/auth.dart';
 import 'package:demo_app/pages/view_models/cuisine.dart';
 import 'package:demo_app/pages/view_models/home.dart';
+import 'package:demo_app/pages/view_models/profile.dart';
+import 'package:demo_app/pages/view_models/recipe.dart';
+import 'package:demo_app/pages/view_models/recipes.dart';
 import 'package:demo_app/pages/view_models/users.dart';
 import 'package:demo_app/router.dart';
 import 'package:demo_app/utils/guards.dart';
@@ -34,6 +35,7 @@ MultiProvider createApp() {
       ChangeNotifierProvider(create: (context) => HomeViewModel()),
       ChangeNotifierProvider(create: (context) => UsersViewModel()),
       ChangeNotifierProvider(create: (context) => CuisineViewModel()),
+      ChangeNotifierProvider(create: (context) => ProfileViewModel()),
     ],
     child: const CookviserApp(),
   );
