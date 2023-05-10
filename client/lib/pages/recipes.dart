@@ -45,14 +45,14 @@ class _RecipesState extends State<RecipesPage> {
   }
 
   void executeProvider() {
-    widget.cuisine != 'all' ? fetchByCuisine() : fetchAll();
+    widget.cuisine != 'all' ? fetchByCuisine() : fetchByPage();
   }
 
   void fetchByCuisine() =>
       _future = Provider.of<RecipeListViewModel>(context, listen: false)
           .fetchNextPageByCuisine(widget.cuisine, page);
 
-  void fetchAll() => _future =
+  void fetchByPage() => _future =
       Provider.of<RecipeListViewModel>(context, listen: false).fetchNextPage(page);
 
   void search(String value) =>
@@ -93,7 +93,7 @@ class _RecipesState extends State<RecipesPage> {
       constraints: const BoxConstraints(maxWidth: CUSTOM_CARD_SIZE * 2),
       padding: const EdgeInsets.symmetric(vertical: 30),
       child: TextFormField(
-          onChanged: (value) => value.trim().length >= 5 ? search(value) : fetchAll(),
+          onChanged: (value) => value.trim().length >= 5 ? search(value) : fetchByPage(),
           decoration: const InputDecoration(
             border: OutlineInputBorder(),
             hintText: 'Search',

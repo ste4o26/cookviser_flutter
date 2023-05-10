@@ -1,5 +1,6 @@
 const String DOMAIN_URL = 'http://localhost:8080';
 const double CUSTOM_CARD_SIZE = 350;
+const int MAX_RECIPES_PER_PAGE_COUNT = 8;
 
 enum Routes {
   root("/"),

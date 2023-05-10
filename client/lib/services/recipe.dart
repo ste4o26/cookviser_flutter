@@ -31,7 +31,9 @@ class RecipeService with BaseService {
     return data.map((cuisine) => RecipeModel.fromJson(cuisine)).toList();
   }
 
-  Future<List<RecipeModel>> fetchNextPage(int page, {int count = 10}) async {
+  Future<List<RecipeModel>> fetchNextPage(
+    int page, {int count = MAX_RECIPES_PER_PAGE_COUNT}
+  ) async {
     final Map<String, String> args = {
       'pageNumber': page.toString(),
       'recipesCount': count.toString(),

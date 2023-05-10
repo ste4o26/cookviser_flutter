@@ -1,4 +1,6 @@
+import 'package:demo_app/pages/view_models/recipes.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class PaginationBar extends StatelessWidget {
   final int page;
@@ -27,16 +29,14 @@ class PaginationBar extends StatelessWidget {
               Padding(
                   padding: const EdgeInsets.all(8),
                   child: ElevatedButton(
-                    onPressed: prevPageHandler,
-                    child: const Icon(Icons.arrow_back),
-                  )),
+                      onPressed: prevPageHandler, child: const Icon(Icons.arrow_back))),
               Text('${page + 1}'),
-              Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: ElevatedButton(
-                    onPressed: nextPageHandler,
-                    child: const Icon(Icons.arrow_forward),
-                  )),
+              Consumer<RecipeListViewModel>(
+                  builder: (context, viewModel, child) => Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: ElevatedButton(
+                          onPressed: viewModel.hasNextPage ? nextPageHandler : null,
+                          child: const Icon(Icons.arrow_forward)))),
             ],
           )));
 }
