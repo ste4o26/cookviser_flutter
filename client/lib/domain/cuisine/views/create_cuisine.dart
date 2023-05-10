@@ -4,7 +4,6 @@ import 'package:demo_app/shared/form/input_field.dart';
 import 'package:demo_app/shared/form/submit_button.dart';
 import 'package:demo_app/utils/validator.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
@@ -62,14 +61,15 @@ class _CreateCuisineState extends State<CreateCuisine> {
                         hintText: 'Cuisine name',
                         labelText: 'Enter cuisine name',
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           FormButton(
                             content: 'Upload image',
                             callback: _upLoadImage,
                           ),
-                          if (_image != null) Text(_image!.name),
+                          if (_image != null)
+                            Expanded(child: Text(_image!.name)),
                         ],
                       ),
                       FormButton(
