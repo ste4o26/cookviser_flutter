@@ -2,6 +2,7 @@ import 'package:demo_app/constants.dart';
 import 'package:demo_app/pages/view_models/users.dart';
 import 'package:demo_app/shared/card.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class UsersList extends StatelessWidget {
@@ -14,32 +15,34 @@ class UsersList extends StatelessWidget {
           builder: (context, viewModel, child) => GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: constraints.maxWidth ~/ CUSTOM_CARD_SIZE,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 50,
+              childAspectRatio: 2,
             ),
             shrinkWrap: true,
-            padding: const EdgeInsets.all(10),
             itemCount: viewModel.users.length,
             itemBuilder: (context, index) => CustomCard(
               children: [
-                SizedBox(
-                  width: CUSTOM_CARD_SIZE,
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      backgroundImage:
-                          NetworkImage(viewModel.users[index].profileImageUrl),
-                    ),
-                    title: Row(
-                      children: [
-                        const Text('username: '),
-                        Center(child: Text(viewModel.users[index].username)),
-                      ],
-                    ),
-                    subtitle: Row(
-                      children: [
-                        const Text('email: '),
-                        Center(child: Text(viewModel.users[index].email)),
-                      ],
+                InkWell(
+                  onTap: () => context.go(
+                      "${Routes.profile.name}/${viewModel.users[index].username}"),
+                  child: SizedBox(
+                    width: CUSTOM_CARD_SIZE,
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        backgroundImage: NetworkImage(
+                            viewModel.users[index].profileImageUrl),
+                      ),
+                      title: Row(
+                        children: [
+                          const Text('username: '),
+                          Text(viewModel.users[index].username),
+                        ],
+                      ),
+                      subtitle: Row(
+                        children: [
+                          const Text('email: '),
+                          Center(child: Text(viewModel.users[index].email)),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -104,7 +107,7 @@ class UsersList extends StatelessWidget {
                     'CONFIRM',
                   ),
                   onPressed: () {
-                    Navigator.pop(context, true);
+                    context.pop(true);
                   },
                 ),
                 TextButton(
@@ -112,7 +115,7 @@ class UsersList extends StatelessWidget {
                     'CANCEL',
                   ),
                   onPressed: () {
-                    Navigator.pop(context, false);
+                    context.pop(false);
                   },
                 )
               ],
