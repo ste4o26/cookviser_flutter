@@ -43,17 +43,14 @@ class UserModel {
       }
     }).toList();
 
-    final recipesData =
-        json['myRecipes'] is List ? json['myRecipes'] as List : [];
-    final recipes = recipesData
-        .map((recipeData) => RecipeModel.fromJson(recipeData))
-        .toList();
+    final recipesData = json['myRecipes'] is List ? json['myRecipes'] as List : [];
+    final recipes =
+        recipesData.map((recipeData) => RecipeModel.fromJson(recipeData)).toList();
 
     final cookedRecipesData =
         json['myCookedRecipes'] is List ? json['myCookedRecipes'] as List : [];
-    final cookedRecipes = cookedRecipesData
-        .map((recipeData) => RecipeModel.fromJson(recipeData))
-        .toList();
+    final cookedRecipes =
+        cookedRecipesData.map((recipeData) => RecipeModel.fromJson(recipeData)).toList();
     final role = json['role']['roleName'] == Role.admin.name
         ? Role.admin
         : json['role']['roleName'] == Role.moderator.name
@@ -84,7 +81,7 @@ class UserModel {
     data['email'] = email;
     data['profileImageUrl'] = profileImageUrl;
     data['description'] = description;
-    data['role'] = { "role": role.name};
+    data['role'] = {'role': role.name};
     data['authorities'] = userAuthorities;
     data['myRecipes'] = myRecipes.map((e) => e.toJson()).toList();
     data['myCookedRecipes'] = myCookedRecipes.map((e) => e.toJson()).toList();

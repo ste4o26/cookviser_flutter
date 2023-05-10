@@ -55,7 +55,7 @@ class _RecipePage extends State<RecipePage> {
       setState(() => _recipe.cuisine = cuisine);
 
   void saveIngredientsHandler(String ingredients) =>
-      setState(() => _recipe.ingredients = ingredients.split(", ").toList());
+      setState(() => _recipe.ingredients = ingredients.split(', ').toList());
 
   void selectImageHandler() async {
     final ImagePicker picker = ImagePicker();
@@ -172,7 +172,7 @@ class _RecipePage extends State<RecipePage> {
                       initialValue: viewModel.recipe.ingredients?.join(', ') ?? '',
                       enabled: !_isCreated,
                       labelText: 'Ingredients',
-                      hintText: 'All ingredients separated by ", "',
+                      hintText: 'All ingredients separated by ',
                       keyboardType: TextInputType.number,
                       validationCallback: FieldValidator.descriptionValidator,
                       onChanged: validationHandler,
@@ -183,7 +183,8 @@ class _RecipePage extends State<RecipePage> {
                       padding: const EdgeInsets.only(top: 20),
                       child: DynamicInputTable(data: _recipe.steps ?? [])),
                   _getImageSelector(),
-                  FormButton(content: 'Create', callback: _isCreated ? null : createHandler)
+                  FormButton(
+                      content: 'Create', callback: _isCreated ? null : createHandler)
                 ],
               ))));
 

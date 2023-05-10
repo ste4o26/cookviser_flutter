@@ -73,14 +73,14 @@ class RecipeService with BaseService {
   Future<RatingModel?> rate(RatingModel rating) async {
     final uri = constructURI(RecipeEndpoints.rate.endpoint);
     final requestBody = jsonEncode(rating.toJson());
-    
+
     final headers = <String, String>{};
     headers.addAll(Headers.authorization.header);
     headers.addAll(Headers.contentType.header);
     final token = await _service.getToken();
     if (token == null) return null;
-    headers["Authorization"] = '${headers["Authorization"]}$token';
-    
+    headers['Authorization'] = '${headers['Authorization']}$token';
+
     final response = await http.post(uri, body: requestBody, headers: headers);
     if (response.statusCode != 201) {
       throw Exception('Unable to perform request!');
@@ -136,7 +136,9 @@ class RecipeService with BaseService {
       args: {'recipeId': recipeId},
     );
 
-    final response = await http.get(uri, );
+    final response = await http.get(
+      uri,
+    );
     if (response.statusCode != 200) {
       throw Exception('Unable to perform request!');
     }
@@ -156,7 +158,7 @@ class RecipeService with BaseService {
     headers.addAll(Headers.contentType.header);
     final token = await _service.getToken();
     if (token == null) return [];
-    headers["Authorization"] = '${headers["Authorization"]}$token';
+    headers['Authorization'] = '${headers['Authorization']}$token';
     final response = await http.get(uri, headers: headers);
 
     if (response.statusCode != 200) {

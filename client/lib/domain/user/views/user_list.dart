@@ -22,14 +22,14 @@ class UsersList extends StatelessWidget {
             itemBuilder: (context, index) => CustomCard(
               children: [
                 InkWell(
-                  onTap: () => context.go(
-                      "${Routes.profile.name}/${viewModel.users[index].username}"),
+                  onTap: () => context
+                      .go('${Routes.profile.name}/${viewModel.users[index].username}'),
                   child: SizedBox(
                     width: CUSTOM_CARD_SIZE,
                     child: ListTile(
                       leading: CircleAvatar(
-                        backgroundImage: NetworkImage(
-                            viewModel.users[index].profileImageUrl),
+                        backgroundImage:
+                            NetworkImage(viewModel.users[index].profileImageUrl),
                       ),
                       title: Row(
                         children: [
@@ -46,8 +46,7 @@ class UsersList extends StatelessWidget {
                     ),
                   ),
                 ),
-                Text(
-                    'Current role: ${viewModel.users[index].role.name.substring(5)}'),
+                Text('Current role: ${viewModel.users[index].role.name.substring(5)}'),
                 viewModel.users[index].role == Role.user
                     ? TextButton(
                         onPressed: () async {
@@ -60,7 +59,7 @@ class UsersList extends StatelessWidget {
                           }
                         },
                         child: const Text(
-                          "Promote",
+                          'Promote',
                           style: TextStyle(
                             color: Colors.lightGreenAccent,
                           ),
@@ -77,7 +76,7 @@ class UsersList extends StatelessWidget {
                           }
                         },
                         child: const Text(
-                          "Demote",
+                          'Demote',
                           style: TextStyle(
                             color: Colors.redAccent,
                           ),

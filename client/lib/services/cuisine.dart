@@ -43,12 +43,12 @@ class CuisineService with BaseService {
     headers.addAll(Headers.authorization.header);
     headers.addAll(Headers.contentType.header);
     final token = await service.getToken();
-    headers["Authorization"] = '${headers["Authorization"]}$token';
+    headers['Authorization'] = '${headers['Authorization']}$token';
 
     final imageData = await image.readAsBytes();
-    final file = http.MultipartFile.fromBytes('cuisineImage', imageData,
-        filename: 'cuisineImage');
-    final request = http.MultipartRequest("POST", uri);
+    final file =
+        http.MultipartFile.fromBytes('cuisineImage', imageData, filename: 'cuisineImage');
+    final request = http.MultipartRequest('POST', uri);
     request.files.add(file);
     request.fields.addAll({'name': cuisine.name!});
     request.headers.addAll(headers);
