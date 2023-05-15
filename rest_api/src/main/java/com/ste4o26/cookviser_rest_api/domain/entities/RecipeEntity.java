@@ -36,7 +36,7 @@ public class RecipeEntity extends BaseEntity {
     @JoinColumn(name = "cuisine_id", referencedColumnName = "id")
     private CuisineEntity cuisine;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> ingredients;
 
     @OneToMany(targetEntity = StepEntity.class, fetch = FetchType.EAGER)

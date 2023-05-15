@@ -20,7 +20,7 @@ public interface RecipeService {
 
     RecipeServiceModel deleteById(String id) throws RecipeNotExistsException;
 
-    RecipeServiceModel update(RecipeServiceModel recipeServiceModel);
+    RecipeServiceModel update(RecipeServiceModel recipeServiceModel) throws RecipeNotExistsException;
 
     List<RecipeServiceModel> fetchBestFourOrderByRates();
 

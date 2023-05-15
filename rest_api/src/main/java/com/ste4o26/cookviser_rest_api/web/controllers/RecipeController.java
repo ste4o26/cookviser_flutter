@@ -171,6 +171,21 @@ public class RecipeController {
         return new ResponseEntity<>(recipeResponseModel, CREATED);
     }
 
+    @Operation(summary = "Update recipe")
+    @SecurityRequirement(name = "Bearer Authentication")
+    @PreAuthorize("hasAuthority('WRITE')")
+    @PutMapping("/update")
+    public ResponseEntity<RecipeResponseModel> putUpdate(
+            @RequestBody RecipeBindingModel recipeBindingModel
+    ) throws UserNotAuthenticatedException, ImageNotPresentException, RecipeNotExistsException {
+        RecipeServiceModel recipeServiceModel = this.modelMapper.map(recipeBindingModel, RecipeServiceModel.class);
+
+        RecipeServiceModel updatedRecipe = this.recipeService.update(recipeServiceModel);
+
+        RecipeResponseModel recipeResponseModel = this.modelMapper.map(updatedRecipe, RecipeResponseModel.class);
+        return new ResponseEntity<>(recipeResponseModel, OK);
+    }
+
     @Operation(summary = "Upload recipe image")
     @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasAuthority('WRITE')")
