@@ -67,7 +67,14 @@ public class RateServiceImpl implements RateService {
 
 
         UserEntity publisher = recipe.getPublisher();
-        ratesCount = publisher.getMyRecipes().size();
+        recipe.setPublisher(publisher);
+        publisher.getMyRecipes().add(recipe);
+
+        rateEntity.setRateValue(rateServiceModel.getRateValue());
+        rateEntity.setRecipe(recipe);
+        recipe.getRates().add(rateEntity);
+
+        ratesCount = (int) publisher.getMyRecipes().stream().filter(rec -> rec.getRates().size() != 0).count();
         ratesSum = publisher.getRatingOverall() * ratesCount;
         double publisherOverall = calculateRatingOverall(ratesSum, ratesCount, recipe.getRatingOverall(), overall);
 
@@ -75,12 +82,6 @@ public class RateServiceImpl implements RateService {
         recipe.setRatingOverall(overall);
         publisher.setRatingOverall(publisherOverall);
 
-        recipe.setPublisher(publisher);
-        publisher.getMyRecipes().add(recipe);
-
-        rateEntity.setRateValue(rateServiceModel.getRateValue());
-        rateEntity.setRecipe(recipe);
-        recipe.getRates().add(rateEntity);
 
         userRepository.saveAndFlush(publisher);
         return this.modelMapper.map(rateEntity, RateServiceModel.class);
