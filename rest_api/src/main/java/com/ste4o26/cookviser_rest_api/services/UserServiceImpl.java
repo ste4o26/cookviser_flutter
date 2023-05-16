@@ -198,15 +198,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserServiceModel> fetchBestThreeChefs() {
-        List<UserServiceModel> allUsers = this.fetchAll();
-        for (UserServiceModel user : allUsers) {
-            double currentUserOverallRating = this.rateService.calculateUserOverallRate(user);
-            user.setOverallRating(currentUserOverallRating);
-        }
-
-        return allUsers.stream()
-                .sorted((first, second) -> Double.compare(second.getOverallRating(), first.getOverallRating()))
-                .limit(3)
-                .collect(Collectors.toList());
+     return userRepository.fetchBestThree().stream()
+             .map(user -> this.modelMapper.map(user, UserServiceModel.class))
+             .collect(Collectors.toList());
     }
 }

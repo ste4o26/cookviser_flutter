@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
@@ -43,7 +44,7 @@ public class UserEntity extends BaseEntity {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JsonIgnore
-    @OneToMany(targetEntity = RecipeEntity.class, mappedBy = "publisher", fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = RecipeEntity.class, mappedBy = "publisher", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<RecipeEntity> myRecipes;
 
     @EqualsAndHashCode.Exclude
@@ -57,6 +58,9 @@ public class UserEntity extends BaseEntity {
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @OneToMany(targetEntity = RateEntity.class, mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = RateEntity.class, mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<RateEntity> rates;
+
+    @Column(name = "rating_overall")
+    private double ratingOverall;
 }

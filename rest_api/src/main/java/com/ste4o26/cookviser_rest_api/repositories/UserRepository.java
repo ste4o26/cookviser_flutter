@@ -14,4 +14,7 @@ public interface UserRepository extends JpaRepository<UserEntity, String> {
     Optional<UserEntity> findByUsername(String username);
 
     Optional<UserEntity> findByEmail(String email);
+
+    @Query(value = "SELECT * FROM users u ORDER BY u.rating_overall DESC LIMIT 3", nativeQuery = true)
+    List<UserEntity> fetchBestThree();
 }

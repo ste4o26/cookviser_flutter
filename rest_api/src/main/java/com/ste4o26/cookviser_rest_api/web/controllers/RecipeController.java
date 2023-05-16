@@ -56,8 +56,6 @@ public class RecipeController {
     ) {
         List<RecipeServiceModel> nextPageRecipes = this.recipeService.fetchNextRecipes(pageNumber, recipesCount);
 
-        nextPageRecipes.forEach((recipe) -> recipe.setOverallRating(rateService.calculateRecipeOverallRate(recipe)));
-
         List<RecipeResponseModel> collect = nextPageRecipes.stream()
                 .map(recipeServiceModel -> this.modelMapper.map(recipeServiceModel, RecipeResponseModel.class))
                 .collect(Collectors.toList());
@@ -76,8 +74,6 @@ public class RecipeController {
         CuisineServiceModel cuisineServiceModel = this.cuisineService.fetchByName(cuisineName);
         List<RecipeServiceModel> recipesByCuisine = this.recipeService.fetchNextByCuisine(cuisineServiceModel, pageNumber, recipesCount);
 
-        recipesByCuisine.forEach((recipe) -> recipe.setOverallRating(rateService.calculateRecipeOverallRate(recipe)));
-
         List<RecipeResponseModel> collect = recipesByCuisine.stream()
                 .map(recipeServiceModel -> this.modelMapper.map(recipeServiceModel, RecipeResponseModel.class))
                 .collect(Collectors.toList());
@@ -94,9 +90,6 @@ public class RecipeController {
 
         RecipeServiceModel recipeServiceModel = this.recipeService.fetchById(recipeId);
         RecipeResponseModel recipeResponseModel = this.modelMapper.map(recipeServiceModel, RecipeResponseModel.class);
-
-        double overallRate = this.rateService.calculateRecipeOverallRate(recipeServiceModel);
-        recipeResponseModel.setOverallRating(overallRate);
 
         return new ResponseEntity<>(recipeResponseModel, OK);
     }
@@ -217,10 +210,6 @@ public class RecipeController {
     ) throws RecipeNotExistsException {
         RateServiceModel rateServiceModel = this.modelMapper.map(rateBindingModel, RateServiceModel.class);
         RateServiceModel rate = this.rateService.rate(rateServiceModel);
-
-        rate.setRecipe(recipeService.fetchById(rate.getRecipe().getId()));
-        rate.setUser(userService.fetchByUsername(rate.getUser().getUsername()));
-        rate.getRecipe().setOverallRating(rateService.calculateRecipeOverallRate(rate.getRecipe()));
 
         RateResponseModel rateResponseModel = this.modelMapper.map(rate, RateResponseModel.class);
         return new ResponseEntity<>(rateResponseModel, CREATED);

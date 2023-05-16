@@ -90,7 +90,7 @@ public class RecipeServiceImpl implements RecipeService {
         Set<StepEntity> updatedSteps = newData.getSteps()
                 .stream()
                 .map(this.stepService::persist)
-                .map(step -> modelMapper.map(step,StepEntity.class))
+                .map(step -> modelMapper.map(step, StepEntity.class))
                 .collect(Collectors.toSet());
         RecipeEntity recipe = this.recipeRepository.findById(newData.getId())
                 .orElseThrow(() -> new RecipeNotExistsException(String.format(RECIPE_NOT_EXISTS, newData.getId())));
@@ -100,8 +100,9 @@ public class RecipeServiceImpl implements RecipeService {
         recipe.setIngredients(newData.getIngredients());
         recipe.setSteps(updatedSteps);
         recipe.setCategory(newData.getCategory());
+        recipe.setRatingOverall(newData.getOverallRating());
 
-        if(newData.getRecipeThumbnail() != null){
+        if (newData.getRecipeThumbnail() != null) {
             recipe.setRecipeThumbnail(newData.getRecipeThumbnail());
         }
 
@@ -112,16 +113,8 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public List<RecipeServiceModel> fetchBestFourOrderByRates() {
-        List<RecipeServiceModel> allRecipes = this.fetchAll();
-
-        for (RecipeServiceModel recipe : allRecipes) {
-            double currentRecipeOverallRating = this.rateService.calculateRecipeOverallRate(recipe);
-            recipe.setOverallRating(currentRecipeOverallRating);
-        }
-
-        return allRecipes.stream()
-                .sorted((first, second) -> Double.compare(second.getOverallRating(), first.getOverallRating()))
-                .limit(4)
+        return recipeRepository.fetchBestFour().stream()
+                .map(recipe -> this.modelMapper.map(recipe, RecipeServiceModel.class))
                 .collect(Collectors.toList());
     }
 

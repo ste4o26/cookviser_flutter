@@ -1,14 +1,21 @@
 package com.ste4o26.cookviser_rest_api.init;
 
 import com.ste4o26.cookviser_rest_api.domain.binding_models.UserRegisterBindingModel;
-import com.ste4o26.cookviser_rest_api.domain.entities.*;
+import com.ste4o26.cookviser_rest_api.domain.entities.CuisineEntity;
+import com.ste4o26.cookviser_rest_api.domain.entities.UserAuthorityEntity;
+import com.ste4o26.cookviser_rest_api.domain.entities.UserRoleEntity;
 import com.ste4o26.cookviser_rest_api.domain.entities.enums.AuthorityName;
 import com.ste4o26.cookviser_rest_api.domain.entities.enums.RoleName;
+import com.ste4o26.cookviser_rest_api.domain.service_models.RateServiceModel;
 import com.ste4o26.cookviser_rest_api.domain.service_models.RecipeServiceModel;
 import com.ste4o26.cookviser_rest_api.domain.service_models.UserServiceModel;
 import com.ste4o26.cookviser_rest_api.exceptions.EmailAlreadyExistsException;
+import com.ste4o26.cookviser_rest_api.exceptions.RecipeNotExistsException;
 import com.ste4o26.cookviser_rest_api.exceptions.UsernameAlreadyExistsException;
-import com.ste4o26.cookviser_rest_api.repositories.*;
+import com.ste4o26.cookviser_rest_api.repositories.AuthorityRepository;
+import com.ste4o26.cookviser_rest_api.repositories.CuisineRepository;
+import com.ste4o26.cookviser_rest_api.repositories.RoleRepository;
+import com.ste4o26.cookviser_rest_api.services.interfaces.RecipeService;
 import com.ste4o26.cookviser_rest_api.services.interfaces.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +23,12 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.management.relation.RoleNotFoundException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.ste4o26.cookviser_rest_api.init.ImagesUrlConstant.*;
-import static com.ste4o26.cookviser_rest_api.init.ImagesUrlConstant.ITALIAN_CUISINE_IMAGE_URL;
 
 @Component
 public class DataInit {
@@ -33,17 +38,20 @@ public class DataInit {
     private final AuthorityRepository authorityRepository;
     private final CuisineRepository cuisineRepository;
     private final UserService userService;
+
+    private final RecipeService recipeService;
     private final ModelMapper modelMapper;
 
     @Autowired
     public DataInit(RoleRepository roleRepository,
                     AuthorityRepository authorityRepository,
                     CuisineRepository cuisineRepository,
-                    UserService userService, ModelMapper modelMapper) {
+                    UserService userService, RecipeService recipeService, ModelMapper modelMapper) {
         this.roleRepository = roleRepository;
         this.authorityRepository = authorityRepository;
         this.cuisineRepository = cuisineRepository;
         this.userService = userService;
+        this.recipeService = recipeService;
         this.modelMapper = modelMapper;
     }
 
@@ -92,6 +100,32 @@ public class DataInit {
 
         for (UserServiceModel userServiceModel : collect) {
             this.userService.register(userServiceModel);
+        }
+    }
+
+    @PostConstruct
+    private void populateRatingOverall() {
+        for (RecipeServiceModel recipe : recipeService.fetchAll()) {
+            double sum = 0;
+            for (RateServiceModel rate : recipe.getRates()) {
+                sum += rate.getRateValue();
+            }
+            recipe.setOverallRating(sum / recipe.getRates().size());
+            try {
+                recipeService.update(recipe);
+            } catch (RecipeNotExistsException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        for (UserServiceModel user : userService.fetchAll()) {
+            double sum = 0;
+            for (RecipeServiceModel recipe : user.getMyRecipes()) {
+                sum += recipe.getOverallRating();
+            }
+            if (sum != 0)
+                user.setOverallRating(sum / user.getMyRecipes().size());
+            userService.update(user);
         }
     }
 }
