@@ -110,7 +110,8 @@ public class DataInit {
             for (RateServiceModel rate : recipe.getRates()) {
                 sum += rate.getRateValue();
             }
-            recipe.setOverallRating(sum / recipe.getRates().size());
+            if (sum == 0) recipe.setOverallRating(0);
+            else recipe.setOverallRating(sum / recipe.getRates().size());
             try {
                 recipeService.update(recipe);
             } catch (RecipeNotExistsException e) {
@@ -123,8 +124,8 @@ public class DataInit {
             for (RecipeServiceModel recipe : user.getMyRecipes()) {
                 sum += recipe.getOverallRating();
             }
-            if (sum != 0)
-                user.setOverallRating(sum / user.getMyRecipes().size());
+            if (sum == 0) user.setOverallRating(0);
+            else user.setOverallRating(sum / user.getMyRecipes().size());
             userService.update(user);
         }
     }
