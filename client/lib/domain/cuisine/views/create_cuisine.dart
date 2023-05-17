@@ -61,16 +61,32 @@ class _CreateCuisineState extends State<CreateCuisine> {
                         hintText: 'Cuisine name',
                         labelText: 'Enter cuisine name',
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          FormButton(
-                            content: 'Upload image',
-                            callback: _upLoadImage,
-                          ),
-                          if (_image != null)
-                            Expanded(child: Text(_image!.name)),
-                        ],
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            TextButton(
+                                onPressed: _upLoadImage,
+                                style: ButtonStyle(
+                                    shape: MaterialStateProperty.all(
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            side: const BorderSide(
+                                                color: Colors.amber,
+                                                width: 1)))),
+                                child: const Padding(
+                                    padding: EdgeInsets.all(8),
+                                    child: Text(
+                                      'Upload Image',
+                                      style: TextStyle(fontSize: 20),
+                                    ))),
+                            if (_image != null)
+                              Padding(padding: const EdgeInsets.only(top:10),
+                              child: Text(_image!.name)),
+                          ],
+                        ),
                       ),
                       FormButton(
                         content: 'Create',

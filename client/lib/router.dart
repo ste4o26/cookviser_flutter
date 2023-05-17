@@ -2,6 +2,7 @@ import 'package:demo_app/constants.dart';
 import 'package:demo_app/pages/cuisines.dart';
 import 'package:demo_app/pages/home.dart';
 import 'package:demo_app/pages/not_found.dart';
+import 'package:demo_app/pages/pluto_recipes.dart';
 import 'package:demo_app/pages/profile.dart';
 import 'package:demo_app/pages/recipe_new.dart';
 import 'package:demo_app/pages/recipes.dart';
@@ -25,7 +26,7 @@ class AppRouter {
       GoRoute(
           path: '${Routes.recipes.name}/:cuisine',
           builder: (context, state) =>
-              RecipesPage(key: UniqueKey(), cuisine: state.params['cuisine'] ?? '')),
+              PlutoRecipesPage(key: UniqueKey(), cuisine: state.params['cuisine'] ?? '')),
       GoRoute(
         path: '${Routes.profile.name}/:username',
         builder: (context, state) =>
