@@ -2,6 +2,7 @@ package com.ste4o26.cookviser_rest_api.services;
 
 import com.ste4o26.cookviser_rest_api.domain.entities.CuisineEntity;
 import com.ste4o26.cookviser_rest_api.domain.entities.RecipeEntity;
+import com.ste4o26.cookviser_rest_api.domain.entities.StepEntity;
 import com.ste4o26.cookviser_rest_api.domain.entities.enums.CategoryName;
 import com.ste4o26.cookviser_rest_api.domain.service_models.CuisineServiceModel;
 import com.ste4o26.cookviser_rest_api.domain.service_models.RecipeServiceModel;
@@ -84,24 +85,36 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public RecipeServiceModel update(RecipeServiceModel recipeServiceModel) {
-        RecipeEntity recipeEntity = this.modelMapper.map(recipeServiceModel, RecipeEntity.class);
-        RecipeEntity updatedRecipe = this.recipeRepository.saveAndFlush(recipeEntity);
-        return this.modelMapper.map(updatedRecipe, RecipeServiceModel.class);
+    public RecipeServiceModel update(RecipeServiceModel newData) throws RecipeNotExistsException {
+
+        Set<StepEntity> updatedSteps = newData.getSteps()
+                .stream()
+                .map(this.stepService::persist)
+                .map(step -> modelMapper.map(step, StepEntity.class))
+                .collect(Collectors.toSet());
+        RecipeEntity recipe = this.recipeRepository.findById(newData.getId())
+                .orElseThrow(() -> new RecipeNotExistsException(String.format(RECIPE_NOT_EXISTS, newData.getId())));
+
+        recipe.setName(newData.getName());
+        recipe.setDescription(newData.getDescription());
+        recipe.setIngredients(newData.getIngredients());
+        recipe.setSteps(updatedSteps);
+        recipe.setCategory(newData.getCategory());
+        recipe.setRatingOverall(newData.getOverallRating());
+
+        if (newData.getRecipeThumbnail() != null) {
+            recipe.setRecipeThumbnail(newData.getRecipeThumbnail());
+        }
+
+        recipe = recipeRepository.saveAndFlush(recipe);
+
+        return this.modelMapper.map(recipe, RecipeServiceModel.class);
     }
 
     @Override
     public List<RecipeServiceModel> fetchBestFourOrderByRates() {
-        List<RecipeServiceModel> allRecipes = this.fetchAll();
-
-        for (RecipeServiceModel recipe : allRecipes) {
-            double currentRecipeOverallRating = this.rateService.calculateRecipeOverallRate(recipe);
-            recipe.setOverallRating(currentRecipeOverallRating);
-        }
-
-        return allRecipes.stream()
-                .sorted((first, second) -> Double.compare(second.getOverallRating(), first.getOverallRating()))
-                .limit(4)
+        return recipeRepository.fetchBestFour().stream()
+                .map(recipe -> this.modelMapper.map(recipe, RecipeServiceModel.class))
                 .collect(Collectors.toList());
     }
 

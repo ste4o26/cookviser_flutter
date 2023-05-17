@@ -15,8 +15,7 @@ class UserCard extends StatelessWidget {
         builder: (context, constraints) => CustomCard(
           children: [
             InkWell(
-              onTap: () =>
-                  context.go("${Routes.profile.name}/${user.username}"),
+              onTap: () => context.go('${Routes.profile.name}/${user.username}'),
               child: CircleAvatar(
                 radius: constraints.maxHeight * 0.35,
                 backgroundImage: NetworkImage(user.profileImageUrl),

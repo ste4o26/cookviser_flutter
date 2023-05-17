@@ -11,7 +11,7 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
   const AppHeader({super.key});
 
   void redirectHandler(BuildContext context, Map<String, dynamic> args) =>
-      GoRouter.of(context).go(args["route"]);
+      GoRouter.of(context).go(args['route']);
 
   void loginHandler(BuildContext context, Map<String, dynamic> args) {
     showDialog(
@@ -52,48 +52,42 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
                 ),
                 NavigationItem(
                   'Recipes',
-                  args: <String, dynamic>{
-                    'route': "${Routes.recipes.name}/all"
-                  },
+                  args: <String, dynamic>{'route': '${Routes.recipes.name}/all'},
                   callback: redirectHandler,
                 ),
               ],
             ),
             Consumer<AuthViewModel>(
-                builder:
-                    (BuildContext context, AuthViewModel viewModel, child) =>
-                        Row(
-                          children: viewModel.token != null
-                              ? [
-                                  NavigationItem(
-                                    'My Profile',
-                                    args: <String, dynamic>{
-                                      'route':
-                                          "${Routes.profile.name}/${viewModel.user!.username}",
-                                    },
-                                    callback: redirectHandler,
-                                  ),
-                                  NavigationItem(
-                                    'Sign Out',
-                                    args: <String, dynamic>{
-                                      'token': viewModel.token
-                                    },
-                                    callback: logoutHandler,
-                                  )
-                                ]
-                              : [
-                                  NavigationItem(
-                                    'Sign In',
-                                    args: const <String, dynamic>{},
-                                    callback: loginHandler,
-                                  ),
-                                  NavigationItem(
-                                    'Sign Up',
-                                    args: const <String, dynamic>{},
-                                    callback: registerHandler,
-                                  ),
-                                ],
-                        )),
+                builder: (BuildContext context, AuthViewModel viewModel, child) => Row(
+                      children: viewModel.token != null
+                          ? [
+                              NavigationItem(
+                                'My Profile',
+                                args: <String, dynamic>{
+                                  'route':
+                                      '${Routes.profile.name}/${viewModel.user!.username}',
+                                },
+                                callback: redirectHandler,
+                              ),
+                              NavigationItem(
+                                'Sign Out',
+                                args: <String, dynamic>{'token': viewModel.token},
+                                callback: logoutHandler,
+                              )
+                            ]
+                          : [
+                              NavigationItem(
+                                'Sign In',
+                                args: const <String, dynamic>{},
+                                callback: loginHandler,
+                              ),
+                              NavigationItem(
+                                'Sign Up',
+                                args: const <String, dynamic>{},
+                                callback: registerHandler,
+                              ),
+                            ],
+                    )),
           ],
         ),
       );

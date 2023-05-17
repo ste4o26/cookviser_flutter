@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
-
 import 'package:demo_app/constants.dart';
 import 'package:demo_app/domain/cuisine/models/cuisine.dart';
 import 'package:demo_app/services/auth.dart';
@@ -47,12 +45,13 @@ class CuisineService extends PaginationService {
     headers.addAll(Headers.authorization.header);
     headers.addAll(Headers.contentType.header);
     final token = await service.getToken();
-    headers["Authorization"] = '${headers["Authorization"]}$token';
+    headers['Authorization'] = '${headers['Authorization']}$token';
 
     final imageData = await image.readAsBytes();
     final file =
         http.MultipartFile.fromBytes('cuisineImage', imageData, filename: 'cuisineImage');
-    final request = http.MultipartRequest("POST", uri);
+
+    final request = http.MultipartRequest('POST', uri);
     request.files.add(file);
     request.fields.addAll({'name': cuisine.name!});
     request.headers.addAll(headers);

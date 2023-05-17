@@ -15,7 +15,7 @@ class CuisineCard extends StatelessWidget {
         children: [
           InkWell(
             onTap: () => context.go(
-              "${Routes.recipes.name}/${cuisine.name}",
+              '${Routes.recipes.name}/${cuisine.name}',
             ),
             child: CustomImage(cuisine.imageThumbnailUrl!),
           ),

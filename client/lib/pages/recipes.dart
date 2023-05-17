@@ -20,8 +20,6 @@ class _RecipesState extends State<RecipesPage> {
   int _page = 0;
   late Future<void> _future;
 
-  // TODO keep state for is last page.
-
   void updatePageHandler(int page) => setState(() {
         _page = page;
         executeProvider();

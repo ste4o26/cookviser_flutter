@@ -16,13 +16,13 @@ public class RateEntity extends BaseEntity {
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @ManyToOne(targetEntity = UserEntity.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @ManyToOne(targetEntity = UserEntity.class, fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private UserEntity user;
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @ManyToOne(targetEntity = RecipeEntity.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = "recipe_id", referencedColumnName = "id")
+    @ManyToOne(targetEntity = RecipeEntity.class, fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "recipe_id", referencedColumnName = "id", nullable = false)
     private RecipeEntity recipe;
 }

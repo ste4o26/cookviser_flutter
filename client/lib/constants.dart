@@ -3,7 +3,7 @@ const double CUSTOM_CARD_SIZE = 350;
 const int MAX_ENITITIES_PER_PAGE_COUNT = 8;
 
 enum Routes {
-  root("/"),
+  root('/'),
   home('/home'),
   profile('/profile'),
   cuisines('/cuisines'),
