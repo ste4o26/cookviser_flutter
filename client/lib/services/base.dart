@@ -1,4 +1,4 @@
-class BaseService {
+abstract class BaseService {
   Uri constructURI(String endpoint,
       {Map<String, String> args = const <String, String>{}}) {
     final String queryParams = _constructQueryParamsStr(args);

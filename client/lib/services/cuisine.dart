@@ -4,13 +4,17 @@ import 'dart:io';
 import 'package:demo_app/constants.dart';
 import 'package:demo_app/domain/cuisine/models/cuisine.dart';
 import 'package:demo_app/services/auth.dart';
-import 'package:demo_app/services/base.dart';
+import 'package:demo_app/services/pagination.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
-// TODO handle the requests properly!
-class CuisineService with BaseService {
+class CuisineService extends PaginationService {
   final AuthService service = AuthService();
+
+  @override
+  Future<List<CuisineModel>> fetchByPage(int page) async {
+    return Future(() => []);
+  }
 
   Future<List<CuisineModel>> fetchAll() async {
     Uri uri = constructURI(CuisineEndpoints.all.endpoint);
@@ -46,8 +50,8 @@ class CuisineService with BaseService {
     headers["Authorization"] = '${headers["Authorization"]}$token';
 
     final imageData = await image.readAsBytes();
-    final file = http.MultipartFile.fromBytes('cuisineImage', imageData,
-        filename: 'cuisineImage');
+    final file =
+        http.MultipartFile.fromBytes('cuisineImage', imageData, filename: 'cuisineImage');
     final request = http.MultipartRequest("POST", uri);
     request.files.add(file);
     request.fields.addAll({'name': cuisine.name!});

@@ -1,33 +1,21 @@
-import 'package:demo_app/constants.dart';
 import 'package:demo_app/domain/cuisine/models/cuisine.dart';
+import 'package:demo_app/pages/view_models/pagination_view_model.dart';
 import 'package:demo_app/services/cuisine.dart';
-import 'package:flutter/material.dart';
 
-class CuisineListViewModel extends ChangeNotifier {
-  final CuisineService _service = CuisineService();
-  bool hasNextPage = true;
+class CuisineListViewModel extends PaginationViewModel<CuisineService> {
   List<CuisineModel> cuisines = [];
 
-  Future<bool> hasNextCuisinePage(int page) async {
-    if (cuisines.length >= MAX_RECIPES_PER_PAGE_COUNT) {
-      // final nextPageCuisines = await _service.fetchNextPage(page + 1);
-      final nextPageCuisines =
-          []; // hardoced couse pagination is not supported for cuisines yet.
-      return nextPageCuisines.isNotEmpty;
-    } else {
-      return false;
-    }
-  }
+  CuisineListViewModel() : super(CuisineService());
 
   Future<void> fetchByPage(int page) async {
     // TODO implement the logic for pagination in the backend
-    cuisines = await _service.fetchAll();
-    hasNextPage = await hasNextCuisinePage(page);
+    cuisines = await service.fetchAll();
+    await updateHasNextPage(page, cuisines.length);
     notifyListeners();
   }
 
   Future<void> fetchAll() async {
-    cuisines = await _service.fetchAll();
+    cuisines = await service.fetchAll();
     notifyListeners();
   }
 }

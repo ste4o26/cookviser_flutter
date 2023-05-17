@@ -4,16 +4,15 @@ import 'package:demo_app/constants.dart';
 import 'package:demo_app/domain/rating/models/rating.dart';
 import 'package:demo_app/domain/recipe/models/recipe.dart';
 import 'package:demo_app/services/auth.dart';
-import 'package:demo_app/services/base.dart';
+import 'package:demo_app/services/pagination.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
-// TODO handle the requests properly!
-class RecipeService with BaseService {
+class RecipeService extends PaginationService {
   final AuthService _service = AuthService();
   static const commonHeaders = {'Content-Type': 'application/json; charset=UTF-8'};
 
-  Future<List<RecipeModel>> fetchNextPageByCuisine(String name, int page,
+  Future<List<RecipeModel>> fetchByPageAndByCuisine(String name, int page,
       {int count = 10}) async {
     final Map<String, String> args = {
       'cuisineName': name,
@@ -31,8 +30,9 @@ class RecipeService with BaseService {
     return data.map((cuisine) => RecipeModel.fromJson(cuisine)).toList();
   }
 
-  Future<List<RecipeModel>> fetchNextPage(
-    int page, {int count = MAX_RECIPES_PER_PAGE_COUNT}
+  @override
+  Future<List<RecipeModel>> fetchByPage(
+    int page, {int count = MAX_ENITITIES_PER_PAGE_COUNT}
   ) async {
     final Map<String, String> args = {
       'pageNumber': page.toString(),

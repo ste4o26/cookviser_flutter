@@ -39,10 +39,10 @@ class _RecipesState extends State<RecipesPage> {
 
   void fetchByCuisine() =>
       _future = Provider.of<RecipeListViewModel>(context, listen: false)
-          .fetchNextPageByCuisine(widget.cuisine, _page);
+          .fetchByPageAndByCuisine(widget.cuisine, _page);
 
   void fetchByPage() => _future =
-      Provider.of<RecipeListViewModel>(context, listen: false).fetchNextPage(_page);
+      Provider.of<RecipeListViewModel>(context, listen: false).fetchByPage(_page);
 
   void search(String value) =>
       _future = Provider.of<RecipeListViewModel>(context, listen: false).search(value);
