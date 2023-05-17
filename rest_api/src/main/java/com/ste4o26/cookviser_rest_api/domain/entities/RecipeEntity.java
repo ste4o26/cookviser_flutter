@@ -56,4 +56,7 @@ public class RecipeEntity extends BaseEntity {
     @ToString.Exclude
     @OneToMany(targetEntity = RateEntity.class, mappedBy = "recipe", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<RateEntity> rates;
+
+    @Column(name = "rating_overall")
+    private double ratingOverall;
 }
