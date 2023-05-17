@@ -22,21 +22,10 @@ class _RecipesState extends State<RecipesPage> {
 
   // TODO keep state for is last page.
 
-  int get page => _page;
-
-  void set page(int page) {
-    if (page < 0) return;
-    _page = page;
-  }
-
-  void updatePageHandler(int page) {
-    if (page == this.page) return;
-
-    setState(() {
-      this.page = page;
-      executeProvider();
-    });
-  }
+  void updatePageHandler(int page) => setState(() {
+        _page = page;
+        executeProvider();
+      });
 
   @override
   void didChangeDependencies() {
@@ -50,10 +39,10 @@ class _RecipesState extends State<RecipesPage> {
 
   void fetchByCuisine() =>
       _future = Provider.of<RecipeListViewModel>(context, listen: false)
-          .fetchNextPageByCuisine(widget.cuisine, page);
+          .fetchNextPageByCuisine(widget.cuisine, _page);
 
   void fetchByPage() => _future =
-      Provider.of<RecipeListViewModel>(context, listen: false).fetchNextPage(page);
+      Provider.of<RecipeListViewModel>(context, listen: false).fetchNextPage(_page);
 
   void search(String value) =>
       _future = Provider.of<RecipeListViewModel>(context, listen: false).search(value);
@@ -84,10 +73,12 @@ class _RecipesState extends State<RecipesPage> {
                                   const RecipeListView(),
                                 ],
                               ))))),
-      bottomNavigationBar: PaginationBar(
-        page: page,
-        callback: updatePageHandler,
-      ));
+      bottomNavigationBar: Consumer<RecipeListViewModel>(
+          builder: (context, viewModel, child) => PaginationBar(
+                page: _page,
+                hasNextPage: viewModel.hasNextPage,
+                callback: updatePageHandler,
+              )));
 
   Widget _getSearchBar() => Container(
       constraints: const BoxConstraints(maxWidth: CUSTOM_CARD_SIZE * 2),

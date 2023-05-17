@@ -9,23 +9,23 @@ class RecipeListViewModel extends ChangeNotifier {
   List<RecipeModel> recipes = [];
 
   Future<void> fetchNextPageByCuisine(String name, int page) async {
-    final recipes = await _service.fetchNextPageByCuisine(name, page);
+    recipes = await _service.fetchNextPageByCuisine(name, page);
     notifyListeners();
   }
 
   Future<void> fetchNextPage(int page) async {
-    final currentPageRecipes = await _service.fetchNextPage(page);
-    if (currentPageRecipes.isNotEmpty && currentPageRecipes.length < MAX_RECIPES_PER_PAGE_COUNT) {
-      hasNextPage = false;
-      recipes = currentPageRecipes;
-    } else if (currentPageRecipes.length >= MAX_RECIPES_PER_PAGE_COUNT) {
-      hasNextPage = true;
-      recipes = currentPageRecipes;
-    } else {
-      hasNextPage = false;
-      recipes = [];
-    }
+    recipes = await _service.fetchNextPage(page);
+    hasNextPage = await hasNextRecipePage(page);
     notifyListeners();
+  }
+
+  Future<bool> hasNextRecipePage(int page) async {
+    if (recipes.length >= MAX_RECIPES_PER_PAGE_COUNT) {
+      final nextPageRecipes = await _service.fetchNextPage(page + 1);
+      return  nextPageRecipes.isNotEmpty;
+    } else {
+      return false;
+    }
   }
 
   Future<void> fetchAll() async {

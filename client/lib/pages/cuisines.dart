@@ -16,48 +16,47 @@ class _CuisinesPageState extends State<CuisinesPage> {
   int _page = 0;
   late Future<void> _future;
 
-  int get page => _page;
-
   set page(int page) {
     if (page < 0) return;
     _page = page;
   }
 
   void updatePageHandler(int page) {
-    if (page == this.page) return;
+    if (page == _page) return;
 
     setState(() {
       this.page = page;
-      _future = Provider.of<CuisineListViewModel>(context, listen: false)
-          .fetchByPage(this.page);
+      _future =
+          Provider.of<CuisineListViewModel>(context, listen: false).fetchByPage(_page);
     });
   }
 
   @override
   void didChangeDependencies() {
-    _future = Provider.of<CuisineListViewModel>(context, listen: false)
-        .fetchByPage(page);
+    _future =
+        Provider.of<CuisineListViewModel>(context, listen: false).fetchByPage(_page);
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) => AppScaffold(
-        body: FutureBuilder(
-          future: _future,
-          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) =>
-              snapshot.connectionState != ConnectionState.done
-                  ? const Center(
-                      child: SizedBox(
-                        height: 150,
-                        width: 150,
-                        child: CircularProgressIndicator(),
-                      ),
-                    )
-                  : const CuisineList(),
-        ),
-        bottomNavigationBar: PaginationBar(
-          page: page,
-          callback: updatePageHandler,
-        ),
-      );
+      body: FutureBuilder(
+        future: _future,
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) =>
+            snapshot.connectionState != ConnectionState.done
+                ? const Center(
+                    child: SizedBox(
+                      height: 150,
+                      width: 150,
+                      child: CircularProgressIndicator(),
+                    ),
+                  )
+                : const CuisineList(),
+      ),
+      bottomNavigationBar: Consumer<CuisineListViewModel>(
+          builder: (context, viewModel, child) => PaginationBar(
+                page: _page,
+                hasNextPage: viewModel.hasNextPage,
+                callback: updatePageHandler,
+              )));
 }

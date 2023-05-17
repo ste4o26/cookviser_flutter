@@ -1,14 +1,14 @@
-import 'package:demo_app/pages/view_models/recipes.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class PaginationBar extends StatelessWidget {
   final int page;
+  final bool hasNextPage;
   final Function callback;
 
   const PaginationBar({
     super.key,
     required this.page,
+    required this.hasNextPage,
     required this.callback,
   });
 
@@ -29,14 +29,19 @@ class PaginationBar extends StatelessWidget {
               Padding(
                   padding: const EdgeInsets.all(8),
                   child: ElevatedButton(
-                      onPressed: prevPageHandler, child: const Icon(Icons.arrow_back))),
+                    onPressed: page == 0 ? null : prevPageHandler,
+                    child: const Icon(Icons.arrow_back),
+                  )),
               Text('${page + 1}'),
-              Consumer<RecipeListViewModel>(
-                  builder: (context, viewModel, child) => Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: ElevatedButton(
-                          onPressed: viewModel.hasNextPage ? nextPageHandler : null,
-                          child: const Icon(Icons.arrow_forward)))),
+              Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: ElevatedButton(
+                      onPressed: hasNextPage ? nextPageHandler : null,
+                      child: const Icon(Icons.arrow_forward))),
             ],
           )));
+
+//TODO make sure to sperate the logic for the pagination of the cuisines and the recipes
+// A solutiion would be to make this widget statefull and to make it keep all the state needed for the pagination bar.
+// For example to keep the current page number, instead of rece=ieving it also to keep it callbacks here
 }
