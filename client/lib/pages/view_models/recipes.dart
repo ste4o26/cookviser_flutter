@@ -1,28 +1,30 @@
 import 'package:demo_app/domain/recipe/models/recipe.dart';
+import 'package:demo_app/pages/view_models/pagination_view_model.dart';
 import 'package:demo_app/services/recipe.dart';
-import 'package:flutter/material.dart';
 
-class RecipeListViewModel extends ChangeNotifier {
-  final RecipeService _service = RecipeService();
+class RecipeListViewModel extends PaginationViewModel<RecipeService> {
   List<RecipeModel> recipes = [];
 
-  Future<void> fetchNextPageByCuisine(String name, int page) async {
-    recipes = await _service.fetchNextPageByCuisine(name, page);
+  RecipeListViewModel() : super(RecipeService());
+
+  Future<void> fetchByPageAndByCuisine(String name, int page) async {
+    recipes = await service.fetchByPageAndByCuisine(name, page);
     notifyListeners();
   }
 
-  Future<void> fetchNextPage(int page) async {
-    recipes = await _service.fetchNextPage(page);
+  Future<void> fetchByPage(int page) async {
+    recipes = await service.fetchByPage(page);
+    await updateHasNextPage(page, recipes.length);
     notifyListeners();
   }
 
   Future<void> fetchAll() async {
-    recipes = await _service.fetchAll();
+    recipes = await service.fetchAll();
     notifyListeners();
   }
 
   Future<void> search(String value) async {
-    recipes = await _service.search(value);
+    recipes = await service.search(value);
     notifyListeners();
   }
 }
